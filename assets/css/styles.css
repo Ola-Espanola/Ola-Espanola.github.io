@@ -400,6 +400,18 @@ img {
   height: auto;
 }
 
+.file-name-example {
+  align-self: start;
+  justify-self: start;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.file-name-example img {
+  width: auto;
+  max-width: 100%;
+}
+
 figcaption {
   padding: 12px 14px;
   color: var(--muted);
