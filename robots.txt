@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /Doc/
+
+Sitemap: https://ola-espanola.github.io/sitemap.xml
