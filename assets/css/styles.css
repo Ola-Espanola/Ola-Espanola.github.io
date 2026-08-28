@@ -383,8 +383,8 @@ tr:last-child td {
 
 .media-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.55fr);
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.8fr);
+  gap: 4px;
 }
 
 figure {
