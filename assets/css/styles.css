@@ -262,6 +262,22 @@ h2 {
   margin-bottom: 0;
 }
 
+.article-contact {
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: #394150;
+}
+
+.article-contact p {
+  margin: 0;
+}
+
+.article-contact a {
+  color: var(--nav);
+  font-weight: 700;
+}
+
 .document-list {
   display: grid;
   gap: 10px;
