@@ -279,6 +279,16 @@ h2 {
   font-weight: 600;
 }
 
+.article-hero {
+  margin: 24px 0 28px;
+}
+
+.blog-card-image {
+  width: calc(100% + 48px);
+  margin: -24px -24px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
 .document-list {
   display: grid;
   gap: 10px;
