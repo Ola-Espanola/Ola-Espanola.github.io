@@ -5,4 +5,3 @@
 ## Статьи
 
 - [Знакомство. Виза цифрового кочевника в Испанию](../blog/znakomstvo-nomad-visa.html)
-- [Кому подходит ВНЖ](../blog/komu-podhodit-vnzh.html)
