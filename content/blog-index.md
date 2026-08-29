@@ -5,3 +5,4 @@
 ## Статьи
 
 - [Знакомство. Виза цифрового кочевника в Испанию](../blog/znakomstvo-nomad-visa.html)
+- [Сколько цифровых кочевников приезжает в Испанию](../blog/statistika-nomadov-ispania.html)
