@@ -4,6 +4,7 @@
 
 ## Статьи
 
+- [Испания. Послевизовое легкомыслие](../blog/poslevizovoe-legkomyslie.html)
 - [Стоит ли ехать в Испанию по визе номада](../blog/stoit-li-ehat-v-ispaniyu-po-vize-nomada.html)
 - [Миграция в Испанию. Проблемы на старте. Жилье](../blog/migraciya-v-ispaniyu-zhile.html)
 - [Знакомство. Виза цифрового кочевника в Испанию](../blog/znakomstvo-nomad-visa.html)
