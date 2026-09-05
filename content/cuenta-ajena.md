@@ -59,8 +59,6 @@
 
 ![Пример полей формы подачи](../assets/images/cuenta-ajena-upload-form-rus.png)
 
-![Пример именования PDF-файлов](../assets/images/cuenta-ajena-file-names.png)
-
 ## Официальные ссылки
 
 Закон, памятка UGE, страница подачи и другие официальные ресурсы собраны на странице [Полезные ссылки](../docs/links.html).
