@@ -397,6 +397,10 @@ tr:last-child td {
   gap: 4px;
 }
 
+.media-grid.media-grid-single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 figure {
   margin: 0;
   background: var(--surface);
