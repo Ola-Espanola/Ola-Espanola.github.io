@@ -420,6 +420,13 @@ tr:last-child td {
   margin: 22px 0 10px;
 }
 
+.document-example-narrow img {
+  width: auto;
+  max-width: 100%;
+  max-height: 620px;
+  margin: 0 auto;
+}
+
 figure {
   margin: 0;
   background: var(--surface);
