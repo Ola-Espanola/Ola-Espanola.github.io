@@ -15,3 +15,28 @@ ym(112065150, "init", {
   trackLinks: true,
   accurateTrackBounce: true
 });
+
+(function () {
+  function addDiplomaApostilleLink() {
+    var sidebar = document.querySelector('.sidebar');
+    if (!sidebar || sidebar.querySelector('a[href="diploma-apostille.html"]')) {
+      return;
+    }
+
+    var workRecordLink = sidebar.querySelector('a[href="electronic-work-record.html"]');
+    if (!workRecordLink) {
+      return;
+    }
+
+    var link = document.createElement('a');
+    link.href = 'diploma-apostille.html';
+    link.textContent = 'Апостиль диплома';
+    workRecordLink.parentNode.insertBefore(link, workRecordLink);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addDiplomaApostilleLink);
+  } else {
+    addDiplomaApostilleLink();
+  }
+})();
