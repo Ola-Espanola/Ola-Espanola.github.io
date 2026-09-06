@@ -56,6 +56,16 @@
         font-weight: 600;
       }
 
+      .apostille-source {
+        margin-top: 38px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .apostille-source a {
+        color: var(--accent);
+      }
+
       @media (max-width: 720px) {
         .apostille-step-body,
         .apostille-screen-grid {
@@ -128,21 +138,17 @@
             </div>
           </div>
 
-          <div class="apostille-screen-grid">
+          <div class="apostille-screen-grid single">
             <figure>
               <img src="../assets/images/diploma-apostille-gosuslugi-01-start.png" alt="Начальный экран услуги апостиля на Госуслугах">
               <figcaption>Откройте услугу и нажмите «Начать».</figcaption>
-            </figure>
-            <figure>
-              <img src="../assets/images/diploma-apostille-gosuslugi-02-issued-russia.png" alt="Вопрос о стране выдачи документа">
-              <figcaption>Документ выдан российской организацией или на территории РФ / РСФСР.</figcaption>
             </figure>
           </div>
 
           <div class="apostille-step">
             <p class="apostille-step-title"><strong>Где выдан документ</strong></p>
             <div class="apostille-step-body">
-              <p>«Документ для апостиля выдан российской организацией либо на территории РФ или РСФСР?»</p>
+              <p><strong>«Документ для апостиля выдан российской организацией либо на территории РФ или РСФСР?»</strong></p>
               <p>Да / Нет</p>
             </div>
           </div>
@@ -154,6 +160,17 @@
             </div>
           </div>
 
+          <div class="apostille-screen-grid">
+            <figure>
+              <img src="../assets/images/diploma-apostille-gosuslugi-02-issued-russia.png" alt="Вопрос о месте выдачи документа">
+              <figcaption>Укажите, где был выдан документ.</figcaption>
+            </figure>
+            <figure>
+              <img src="../assets/images/diploma-apostille-gosuslugi-03-holder.png" alt="Вопрос об обладателе документа">
+              <figcaption>Укажите, кому принадлежит диплом.</figcaption>
+            </figure>
+          </div>
+
           <div class="apostille-step">
             <p class="apostille-step-title"><strong>Вы меняли ФИО</strong></p>
             <div class="apostille-step-body">
@@ -162,11 +179,7 @@
             </div>
           </div>
 
-          <div class="apostille-screen-grid">
-            <figure>
-              <img src="../assets/images/diploma-apostille-gosuslugi-03-holder.png" alt="Вопрос об обладателе документа">
-              <figcaption>Укажите, кому принадлежит диплом.</figcaption>
-            </figure>
+          <div class="apostille-screen-grid single">
             <figure>
               <img src="../assets/images/diploma-apostille-gosuslugi-04-name-change.png" alt="Вопрос о смене ФИО">
               <figcaption>Укажите, менялись ли ФИО после выдачи диплома.</figcaption>
@@ -208,11 +221,11 @@
           <div class="apostille-screen-grid">
             <figure>
               <img src="../assets/images/diploma-apostille-gosuslugi-06-delivery.png" alt="Выбор способа получения штампа апостиля">
-              <figcaption>Выбираем личное получение в ведомстве.</figcaption>
+              <figcaption>В этой инструкции используем личное получение.</figcaption>
             </figure>
             <figure>
               <img src="../assets/images/diploma-apostille-gosuslugi-07-foreign-extract.png" alt="Вопрос о реестровой выписке на иностранном языке">
-              <figcaption>Для нашей подачи иностранная версия выписки не нужна.</figcaption>
+              <figcaption>Для подачи в Испании иностранная версия реестровой выписки не нужна.</figcaption>
             </figure>
           </div>
 
@@ -220,7 +233,7 @@
             <p class="apostille-step-title"><strong>Выберите регион подачи заявления</strong></p>
             <div class="apostille-step-body">
               <p>Выберите регион, в котором будет удобно передать оригинал диплома и получить готовый документ.</p>
-              <p>Госуслуги покажут конкретное ведомство, его адрес и контакты. Апостиль на российский документ об образовании можно поставить в любом субъекте РФ независимо от места выдачи диплома.</p>
+              <p>Госуслуги покажут конкретное ведомство, его адрес и контакты.</p>
             </div>
           </div>
 
@@ -236,7 +249,7 @@
             <div class="apostille-step-body">
               <p>На этом экране Госуслуги показывают, какие сведения понадобятся, стоимость и срок.</p>
               <p><strong>Госпошлина — 2 500 ₽.</strong></p>
-              <p>На предварительном экране указывается срок до 25 рабочих дней. Обычный срок рассмотрения — до 5 рабочих дней; до 25 рабочих дней он увеличивается, если ведомству требуется дополнительный запрос для проверки диплома.</p>
+              <p>На Госуслугах указан максимальный срок оказания услуги — <strong>25 рабочих дней</strong>.</p>
               <p>Перед отправкой заявление потребуется подписать электронной подписью.</p>
             </div>
           </div>
@@ -244,33 +257,36 @@
           <div class="apostille-screen-grid single">
             <figure>
               <img src="../assets/images/diploma-apostille-gosuslugi-09-requirements.png" alt="Условия подачи заявления на апостиль">
-              <figcaption>Стоимость, срок и перечень сведений перед переходом к заявлению.</figcaption>
+              <figcaption>Стоимость, максимальный срок и список данных для заявления.</figcaption>
             </figure>
           </div>
 
           <div class="apostille-step">
             <p class="apostille-step-title"><strong>Проверьте ваши данные</strong></p>
             <div class="apostille-step-body">
-              <p>Госуслуги автоматически подставят сведения из профиля. Проверьте их и продолжайте.</p>
+              <p>Проверьте сведения, которые Госуслуги автоматически подставили из профиля, и продолжайте.</p>
             </div>
+          </div>
+
+          <div class="apostille-screen-grid single">
+            <figure>
+              <img src="../assets/images/diploma-apostille-gosuslugi-10-personal-data.png" alt="Проверка личных данных на Госуслугах">
+              <figcaption>Проверьте автоматически подставленные данные.</figcaption>
+            </figure>
           </div>
 
           <div class="apostille-step">
             <p class="apostille-step-title"><strong>У вас есть номер записи ЕРН</strong></p>
             <div class="apostille-step-body">
               <p>Да / Нет</p>
-              <p>Если номер вам неизвестен, специально получать его ради этой подачи не требуется.</p>
+              <p>Если номер вам неизвестен, специально искать его ради подачи заявления не требуется.</p>
             </div>
           </div>
 
-          <div class="apostille-screen-grid">
-            <figure>
-              <img src="../assets/images/diploma-apostille-gosuslugi-10-personal-data.png" alt="Проверка личных данных на Госуслугах">
-              <figcaption>Проверьте данные из профиля.</figcaption>
-            </figure>
+          <div class="apostille-screen-grid single">
             <figure>
               <img src="../assets/images/diploma-apostille-gosuslugi-11-ern.png" alt="Вопрос о номере записи ЕРН">
-              <figcaption>Номер ЕРН указывается при наличии.</figcaption>
+              <figcaption>Если номера ЕРН не знаете, просто выбирайте «Нет».</figcaption>
             </figure>
           </div>
 
@@ -278,18 +294,18 @@
             <p class="apostille-step-title"><strong>Выберите документ для апостиля</strong></p>
             <div class="apostille-step-body">
               <p>Укажите уровень образования и тип документа.</p>
-              <p>После этого Госуслуги предложат выбрать найденный диплом. Если нужного документа в списке нет, используйте <strong>«Указать данные вручную»</strong>.</p>
+              <p>После этого Госуслуги предложат выбрать документ из реестра.</p>
             </div>
           </div>
 
           <div class="apostille-screen-grid">
             <figure>
-              <img src="../assets/images/diploma-apostille-gosuslugi-12-document-type.png" alt="Выбор вида документа об образовании">
-              <figcaption>Укажите уровень образования и тип диплома.</figcaption>
+              <img src="../assets/images/diploma-apostille-gosuslugi-12-document-type.png" alt="Выбор вида документа для апостиля">
+              <figcaption>Выберите уровень образования и тип диплома.</figcaption>
             </figure>
             <figure>
-              <img src="../assets/images/diploma-apostille-gosuslugi-13-found-document.png" alt="Выбор найденного диплома в реестре">
-              <figcaption>Выберите свой диплом из найденных документов и проверьте данные.</figcaption>
+              <img src="../assets/images/diploma-apostille-gosuslugi-13-found-document.png" alt="Выбор найденного диплома на Госуслугах">
+              <figcaption>Если диплом найден, выберите его и проверьте данные. Если нет — «Указать данные вручную».</figcaption>
             </figure>
           </div>
 
@@ -300,66 +316,66 @@
             </div>
           </div>
 
+          <div class="apostille-screen-grid single">
+            <figure>
+              <img src="../assets/images/diploma-apostille-gosuslugi-14-country.png" alt="Испания как страна предъявления диплома">
+              <figcaption>Страна предъявления документа — Испания.</figcaption>
+            </figure>
+          </div>
+
           <div class="apostille-step">
             <p class="apostille-step-title"><strong>Загрузите документы</strong></p>
             <div class="apostille-step-body">
               <p>Загрузите <strong>все страницы диплома и все страницы приложения к нему</strong>.</p>
-              <p><strong>Один файл: PDF или ZIP, до 25 МБ.</strong></p>
+              <p>Можно загрузить один файл в формате <strong>PDF или ZIP до 25 МБ</strong>.</p>
               <p>Удобнее всего собрать всё в один PDF: диплом → все страницы приложения.</p>
-              <p>Сканы должны быть читаемыми, полностью видимыми и без обрезанных краёв.</p>
+              <p>Сканы должны быть читаемыми, без обрезанных краёв и закрытых данных.</p>
             </div>
           </div>
 
-          <div class="apostille-screen-grid">
-            <figure>
-              <img src="../assets/images/diploma-apostille-gosuslugi-14-country.png" alt="Выбор Испании как страны предъявления документа">
-              <figcaption>Страна предъявления документа — Испания.</figcaption>
-            </figure>
+          <div class="apostille-screen-grid single">
             <figure>
               <img src="../assets/images/diploma-apostille-gosuslugi-15-upload.png" alt="Загрузка диплома и приложения на Госуслуги">
-              <figcaption>Загрузите все страницы диплома и приложения одним файлом.</figcaption>
+              <figcaption>Загрузите все страницы диплома и приложения одним PDF или ZIP.</figcaption>
             </figure>
           </div>
 
           <div class="apostille-step">
-            <p class="apostille-step-title"><strong>Оплатите госпошлину и отправьте заявление</strong></p>
+            <p class="apostille-step-title"><strong>Отправьте заявление и оплатите госпошлину</strong></p>
             <div class="apostille-step-body">
-              <p>После заполнения формы появится онлайн-оплата госпошлины — <strong>2 500 ₽ за диплом вместе с приложением</strong>.</p>
-              <p>Оплатите пошлину, вернитесь к заявлению и отправьте его в ведомство. Проверьте, что заявление не осталось в черновиках.</p>
-              <p>После отправки в личном кабинете появится статус <strong>«Заявление получено ведомством»</strong>.</p>
+              <p>Завершите заполнение формы, подпишите заявление электронной подписью и отправьте его.</p>
+              <p>После подачи оплатите госпошлину <strong>2 500 ₽</strong>, когда в личном кабинете появится начисление или инструкция по оплате.</p>
             </div>
           </div>
 
           <div class="apostille-step">
-            <p class="apostille-step-title"><strong>Дождитесь решения</strong></p>
+            <p class="apostille-step-title"><strong>Дождитесь уведомления</strong></p>
             <div class="apostille-step-body">
-              <p>Обычный срок рассмотрения заявления — до <strong>5 рабочих дней</strong>. Если ведомству потребуется запрос в вуз или другую организацию, срок может увеличиться до <strong>25 рабочих дней</strong>.</p>
-              <p>После положительного решения в личный кабинет Госуслуг придёт уведомление о проставлении апостиля.</p>
+              <p>Ведомство проверит заявление и сведения о дипломе.</p>
+              <p>Сразу после отправки заявления ехать в ведомство не нужно. Дождитесь уведомления в личном кабинете Госуслуг.</p>
+              <p>Если для проверки понадобятся дополнительные сведения, общий срок может составить до <strong>25 рабочих дней</strong>.</p>
             </div>
           </div>
 
           <div class="apostille-step">
-            <p class="apostille-step-title"><strong>Передайте оригинал диплома в ведомство</strong></p>
+            <p class="apostille-step-title"><strong>Передайте оригинал в ведомство</strong></p>
             <div class="apostille-step-body">
               <p>После уведомления принесите <strong>оригинал диплома и приложение</strong> в ведомство, которое выбрали при подаче заявления.</p>
-              <p>Сразу после электронной подачи ехать туда не нужно. Порядок личного приёма зависит от региона: если требуется предварительная запись, это будет указано в уведомлении или на сайте выбранного ведомства.</p>
-              <p>После передачи оригинала бумажный апостиль проставляется в течение <strong>5 рабочих дней</strong>.</p>
+              <p>Именно на оригинал диплома или на отдельный лист, скреплённый с ним, будет поставлен бумажный апостиль.</p>
+              <p>После передачи оригинала апостиль проставляется в течение <strong>5 рабочих дней</strong>.</p>
             </div>
           </div>
 
           <div class="apostille-step">
             <p class="apostille-step-title"><strong>Получите готовый документ</strong></p>
             <div class="apostille-step-body">
-              <p>Заберите оригинал диплома и приложения с бумажным апостилем. Апостиль ставится непосредственно на документ либо на отдельный лист, который скрепляется с ним.</p>
-              <p>Реестровая выписка с данными апостиля также придёт в личный кабинет Госуслуг.</p>
+              <p>Заберите оригинал диплома с приложением и бумажным апостилем.</p>
+              <p>Реестровая выписка об апостиле придёт в личный кабинет Госуслуг в электронном виде.</p>
             </div>
           </div>
         </section>
 
-        <section>
-          <h2>Источник</h2>
-          <p class="small-note">Порядок подачи и сроки сверены с актуальной формой Госуслуг и инструкцией по подаче заявления через ЕПГУ. Интерфейс Госуслуг может немного меняться, но логика процедуры остаётся той же.</p>
-        </section>
+        <p class="apostille-source">Официальные правила: <a href="https://www.consultant.ru/document/cons_doc_LAW_461777/3a45301b9bd6d84fb5aeeda0b8a4282e64783249/">подтверждение документов об образовании и квалификации</a>.</p>
       </article>
     </main>
   </body>
