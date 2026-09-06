@@ -262,6 +262,18 @@ h2 {
   margin-bottom: 0;
 }
 
+.article blockquote {
+  margin: 18px 0 22px;
+  padding: 14px 18px;
+  background: #e4f2ff;
+  border-left: 3px solid #6aaedb;
+  color: #273c4f;
+}
+
+.article blockquote p {
+  margin: 0;
+}
+
 .article-contact {
   margin: 20px 0 24px;
   padding: 16px 18px;
