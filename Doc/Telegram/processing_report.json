@@ -1,0 +1,113 @@
+{
+  "chat_stats": {
+    "Digital_nomad_Испания_2026-09-06": {
+      "joined_messages": 3074,
+      "kept_messages": 22323,
+      "messages_with_links": 1356,
+      "messages_with_media": 435,
+      "question_like_messages": 11000,
+      "raw_messages": 26697,
+      "reply_messages": 16705,
+      "service_messages": 1321,
+      "skipped_empty": 63,
+      "skipped_low_information": 1389,
+      "skipped_punctuation_or_reaction": 103,
+      "skipped_service": 1321,
+      "skipped_short_ack": 592,
+      "skipped_too_short": 906
+    },
+    "Espánium_2026-09-06": {
+      "joined_messages": 135,
+      "kept_messages": 314,
+      "messages_with_links": 307,
+      "messages_with_media": 252,
+      "question_like_messages": 283,
+      "raw_messages": 728,
+      "reply_messages": 3,
+      "service_messages": 290,
+      "skipped_empty": 1,
+      "skipped_low_information": 123,
+      "skipped_service": 290
+    },
+    "Живу_в_Испании_Чат_2026-09-06": {
+      "joined_messages": 1889,
+      "kept_messages": 10628,
+      "messages_with_links": 726,
+      "messages_with_media": 407,
+      "question_like_messages": 4713,
+      "raw_messages": 13039,
+      "reply_messages": 8117,
+      "service_messages": 587,
+      "skipped_empty": 43,
+      "skipped_low_information": 955,
+      "skipped_punctuation_or_reaction": 37,
+      "skipped_service": 587,
+      "skipped_short_ack": 187,
+      "skipped_too_short": 602
+    },
+    "Закрытый_чат_Продление_2026-09-06": {
+      "joined_messages": 1698,
+      "kept_messages": 8893,
+      "messages_with_links": 285,
+      "messages_with_media": 223,
+      "question_like_messages": 3971,
+      "raw_messages": 10599,
+      "reply_messages": 6562,
+      "service_messages": 440,
+      "skipped_empty": 23,
+      "skipped_low_information": 711,
+      "skipped_punctuation_or_reaction": 15,
+      "skipped_service": 440,
+      "skipped_short_ack": 132,
+      "skipped_too_short": 385
+    },
+    "Чат_ВНЖ_Digital_Nomad_2026-09-06": {
+      "joined_messages": 29180,
+      "kept_messages": 169651,
+      "messages_with_links": 7099,
+      "messages_with_media": 4126,
+      "question_like_messages": 80106,
+      "raw_messages": 195639,
+      "reply_messages": 126927,
+      "service_messages": 1764,
+      "skipped_empty": 576,
+      "skipped_low_information": 13011,
+      "skipped_punctuation_or_reaction": 579,
+      "skipped_service": 1764,
+      "skipped_short_ack": 2604,
+      "skipped_too_short": 7454
+    }
+  },
+  "generated_at": "2026-09-06T01:20:04",
+  "output": "C:\\Users\\alexe\\.codex\\.chatgpt-projects\\g-p-696ea8605b1881919fc0faed3cd251e0\\processed_nomad",
+  "skip_reasons": {
+    "empty": 706,
+    "low_information": 16189,
+    "punctuation_or_reaction": 734,
+    "service": 4402,
+    "short_ack": 3515,
+    "too_short": 9347
+  },
+  "source": "C:\\Projects\\Nomad",
+  "topic_counts": {
+    "bank_insurance": 17075,
+    "consulate_entry": 11552,
+    "digital_tools": 2588,
+    "dnv_general": 12577,
+    "documents": 32894,
+    "family": 2934,
+    "income_work": 29338,
+    "prodlenie": 4254,
+    "taxes": 14621,
+    "tie_nie_huella": 13160,
+    "uge_status": 2406
+  },
+  "totals": {
+    "kept_messages": 211809,
+    "knowledge_messages": 87124,
+    "qa_best": 17024,
+    "qa_candidates": 53549,
+    "raw_messages": 246702,
+    "skipped_messages": 34893
+  }
+}

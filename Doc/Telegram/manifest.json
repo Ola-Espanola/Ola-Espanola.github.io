@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-09-06T11:03:32.669Z",
+  "source": "C:/Projects/Nomad/processed_nomad",
+  "note": "Compact Telegram knowledge base. Full clean_messages and broad qa_candidates are intentionally excluded. The knowledge message set is split into two JSONL parts to keep individual files below GitHub warning thresholds.",
+  "counts": {
+    "knowledge_messages": 87124,
+    "qa_best": 17024,
+    "topic_files": 11
+  },
+  "files": [
+    {
+      "path": "Doc/Telegram/knowledge_messages.compact.001.jsonl",
+      "bytes": 29493575,
+      "mb": 28.13
+    },
+    {
+      "path": "Doc/Telegram/knowledge_messages.compact.002.jsonl",
+      "bytes": 25126808,
+      "mb": 23.96
+    },
+    {
+      "path": "Doc/Telegram/manifest.json",
+      "bytes": 2437,
+      "mb": 0
+    },
+    {
+      "path": "Doc/Telegram/processing_report.json",
+      "bytes": 3476,
+      "mb": 0
+    },
+    {
+      "path": "Doc/Telegram/qa_best.compact.jsonl",
+      "bytes": 22200180,
+      "mb": 21.17
+    },
+    {
+      "path": "Doc/Telegram/README.md",
+      "bytes": 1799,
+      "mb": 0
+    },
+    {
+      "path": "Doc/Telegram/tools/process_nomad_exports.py",
+      "bytes": 27462,
+      "mb": 0.03
+    },
+    {
+      "path": "Doc/Telegram/topics/bank_insurance.md",
+      "bytes": 201555,
+      "mb": 0.19
+    },
+    {
+      "path": "Doc/Telegram/topics/consulate_entry.md",
+      "bytes": 208919,
+      "mb": 0.2
+    },
+    {
+      "path": "Doc/Telegram/topics/digital_tools.md",
+      "bytes": 274822,
+      "mb": 0.26
+    },
+    {
+      "path": "Doc/Telegram/topics/dnv_general.md",
+      "bytes": 253573,
+      "mb": 0.24
+    },
+    {
+      "path": "Doc/Telegram/topics/documents.md",
+      "bytes": 219455,
+      "mb": 0.21
+    },
+    {
+      "path": "Doc/Telegram/topics/family.md",
+      "bytes": 306699,
+      "mb": 0.29
+    },
+    {
+      "path": "Doc/Telegram/topics/income_work.md",
+      "bytes": 221572,
+      "mb": 0.21
+    },
+    {
+      "path": "Doc/Telegram/topics/prodlenie.md",
+      "bytes": 259776,
+      "mb": 0.25
+    },
+    {
+      "path": "Doc/Telegram/topics/taxes.md",
+      "bytes": 221313,
+      "mb": 0.21
+    },
+    {
+      "path": "Doc/Telegram/topics/tie_nie_huella.md",
+      "bytes": 215665,
+      "mb": 0.21
+    },
+    {
+      "path": "Doc/Telegram/topics/uge_status.md",
+      "bytes": 288440,
+      "mb": 0.28
+    },
+    {
+      "path": "Doc/Telegram/topic_summary.csv",
+      "bytes": 3154,
+      "mb": 0
+    }
+  ]
+}
