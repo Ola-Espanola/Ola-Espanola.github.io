@@ -28,6 +28,7 @@
 - Explain Spanish terms only when they help; do not overload a reader with terminology.
 - Use Russian descriptions for source links. Prefer official sources for legal or procedural claims.
 - Brand: `Ola Española`. Telegram: `https://t.me/ola_espana`.
+- In every main guide or blog article, place the Telegram contact block immediately after the heading. Do not repeat it at the bottom. Do not add it to link pages or other reference-only pages.
 
 ## Document guides
 
