@@ -302,7 +302,7 @@ h2 {
   align-items: baseline;
   justify-content: space-between;
   gap: 24px;
-  width: min(380px, 100%);
+  width: min(300px, 100%);
   margin: 6px 0;
   color: #394150;
 }
