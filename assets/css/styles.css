@@ -298,11 +298,17 @@ h2 {
 }
 
 .service-price-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  width: min(380px, 100%);
   margin: 6px 0;
   color: #394150;
 }
 
 .service-price {
+  flex: 0 0 auto;
   color: #1f5f8f;
   font-size: 24px;
   line-height: 1;
