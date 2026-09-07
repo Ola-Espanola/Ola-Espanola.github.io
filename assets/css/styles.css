@@ -141,6 +141,12 @@ a {
   color: var(--muted);
 }
 
+.sidebar-service-link {
+  background: #e5edf3;
+  border: 1px solid rgba(24, 54, 66, 0.08);
+  font-weight: 600;
+}
+
 .sidebar .active,
 .sidebar a:hover {
   background: var(--surface);
@@ -289,6 +295,17 @@ h2 {
 .article-contact a {
   color: var(--nav);
   font-weight: 600;
+}
+
+.service-price-line {
+  margin: 6px 0;
+  color: #394150;
+}
+
+.service-price {
+  color: var(--nav);
+  font-size: 24px;
+  line-height: 1;
 }
 
 .article-hero {
