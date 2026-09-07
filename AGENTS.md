@@ -12,7 +12,8 @@
 - Each public guide and blog page has a Markdown source in `content/`. When changing page content, update the matching HTML and Markdown files together.
 - Images and CSS are in `assets/`.
 - `Doc/` contains working materials. Keep it in Git, but never link to it from public pages or expose it in navigation.
-- `Doc/Telegram/` is the internal Telegram knowledge base. Use `topics/*.md` first for focused research, then `qa_best.compact.jsonl` and `knowledge_messages.compact.*.jsonl` when more context is needed. Treat it as read-only source material: do not publish, link, edit, or confuse it with the public Telegram contact.
+- `Doc/Telegram/` is the compact internal Telegram knowledge base kept in the repository. Use `topics/*.md` first for focused research, then `qa_best.compact.jsonl` and `knowledge_messages.compact.*.jsonl` when more context is needed.
+- Source chat exports and the full processed knowledge base are outside the repository in `C:\Projects\Nomad`: raw chat exports are in the dated chat folders and `processed_nomad/` contains the complete processed set. Consult it when the compact repository copy lacks context. Treat all Telegram materials as read-only source material: do not publish, link, edit, or confuse them with the public Telegram contact.
 - Do not delete, move, or replace source images and working materials unless the user explicitly asks.
 
 ## Publishing
