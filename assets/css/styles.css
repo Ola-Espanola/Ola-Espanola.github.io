@@ -567,3 +567,15 @@ figcaption {
     font-size: 17px;
   }
 }
+
+/* Keep blog pages published but hide Blog from site navigation. */
+.top-nav a[href*="blog/"],
+.top-nav a.active[href="index.html"],
+.sidebar a[href*="blog/"] {
+  display: none;
+}
+
+.sidebar .sidebar-section:has(+ a[href*="blog/"]),
+.sidebar .sidebar-section:has(+ a[href="index.html"]) {
+  display: none;
+}
