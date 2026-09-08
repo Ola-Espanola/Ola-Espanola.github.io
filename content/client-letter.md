@@ -2,7 +2,7 @@
 
 > Вопросы по подаче можно задать в Telegram: [t.me/ola_espana](https://t.me/ola_espana).
 
-Применимо для тех, кто подается <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark>. После одобрения такой заявитель регистрируется в Испании как autonomo.
+Применимо для тех, кто подается <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark>.
 
 ## Зачем нужно письмо
 
