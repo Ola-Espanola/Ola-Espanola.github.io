@@ -2,7 +2,7 @@
 
 > Вопросы по подаче можно задать в Telegram: [t.me/ola_espana](https://t.me/ola_espana).
 
-Применимо для подачи на ВНЖ цифрового кочевника в Испании: и для работы в найме, и для работы по контракту.
+Применимо для подачи на ВНЖ цифрового кочевника в Испании: и для работы <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">в найме</mark>, и для работы <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark>.
 
 ## Требования к выписке
 
