@@ -1,0 +1,5 @@
+exclude:
+  - Doc/
+  - content/
+  - AGENTS.md
+  - README.md
