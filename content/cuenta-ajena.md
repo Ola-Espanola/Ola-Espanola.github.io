@@ -13,7 +13,7 @@
 | Сертификат покрытия Seguridad Social | Какая система соцзащиты будет применяться | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
 | Паспорт | Личность и срок действия документа | Нет |
 | Tasa 790 038 | Оплату госпошлины | Нет |
-| Formulario MIT | Само заявление | Нет |
+| [Formulario MIT](../docs/formulario-mit.html) | Само заявление | Нет |
 | Трудовой договор | Трудовые отношения минимум 3 месяца | [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
 | [Банковская выписка за 3 месяца](../docs/bank-statement.html) | Поступление дохода на счет заявителя | Простой перевод |
 | Регистрация компании | Компания существует и работает минимум 1 год | Апостиль или легализация + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
