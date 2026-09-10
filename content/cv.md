@@ -1,8 +1,14 @@
-# CV
+---
+title: "CV для ВНЖ номада в Испании: как составить резюме"
+description: "Как составить CV на испанском для ВНЖ цифрового кочевника: структура резюме, объём, опыт, образование и описание удалённой работы для подачи в UGE."
+canonical: "https://ola-espanola.github.io/docs/cv.html"
+---
 
-> Вопросы по подаче можно задать в Telegram: [t.me/ola_espana](https://t.me/ola_espana).
+# CV для ВНЖ цифрового кочевника в Испании: как составить резюме
 
-Применимо для тех, кто подается <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark> или <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по найму</mark>.
+> Помощь в подаче документов на ВНЖ Испании: [<img class="telegram-icon" src="../assets/images/telegram.svg" alt="" width="22" height="22" aria-hidden="true"> **t.me/ola_espana**](https://t.me/ola_espana)
+
+Как подготовить резюме на испанском для подачи на ВНЖ цифрового кочевника в Испании. Гайд подходит для работы <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark> и <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по найму</mark>.
 
 ## На каком языке
 

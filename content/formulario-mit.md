@@ -1,8 +1,14 @@
-# Formulario MIT
+---
+title: "Formulario MIT для ВНЖ номада в Испании: заполнение"
+description: "Как заполнить Formulario MIT (MI-T) для ВНЖ цифрового кочевника в Испании: бланк заявления, образец, данные представителя и NRC после оплаты пошлины."
+canonical: "https://ola-espanola.github.io/docs/formulario-mit.html"
+---
 
-> Вопросы по подаче можно задать в Telegram: [t.me/ola_espana](https://t.me/ola_espana).
+# Formulario MIT для ВНЖ номада в Испании: бланк и заполнение
 
-Для основного заявителя, который подается <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark> или <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по найму</mark>.
+> Помощь в подаче документов на ВНЖ Испании: [<img class="telegram-icon" src="../assets/images/telegram.svg" alt="" width="22" height="22" aria-hidden="true"> **t.me/ola_espana**](https://t.me/ola_espana)
+
+Гайд по заполнению заявления Formulario MIT (MI-T) для ВНЖ цифрового кочевника в Испании. Для основного заявителя, который подаётся <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark> или <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по найму</mark>.
 
 [Бланк MI-T на сайте министерства](https://ciudadaniaexterior.inclusion.gob.es/web/migraciones/modelos-de-solicitudes-de-la-ley-14/2013).
 

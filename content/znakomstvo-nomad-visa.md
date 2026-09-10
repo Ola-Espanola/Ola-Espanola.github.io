@@ -1,4 +1,13 @@
-# Знакомство. Виза цифрового кочевника в Испанию
+---
+title: "Виза цифрового кочевника в Испании: знакомство | Ola Española"
+description: "Знакомство с Ola Española и визой номада в Испании: кому подходит ВНЖ цифрового кочевника, удалённая работа, доход и подготовка реальных документов."
+canonical: "https://ola-espanola.github.io/blog/znakomstvo-nomad-visa.html"
+---
+
+# Знакомство: виза цифрового кочевника в Испании
+
+> Блог: [https://ola-espanola.github.io/blog/](https://ola-espanola.github.io/blog/)<br>
+> Telegram-канал: [https://t.me/ola_espana](https://t.me/ola_espana)
 
 ![Морское побережье Испании с пальмами и скалой](../assets/images/blog-znakomstvo-ispania.png)
 
@@ -47,5 +56,3 @@ UGE может запросить дополнительные подтверж�
 Я постепенно собираю гид для тех, кто хочет переехать в Испанию по визе номада: https://ola-espanola.github.io/. Буду пополнять его статьями, списками документов и обновлениями по практике подачи. Всем привет и до встречи в следующих постах!
 
 Подробные материалы и списки документов: https://ola-espanola.github.io/blog/
-
-Telegram-канал: https://t.me/ola_espana

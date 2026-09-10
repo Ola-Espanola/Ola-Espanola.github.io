@@ -35,11 +35,26 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  min-height: 64px;
-  padding: 0 32px;
+  min-height: 76px;
+  padding: 10px 32px;
   background: rgba(245, 247, 250, 0.94);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(16px);
+}
+
+.site-identity {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-width: 0;
+}
+
+.site-tagline {
+  margin: 0;
+  color: var(--nav);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 .brand {
@@ -51,6 +66,7 @@ a {
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .brand-mark {
@@ -64,21 +80,37 @@ a {
 .top-nav {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 8px;
   font-size: 14px;
 }
 
 .top-nav a {
-  padding: 8px 12px;
-  border-radius: 6px;
-  color: var(--nav);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid var(--nav);
+  border-radius: 8px;
+  background: var(--nav);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
   text-decoration: none;
+  box-shadow: 0 3px 8px rgba(24, 54, 66, 0.14);
 }
 
 .top-nav .active,
 .top-nav a:hover {
-  background: var(--nav);
+  background: #244d5b;
+  border-color: #244d5b;
   color: #ffffff;
+}
+
+.top-nav a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .top-nav a[aria-disabled="true"] {
@@ -155,6 +187,7 @@ a {
 
 .content {
   min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .eyebrow {
@@ -295,6 +328,22 @@ h2 {
 .article-contact a {
   color: var(--nav);
   font-weight: 600;
+}
+
+.article-contact .telegram-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.article-contact .telegram-icon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
 }
 
 .service-price-line {
@@ -535,7 +584,13 @@ figcaption {
     position: static;
     align-items: flex-start;
     flex-direction: column;
+    gap: 16px;
     padding: 18px;
+  }
+
+  .site-identity {
+    flex-wrap: wrap;
+    gap: 10px 24px;
   }
 
   .top-nav {
@@ -569,8 +624,6 @@ figcaption {
 }
 
 /* Keep blog pages published but hide Blog from site navigation. */
-.top-nav a[href*="blog/"],
-.top-nav a.active[href="index.html"],
 .sidebar a[href*="blog/"] {
   display: none;
 }

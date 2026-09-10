@@ -1,8 +1,14 @@
-# Свидетельство СФР
+---
+title: "Свидетельство СФР для ВНЖ номада в Испании по найму"
+description: "Как получить свидетельство СФР о социальном страховании для ВНЖ цифрового кочевника в Испании по найму: удалённая работа, апостиль и пример документа."
+canonical: "https://ola-espanola.github.io/docs/social-security-certificate.html"
+---
 
-> Вопросы по подаче можно задать в Telegram: [t.me/ola_espana](https://t.me/ola_espana).
+# Свидетельство СФР для ВНЖ цифрового кочевника в Испании
 
-Применимо для граждан России, которые подаются <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по найму</mark> у российского работодателя и сохраняют российское социальное страхование на время работы из Испании.
+> Помощь в подаче документов на ВНЖ Испании: [<img class="telegram-icon" src="../assets/images/telegram.svg" alt="" width="22" height="22" aria-hidden="true"> **t.me/ola_espana**](https://t.me/ola_espana)
+
+Гайд по свидетельству СФР для ВНЖ цифрового кочевника в Испании. Для граждан России, которые подаются <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по найму</mark> у российского работодателя и сохраняют российское социальное страхование на время работы из Испании.
 
 ## Что это за документ
 

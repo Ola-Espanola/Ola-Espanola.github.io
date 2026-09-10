@@ -1,4 +1,13 @@
-# Миграция в Испанию. Проблемы на старте. Жилье
+---
+title: "Жильё в Испании при переезде по визе номада | Ola Española"
+description: "Как найти жильё в первые месяцы переезда в Испанию по визе номада: временная аренда, ожидание ВНЖ и карточки резидента, прописка и расходы на старте."
+canonical: "https://ola-espanola.github.io/blog/migraciya-v-ispaniyu-zhile.html"
+---
+
+# Жильё в Испании при переезде по визе номада: проблемы на старте
+
+> Блог: [https://ola-espanola.github.io/blog/](https://ola-espanola.github.io/blog/)<br>
+> Telegram-канал: [https://t.me/ola_espana](https://t.me/ola_espana)
 
 ![Прогулка по горной тропе в Испании](../assets/images/blog-housing-start.png)
 
@@ -23,9 +32,3 @@
 - Ищите туристическое жилье вне сезона через Facebook, Telegram-каналы и другие источники.
 - Не переводите деньги заранее без договора.
 - Обязательно уточняйте, можно ли сделать прописку в этой квартире.
-
-**Помогаю с номад-визой в Испанию.**
-
-Сайт: https://ola-espanola.github.io/
-
-Telegram: https://t.me/ola_espana

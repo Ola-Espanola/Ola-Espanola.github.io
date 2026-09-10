@@ -1,6 +1,12 @@
-# Банковская выписка
+---
+title: "Банковская выписка для ВНЖ номада в Испании — гайд"
+description: "Как подготовить банковскую выписку для ВНЖ цифрового кочевника в Испании: период, подтверждение дохода, подпись и печать банка, заверение и перевод."
+canonical: "https://ola-espanola.github.io/docs/bank-statement.html"
+---
 
-> Вопросы по подаче можно задать в Telegram: [t.me/ola_espana](https://t.me/ola_espana).
+# Банковская выписка для ВНЖ цифрового кочевника в Испании
+
+> Помощь в подаче документов на ВНЖ Испании: [<img class="telegram-icon" src="../assets/images/telegram.svg" alt="" width="22" height="22" aria-hidden="true"> **t.me/ola_espana**](https://t.me/ola_espana)
 
 Применимо для подачи на ВНЖ цифрового кочевника в Испании: и для работы <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">в найме</mark>, и для работы <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark>.
 

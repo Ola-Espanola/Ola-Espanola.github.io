@@ -1,8 +1,14 @@
-# Письмо компании
+---
+title: "Письмо компании для ВНЖ номада в Испании: образцы"
+description: "Письмо работодателя или клиента для ВНЖ цифрового кочевника в Испании: разрешение на удалённую работу, условия, перевод и образцы для найма и контракта."
+canonical: "https://ola-espanola.github.io/docs/client-letter.html"
+---
 
-> Вопросы по подаче можно задать в Telegram: [t.me/ola_espana](https://t.me/ola_espana).
+# Письмо компании для ВНЖ цифрового кочевника в Испании
 
-Применимо для тех, кто подается <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark> или <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по найму</mark>.
+> Помощь в подаче документов на ВНЖ Испании: [<img class="telegram-icon" src="../assets/images/telegram.svg" alt="" width="22" height="22" aria-hidden="true"> **t.me/ola_espana**](https://t.me/ola_espana)
+
+Гайд по письму работодателя или клиента для ВНЖ цифрового кочевника в Испании: требования, перевод и образцы. Для тех, кто подаётся <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по контракту</mark> или <mark style="background-color: #dff1ff; color: inherit; white-space: nowrap;">по найму</mark>.
 
 ## Зачем нужно письмо
 

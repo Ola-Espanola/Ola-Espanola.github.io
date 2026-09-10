@@ -1,4 +1,13 @@
-# Испания. Послевизовое легкомыслие
+---
+title: "После одобрения ВНЖ номада в Испании: что не откладывать"
+description: "Личный опыт после одобрения ВНЖ цифрового кочевника в Испании: регистрация autonomo, социальное страхование, поездки до получения карты и продление."
+canonical: "https://ola-espanola.github.io/blog/poslevizovoe-legkomyslie.html"
+---
+
+# Послевизовое легкомыслие: после одобрения ВНЖ номада в Испании
+
+> Блог: [https://ola-espanola.github.io/blog/](https://ola-espanola.github.io/blog/)<br>
+> Telegram-канал: [https://t.me/ola_espana](https://t.me/ola_espana)
 
 ![Улица Валенсии](../assets/images/blog-poslevizovoe-legkomyslie.png)
 
@@ -20,9 +29,3 @@
 Получение ВНЖ - не финиш, а старт. Расслабляться на этом моменте рано.
 
 Когда можно будет расслабиться, расскажу в следующих постах. Если, конечно, нас станет хотя бы 15.
-
-**Помогаю с номад-визой в Испанию.**
-
-Сайт: https://ola-espanola.github.io/
-
-Telegram: https://t.me/ola_espana

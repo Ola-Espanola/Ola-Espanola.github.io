@@ -1,4 +1,13 @@
+---
+title: "Стоит ли ехать в Испанию по визе номада | Ola Española"
+description: "Стоит ли переезжать в Испанию по визе цифрового кочевника: личный взгляд на деньги, жильё, налоги, финансовый запас и выбор между Испанией и Турцией."
+canonical: "https://ola-espanola.github.io/blog/stoit-li-ehat-v-ispaniyu-po-vize-nomada.html"
+---
+
 # Стоит ли ехать в Испанию по визе номада
+
+> Блог: [https://ola-espanola.github.io/blog/](https://ola-espanola.github.io/blog/)<br>
+> Telegram-канал: [https://t.me/ola_espana](https://t.me/ola_espana)
 
 ![Побережье Турции с пальмами и лодками](../assets/images/blog-turkey-or-spain.png)
 
@@ -23,9 +32,3 @@
 Про плюсы Испании расскажу отдельно.
 
 А пока вывод простой: если денег впритык, рассмотрите Турцию. Вопрос получения ВНЖ в Турции в этой статье не рассматриваю. А если есть финансовый запас и вам ближе Европа - едем в Испанию.
-
-**Помогаю с номад-визой в Испанию.**
-
-Сайт: https://ola-espanola.github.io/
-
-Telegram: https://t.me/ola_espana
