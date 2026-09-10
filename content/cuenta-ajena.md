@@ -10,7 +10,7 @@
 
 | Документ | Что подтверждает | Перевод / легализация |
 |---|---|---|
-| Свидетельство СФР | Какая система соцзащиты будет применяться | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
+| [Свидетельство СФР](../docs/social-security-certificate.html) | Какая система соцзащиты будет применяться | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
 | Паспорт (все страницы) | Личность и срок действия документа | Нет |
 | Tasa 790 038 | Оплату госпошлины | Нет |
 | [Formulario MIT](../docs/formulario-mit.html) | Само заявление | Нет |
