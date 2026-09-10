@@ -26,7 +26,7 @@ canonical: "https://ola-espanola.github.io/docs/contract-work.html"
 | [Диплом](../docs/diploma-apostille.html) или [опыт](../docs/electronic-work-record.html) | Квалификация: профильное образование или минимум 3 года опыта | Апостиль или легализация + [jurado](../docs/document-requirements.html#jurado-perevod) перевод для официальных документов; [jurado](../docs/document-requirements.html#jurado-perevod) перевод для писем от работодателей |
 | [CV](../docs/cv.html) | Профиль заявителя | Нет (сразу на испанском) |
 | Обязательство зарегистрироваться как autonomo (<a href="../assets/files/Declaracion_compromiso_alta_Seguridad_Social.docx" download>скачать</a>) | Что после одобрения заявитель встанет на учет в Испании и будет платить взносы | Нет (заполняется на испанском) |
-| Несудимость | Отсутствие судимости за последние 2 года | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
+| [Справка о несудимости](../docs/criminal-record-certificate.html) | Отсутствие судимости за последние 2 года | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
 | Декларация об отсутствии судимости (<a href="../assets/files/Declaracion_responsable_antecedentes_penales.pdf" download>скачать</a>) | Заявление об отсутствии судимости за последние 5 лет | Нет (заполняется на испанском) |
 | Сопроводительное письмо | Объясняет состав пакета и формат работы по контракту | Нет (сразу на испанском) |
 | Инвойсы или акты | Что работа реально выполняется и по ней есть доход | Простой перевод |

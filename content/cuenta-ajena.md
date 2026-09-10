@@ -27,7 +27,7 @@ canonical: "https://ola-espanola.github.io/docs/cuenta-ajena.html"
 | [Диплом](../docs/diploma-apostille.html) или [опыт](../docs/electronic-work-record.html) | Квалификация: профильное образование или минимум 3 года опыта | Апостиль или легализация + [jurado](../docs/document-requirements.html#jurado-perevod) перевод для официальных документов; [jurado](../docs/document-requirements.html#jurado-perevod) перевод для писем от работодателей |
 | [CV](../docs/cv.html) | Профиль заявителя | Нет (сразу на испанском) |
 | Медицинская страховка | Медицинское покрытие в Испании | Нет (оформляется в Испании) |
-| Несудимость | Отсутствие судимости за последние 2 года | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
+| [Справка о несудимости](../docs/criminal-record-certificate.html) | Отсутствие судимости за последние 2 года | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
 | Декларация об отсутствии судимости (<a href="../assets/files/Declaracion_responsable_antecedentes_penales.pdf" download>скачать</a>) | Заявление об отсутствии судимости за последние 5 лет | Нет (заполняется на испанском) |
 | Сопроводительное письмо | Объясняет состав пакета и нестандартные места загрузки | Нет (сразу на испанском) |
 | Зарплатные листы | Фактический доход по трудовому договору | Простой перевод |
