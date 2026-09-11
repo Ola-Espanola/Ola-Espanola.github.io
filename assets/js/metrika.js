@@ -1,3 +1,15 @@
+(function () {
+  var favicon = document.querySelector('link[rel~="icon"]');
+  if (!favicon) {
+    favicon = document.createElement("link");
+    favicon.rel = "icon";
+    document.head.appendChild(favicon);
+  }
+  favicon.href = "/favicon.ico";
+  favicon.type = "image/x-icon";
+  favicon.setAttribute("sizes", "any");
+})();
+
 (function (m, e, t, r, i, k, a) {
   m[i] = m[i] || function () {
     (m[i].a = m[i].a || []).push(arguments);
