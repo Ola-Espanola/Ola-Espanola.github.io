@@ -21,7 +21,7 @@ canonical: "https://ola-espanola.github.io/docs/contract-work.html"
 | [Formulario MIT](../docs/formulario-mit.html) | Само заявление | Нет |
 | [Контракт. Требования](../docs/client-contracts.html) | Профессиональные отношения минимум 3 месяца до подачи | [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
 | [Банковская выписка за 3 месяца](../docs/bank-statement.html) | Поступление дохода на счет заявителя | Простой перевод |
-| Документы компании-клиента | Компания-клиент существует и ведет деятельность минимум 1 год | Апостиль или легализация + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
+| [Документы компании: ЕГРЮЛ или ЕГРИП](../docs/company-registration.html) | Компания-клиент существует и ведет деятельность минимум 1 год | Апостиль или легализация + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
 | [Письмо компании](../docs/client-letter.html) | Удаленный формат, услуги, сроки, суммы и возможность работать из Испании | Простой перевод |
 | [Диплом](../docs/diploma-apostille.html) или [опыт](../docs/electronic-work-record.html) | Квалификация: профильное образование или минимум 3 года опыта | Апостиль или легализация + [jurado](../docs/document-requirements.html#jurado-perevod) перевод для официальных документов; [jurado](../docs/document-requirements.html#jurado-perevod) перевод для писем от работодателей |
 | [CV](../docs/cv.html) | Профиль заявителя | Нет (сразу на испанском) |
