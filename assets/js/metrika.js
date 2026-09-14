@@ -12,34 +12,53 @@
 
 (function () {
   var sidebar = document.querySelector(".sidebar");
-  if (!sidebar || sidebar.querySelector('a[href$="legal-stay-in-spain.html"]')) {
-    return;
-  }
+  if (sidebar) {
+    var sections = sidebar.querySelectorAll(".sidebar-section");
+    var documentsSection = null;
+    for (var i = 0; i < sections.length; i += 1) {
+      if (sections[i].textContent.trim() === "Документы") {
+        documentsSection = sections[i];
+        break;
+      }
+    }
 
-  var sections = sidebar.querySelectorAll(".sidebar-section");
-  var primarySection = null;
-  for (var i = 0; i < sections.length; i += 1) {
-    if (sections[i].textContent.trim() === "Первичная подача") {
-      primarySection = sections[i];
-      break;
+    if (documentsSection) {
+      var link = sidebar.querySelector('a[href$="legal-stay-in-spain.html"]');
+      if (!link) {
+        link = document.createElement("a");
+        var path = window.location.pathname;
+        if (path.indexOf("/blog/") !== -1) {
+          link.href = "../docs/legal-stay-in-spain.html";
+        } else if (path.indexOf("/docs/") !== -1) {
+          link.href = "legal-stay-in-spain.html";
+        } else {
+          link.href = "docs/legal-stay-in-spain.html";
+        }
+        link.textContent = "Легальное нахождение";
+      }
+      documentsSection.insertAdjacentElement("afterend", link);
     }
   }
 
-  if (!primarySection) {
-    return;
+  if (window.location.pathname.endsWith("/docs/legal-stay-in-spain.html")) {
+    var eyebrow = document.querySelector(".eyebrow");
+    if (eyebrow) {
+      eyebrow.textContent = "Документы";
+    }
   }
 
-  var link = document.createElement("a");
-  var path = window.location.pathname;
-  if (path.indexOf("/blog/") !== -1) {
-    link.href = "../docs/legal-stay-in-spain.html";
-  } else if (path.indexOf("/docs/") !== -1) {
-    link.href = "legal-stay-in-spain.html";
-  } else {
-    link.href = "docs/legal-stay-in-spain.html";
+  var cells = document.querySelectorAll("table tbody td:first-child");
+  for (var j = 0; j < cells.length; j += 1) {
+    if (cells[j].textContent.trim() === "Легальное нахождение в Испании" && !cells[j].querySelector("a")) {
+      var stayLink = document.createElement("a");
+      stayLink.href = window.location.pathname.indexOf("/docs/") !== -1
+        ? "legal-stay-in-spain.html"
+        : "docs/legal-stay-in-spain.html";
+      stayLink.textContent = "Легальное нахождение в Испании";
+      cells[j].textContent = "";
+      cells[j].appendChild(stayLink);
+    }
   }
-  link.textContent = "Легальное нахождение";
-  primarySection.insertAdjacentElement("afterend", link);
 })();
 
 (function (m, e, t, r, i, k, a) {
