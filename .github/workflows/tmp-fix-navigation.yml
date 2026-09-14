@@ -1,0 +1,100 @@
+name: Temporary navigation fix
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Normalize static navigation and links
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+
+          # 1) Sidebar: make "Легальное нахождение" a normal static link,
+          #    last item of the "Документы" group on every public HTML page.
+          html_files = list(root.glob('*.html')) + list((root/'docs').glob('*.html')) + list((root/'blog').glob('*.html'))
+          for path in html_files:
+              text = path.read_text(encoding='utf-8')
+              m = re.search(r'<aside class="sidebar".*?</aside>', text, flags=re.S)
+              if not m:
+                  continue
+              sidebar = m.group(0)
+              sidebar = re.sub(r'\n\s*<a(?: class="active")? href="(?:\.\./)?(?:docs/)?legal-stay-in-spain\.html">Легальное нахождение</a>', '', sidebar)
+
+              if path.parent.name == 'docs':
+                  href = 'legal-stay-in-spain.html'
+              elif path.parent.name == 'blog':
+                  href = '../docs/legal-stay-in-spain.html'
+              else:
+                  href = 'docs/legal-stay-in-spain.html'
+
+              active = ' class="active"' if path.as_posix() == 'docs/legal-stay-in-spain.html' else ''
+              link = f'        <a{active} href="{href}">Легальное нахождение</a>\n'
+              marker = '        <p class="sidebar-section">Справочник</p>'
+              if marker not in sidebar:
+                  raise RuntimeError(f'No reference section marker in {path}')
+              sidebar = sidebar.replace(marker, link + marker, 1)
+              text = text[:m.start()] + sidebar + text[m.end():]
+
+              # The new guide belongs to Documents, like the other document guides.
+              if path.as_posix() == 'docs/legal-stay-in-spain.html':
+                  text = text.replace('<p class="eyebrow">Первичная подача</p>', '<p class="eyebrow">Документы</p>', 1)
+                  # Keep official source links inline only; no separate visible source block.
+                  text = re.sub(r'\n\s*<section>\s*<h2>Официальные ссылки</h2>.*?</section>', '', text, flags=re.S)
+
+              path.write_text(text, encoding='utf-8')
+
+          # 2) Links from both primary-application document tables are static HTML,
+          #    exactly like links to the other document guides.
+          for rel in ['docs/cuenta-ajena.html', 'docs/contract-work.html']:
+              path = root / rel
+              text = path.read_text(encoding='utf-8')
+              old = '<tr><td>Легальное нахождение в Испании</td>'
+              new = '<tr><td><a href="legal-stay-in-spain.html">Легальное нахождение в Испании</a></td>'
+              text = text.replace(old, new)
+              path.write_text(text, encoding='utf-8')
+
+          # 3) Markdown source remains paired with the public HTML and has no
+          #    separate visible "Официальные ссылки" block either.
+          md = root / 'content/legal-stay-in-spain.md'
+          if md.exists():
+              text = md.read_text(encoding='utf-8')
+              text = re.sub(r'\n## Официальные ссылки\n.*\Z', '\n', text, flags=re.S)
+              md.write_text(text, encoding='utf-8')
+
+          # 4) Remove the old runtime DOM patch from the analytics JS.
+          js = root / 'assets/js/metrika.js'
+          text = js.read_text(encoding='utf-8')
+          start_marker = '\n(function () {\n  var sidebar = document.querySelector(".sidebar");'
+          end_marker = '\n(function (m, e, t, r, i, k, a) {'
+          if start_marker in text and end_marker in text:
+              start = text.index(start_marker)
+              end = text.index(end_marker, start)
+              text = text[:start] + '\n' + text[end:]
+          js.write_text(text, encoding='utf-8')
+          PY
+
+          # This workflow is one-off; remove it from the resulting repository state.
+          git rm .github/workflows/tmp-fix-navigation.yml
+
+          git config user.name "alexey-s-potapov"
+          git config user.email "103932994+alexey-s-potapov@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Сделать навигацию легального нахождения статической"
+          git push origin HEAD:main
