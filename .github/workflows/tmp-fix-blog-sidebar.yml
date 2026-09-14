@@ -1,0 +1,46 @@
+name: Temporary blog sidebar fix
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Remove document link from simplified blog sidebars
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          for path in Path('blog').glob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              m = re.search(r'<aside class="sidebar".*?</aside>', text, flags=re.S)
+              if not m:
+                  continue
+              sidebar = m.group(0)
+              # Blog uses a shortened sidebar without a "Документы" section,
+              # so do not inject a single document guide into "Первичная подача".
+              if '<p class="sidebar-section">Документы</p>' not in sidebar:
+                  sidebar = re.sub(r'\n\s*<a(?: class="active")? href="\.\./docs/legal-stay-in-spain\.html">Легальное нахождение</a>', '', sidebar)
+              text = text[:m.start()] + sidebar + text[m.end():]
+              path.write_text(text, encoding='utf-8')
+          PY
+
+          git rm .github/workflows/tmp-fix-blog-sidebar.yml
+          git config user.name "alexey-s-potapov"
+          git config user.email "103932994+alexey-s-potapov@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Сохранить упрощенную навигацию блога"
+          git push origin HEAD:main
