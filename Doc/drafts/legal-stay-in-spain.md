@@ -62,7 +62,7 @@
 
 Пример оформленной декларации (персональные данные скрыты):
 
-![Пример оформленной Declaración de entrada](../../assets/images/declaracion_redacted_cropped.jpeg)
+<img src="../../assets/images/declaracion_redacted_cropped.jpeg" alt="Пример оформленной Declaración de entrada" style="width: 75%; height: auto;">
 
 ### Если в аэропорту не оформили
 
