@@ -60,6 +60,10 @@
 - визу или ВНЖ другой страны Шенгена, если въезжали по нему;
 - [официальный бланк Declaración de entrada](https://www.inclusion.gob.es/documents/d/migraciones/declaracion-de-entrada-en-territorio-espanol-editable) — лучше заполнить заранее и распечатать **оригинал и копию**.
 
+Пример оформленной декларации (персональные данные скрыты):
+
+![Пример оформленной Declaración de entrada](../../assets/images/declaracion_redacted_cropped.jpeg)
+
 ### Если в аэропорту не оформили
 
 Можно обратиться в городскую `Comisaría de Policía Nacional`. По закону подходит любая комиссария, но на практике прием по этой процедуре может отличаться.
