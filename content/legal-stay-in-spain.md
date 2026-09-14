@@ -90,10 +90,3 @@ canonical: "https://ola-espanola.github.io/docs/legal-stay-in-spain.html"
 
 - **Стамбул → Мадрид** — внешний въезд происходит в Испании;
 - **Стамбул → Париж → Мадрид** — внешний въезд происходит во Франции, а приезд из Франции в Испанию нужно подтверждать отдельно.
-
-## Официальные ссылки
-
-- [EES — European Commission](https://home-affairs.ec.europa.eu/policies/schengen/smart-borders/entry-exit-system_en)
-- [Entrada: requisitos y condiciones — Ministerio del Interior](https://www.interior.gob.es/opencms/es/servicios-al-ciudadano/tramites-y-gestiones/extranjeria/regimen-general/entrada-requisitos-y-condiciones/)
-- [Reglamento de Extranjería — Real Decreto 1155/2024](https://www.boe.es/eli/es/rd/2024/11/19/1155)
-- [Правила подачи на шенгенскую визу — European Commission](https://home-affairs.ec.europa.eu/policies/schengen/visa-policy/applying-schengen-visa_en)

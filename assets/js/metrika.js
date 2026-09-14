@@ -15,9 +15,11 @@
   if (sidebar) {
     var sections = sidebar.querySelectorAll(".sidebar-section");
     var documentsSection = null;
+    var nextSection = null;
     for (var i = 0; i < sections.length; i += 1) {
       if (sections[i].textContent.trim() === "Документы") {
         documentsSection = sections[i];
+        nextSection = sections[i + 1] || null;
         break;
       }
     }
@@ -36,14 +38,12 @@
         }
         link.textContent = "Легальное нахождение";
       }
-      documentsSection.insertAdjacentElement("afterend", link);
-    }
-  }
 
-  if (window.location.pathname.endsWith("/docs/legal-stay-in-spain.html")) {
-    var eyebrow = document.querySelector(".eyebrow");
-    if (eyebrow) {
-      eyebrow.textContent = "Документы";
+      if (nextSection) {
+        sidebar.insertBefore(link, nextSection);
+      } else {
+        sidebar.appendChild(link);
+      }
     }
   }
 
