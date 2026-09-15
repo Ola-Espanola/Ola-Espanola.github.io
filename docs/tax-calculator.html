@@ -77,12 +77,18 @@
           </div>
 
           <div class="field">
-            <label for="familySize">Сколько человек подается вместе</label>
-            <select id="familySize">
-              <option value="1">1 — только заявитель</option><option value="2">2 человека</option><option value="3">3 человека</option>
-              <option value="4">4 человека</option><option value="5">5 человек</option><option value="6">6 человек</option>
+            <label for="familyComposition">Состав семьи</label>
+            <select id="familyComposition">
+              <option value="single" data-people="1" data-spouse="0" data-children="0">Только заявитель</option>
+              <option value="spouse" data-people="2" data-spouse="1" data-children="0">Заявитель + супруг(а)</option>
+              <option value="spouse-child-1" data-people="3" data-spouse="1" data-children="1">Заявитель + супруг(а) + 1 ребёнок</option>
+              <option value="spouse-child-2" data-people="4" data-spouse="1" data-children="2">Заявитель + супруг(а) + 2 ребёнка</option>
+              <option value="spouse-child-3" data-people="5" data-spouse="1" data-children="3">Заявитель + супруг(а) + 3 ребёнка</option>
+              <option value="child-1" data-people="2" data-spouse="0" data-children="1">Заявитель + 1 ребёнок</option>
+              <option value="child-2" data-people="3" data-spouse="0" data-children="2">Заявитель + 2 ребёнка</option>
+              <option value="child-3" data-people="4" data-spouse="0" data-children="3">Заявитель + 3 ребёнка</option>
             </select>
-            <p class="field-help">Семья влияет на порог DNV. Налоговые льготы на супруга и детей в этом калькуляторе не моделируются.</p>
+            <p class="field-help">Для порога DNV учитывается общее число членов семьи. Налоговый эффект супруга и детей отдельно не моделируется без данных о доходах, возрасте детей и способе подачи декларации.</p>
           </div>
 
           <div class="field">
@@ -138,13 +144,14 @@
         <h2>Допущения расчета</h2>
         <ul>
           <li><strong>DNV:</strong> SMI 2026 — 17 094 € в год; при пересчете на 12 месяцев это 1 424,50 €. Основной заявитель — 200%, первый член семьи — +75%, каждый следующий — +25%.</li>
+          <li><strong>Состав семьи:</strong> для DNV используется общее число людей в выбранном варианте. Налоговые минимумы и вычеты на супруга и детей не применяются автоматически, потому что они зависят от доходов супруга, возраста детей и способа подачи декларации.</li>
           <li><strong>Обычный IRPF:</strong> отдельно считается государственная и региональная часть по выбранной Comunidad Autónoma. Используется только базовый личный минимум налогоплательщика младше 65 лет; семейные минимумы, региональные вычеты и другие льготы не учитываются.</li>
           <li><strong>Autónomo:</strong> cuota считается по минимальной базе соответствующего tramo RETA 2026 и ставке 31,5%. Для определения tramo расчетный rendimiento neto уменьшается на 7%.</li>
           <li><strong>Autónomo — IRPF:</strong> предполагается estimación directa simplificada. Автоматически учитываются 5% gastos de difícil justificación, максимум 2 000 € в год. Отдельная несовместимая reducción для TRADE/единственного клиента не рассчитывается.</li>
           <li><strong>Работа в найме:</strong> при обычном IRPF учитывается стандартный расход 2 000 € по трудовым доходам. Испанские соцвзносы здесь равны нулю при условии действующего покрытия в стране работодателя.</li>
           <li><strong>Beckham:</strong> 24% до 600 000 € в год и 47% с превышения; региональная шкала при этом не применяется.</li>
         </ul>
-        <p class="small-note">Это предварительная оценка, а не расчет декларации. Не учитываются возрастные повышения mínimo personal, дети и их возраст, доход супруга, совместная декларация, инвестиционные доходы, зарубежные налоги и их зачет, региональные вычеты, амортизация и другие индивидуальные обстоятельства.</p>
+        <p class="small-note">Это предварительная оценка, а не расчет декларации. Не учитываются возрастные повышения mínimo personal, семейные минимумы, доход супруга, совместная декларация, инвестиционные доходы, зарубежные налоги и их зачет, региональные вычеты, амортизация и другие индивидуальные обстоятельства.</p>
         <div class="source-links" aria-label="Официальные источники">
           <a href="https://www.boe.es/eli/es/rd/2026/02/18/126" target="_blank" rel="noopener noreferrer">SMI 2026 — BOE</a>
           <a href="https://ciudadaniaexterior.inclusion.gob.es/documents/d/unidadgrandesempresas/informacion-documentacion-pagina-web-titular-v2" target="_blank" rel="noopener noreferrer">Требования UGE к доходу</a>
@@ -188,7 +195,7 @@
         ];
 
         const $=id=>document.getElementById(id);
-        const monthlyIncome=$('monthlyIncome'),familySize=$('familySize'),regionSelect=$('region'),monthlyExpenses=$('monthlyExpenses');
+        const monthlyIncome=$('monthlyIncome'),familyComposition=$('familyComposition'),regionSelect=$('region'),monthlyExpenses=$('monthlyExpenses');
         const autonomoFields=$('autonomoFields'),employeeFields=$('employeeFields'),dnvStatus=$('dnvStatus'),dnvTitle=$('dnvTitle'),dnvDetail=$('dnvDetail'),dnvBadge=$('dnvBadge');
         const netMonthly=$('netMonthly'),netAnnual=$('netAnnual'),taxMonthly=$('taxMonthly'),taxAnnual=$('taxAnnual'),socialMonthly=$('socialMonthly'),socialAnnual=$('socialAnnual'),burdenRate=$('burdenRate'),burdenAnnual=$('burdenAnnual'),modeNote=$('modeNote');
 
@@ -206,18 +213,26 @@
         function retaMinimumBase(computableMonthlyIncome){const value=Math.max(0,computableMonthlyIncome);return retaBrackets.find(item=>value<=item.max).minBase}
         function selectedWorkType(){return document.querySelector('input[name="workType"]:checked').value}
         function selectedTaxRegime(){return document.querySelector('input[name="taxRegime"]:checked').value}
+        function selectedFamily(){
+          const option=familyComposition.options[familyComposition.selectedIndex];
+          return {
+            people:Math.max(1,Number(option.dataset.people)||1),
+            spouse:option.dataset.spouse==='1',
+            children:Math.max(0,Number(option.dataset.children)||0)
+          };
+        }
         function updateConditionalFields(){const isAutonomo=selectedWorkType()==='autonomo';autonomoFields.hidden=!isAutonomo;employeeFields.hidden=isAutonomo}
 
         function calculate(){
           updateConditionalFields();
-          const workType=selectedWorkType(),incomeMonth=Math.max(0,Number(monthlyIncome.value)||0),family=Math.max(1,Number(familySize.value)||1),regionKey=regionSelect.value,region=regions[regionKey];
+          const workType=selectedWorkType(),incomeMonth=Math.max(0,Number(monthlyIncome.value)||0),family=selectedFamily(),regionKey=regionSelect.value,region=regions[regionKey];
           const expensesMonth=workType==='autonomo'?Math.min(incomeMonth,Math.max(0,Number(monthlyExpenses.value)||0)):0;
-          const grossAnnual=incomeMonth*12,expensesAnnual=expensesMonth*12,minimumDnv=dnvMinimum(family),dnvDifference=incomeMonth-minimumDnv;
+          const grossAnnual=incomeMonth*12,expensesAnnual=expensesMonth*12,minimumDnv=dnvMinimum(family.people),dnvDifference=incomeMonth-minimumDnv;
 
           dnvTitle.textContent=`Минимальный доход для DNV: ${euro(minimumDnv,2)} / мес.`;
           dnvStatus.classList.remove('good','bad');
-          if(incomeMonth>=minimumDnv){dnvStatus.classList.add('good');dnvBadge.textContent='Доход проходит';dnvDetail.textContent=`Для ${family} чел. запас по доходу: ${euro(dnvDifference,2)} в месяц.`}
-          else{dnvStatus.classList.add('bad');dnvBadge.textContent='Ниже порога';dnvDetail.textContent=`Для ${family} чел. не хватает: ${euro(Math.abs(dnvDifference),2)} в месяц.`}
+          if(incomeMonth>=minimumDnv){dnvStatus.classList.add('good');dnvBadge.textContent='Доход проходит';dnvDetail.textContent=`Для ${family.people} чел. запас по доходу: ${euro(dnvDifference,2)} в месяц.`}
+          else{dnvStatus.classList.add('bad');dnvBadge.textContent='Ниже порога';dnvDetail.textContent=`Для ${family.people} чел. не хватает: ${euro(Math.abs(dnvDifference),2)} в месяц.`}
 
           let socialMonth=0,taxYear=0,noteHtml='';
           if(workType==='autonomo'){
@@ -244,7 +259,7 @@
           burdenRate.textContent=percent(effectiveRate);burdenAnnual.textContent=`${euro(totalBurden,0)} в год`;modeNote.innerHTML=noteHtml;
         }
 
-        document.querySelectorAll('input[name="workType"],input[name="taxRegime"],#monthlyIncome,#familySize,#region,#monthlyExpenses').forEach(element=>{element.addEventListener('input',calculate);element.addEventListener('change',calculate)});
+        document.querySelectorAll('input[name="workType"],input[name="taxRegime"],#monthlyIncome,#familyComposition,#region,#monthlyExpenses').forEach(element=>{element.addEventListener('input',calculate);element.addEventListener('change',calculate)});
         calculate();
       })();
     </script>
