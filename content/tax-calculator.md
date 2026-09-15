@@ -3,6 +3,7 @@ title: "Налоговый калькулятор для цифровых коч
 description: "Ориентировочный расчет налогов, взносов autónomo и минимального дохода для ВНЖ цифрового кочевника в Испании в 2026 году."
 canonical: "https://ola-espanola.github.io/docs/tax-calculator.html"
 robots: "noindex,nofollow,noarchive"
+published: false
 ---
 
 # Налоговый калькулятор для цифровых кочевников в Испании
