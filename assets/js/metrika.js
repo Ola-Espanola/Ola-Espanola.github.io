@@ -10,7 +10,6 @@
   favicon.setAttribute("sizes", "any");
 })();
 
-
 (function (m, e, t, r, i, k, a) {
   m[i] = m[i] || function () {
     (m[i].a = m[i].a || []).push(arguments);
@@ -29,80 +28,75 @@ ym(112065150, "init", {
   accurateTrackBounce: true
 });
 
-// Tax calculator: keep the DNV income threshold visibly in sync with family size.
-// This is intentionally isolated here so the direct-access calculator stays robust
-// even if a browser does not dispatch the same input/change sequence for <select>.
+// Tax calculator interaction guard.
+// The calculator itself lives in docs/tax-calculator.html. This small bridge only
+// makes control changes robust across browser-restored form state (including bfcache).
 (function () {
-  function initTaxCalculatorFamilyThreshold() {
-    var familySize = document.getElementById("familySize");
-    var monthlyIncome = document.getElementById("monthlyIncome");
-    var dnvStatus = document.getElementById("dnvStatus");
-    var dnvDetail = document.getElementById("dnvDetail");
-    var dnvBadge = document.getElementById("dnvBadge");
-    var resultGrid = document.querySelector(".calculator-card[aria-labelledby=\"result-title\"] .result-grid");
+  function initTaxCalculatorInteractions() {
+    var employee = document.getElementById("work-employee");
+    var autonomo = document.getElementById("work-autonomo");
+    var regular = document.getElementById("regime-regular");
+    var beckham = document.getElementById("regime-beckham");
+    var income = document.getElementById("monthlyIncome");
+    var family = document.getElementById("familyComposition");
+    var region = document.getElementById("region");
+    var expenses = document.getElementById("monthlyExpenses");
 
-    if (!familySize || !monthlyIncome || !dnvStatus || !dnvDetail || !dnvBadge || !resultGrid) return;
+    if (!employee || !autonomo || !regular || !beckham || !income || !family || !region) return;
 
-    var SMI_MONTH_12 = 17094 / 12;
-    var minimumCard = document.getElementById("dnvMinimumCard");
+    var nudging = false;
 
-    if (!minimumCard) {
-      minimumCard = document.createElement("div");
-      minimumCard.id = "dnvMinimumCard";
-      minimumCard.className = "result-item";
-      minimumCard.innerHTML = '<span class="result-label">Минимальный доход для DNV</span><strong id="dnvMinimumValue" class="result-value">—</strong><span id="dnvMinimumSub" class="result-sub">—</span>';
-      resultGrid.insertBefore(minimumCard, resultGrid.firstChild);
-    }
-
-    function euro(value, decimals) {
-      return new Intl.NumberFormat("ru-RU", {
-        style: "currency",
-        currency: "EUR",
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals
-      }).format(value);
-    }
-
-    function minimumForFamily(size) {
-      var multiplier = 2;
-      if (size >= 2) multiplier += 0.75;
-      if (size > 2) multiplier += (size - 2) * 0.25;
-      return SMI_MONTH_12 * multiplier;
-    }
-
-    function updateFamilyThreshold() {
-      var size = Math.max(1, Number(familySize.value) || 1);
-      var income = Math.max(0, Number(monthlyIncome.value) || 0);
-      var minimum = minimumForFamily(size);
-      var difference = income - minimum;
-      var value = document.getElementById("dnvMinimumValue");
-      var sub = document.getElementById("dnvMinimumSub");
-
-      if (value) value.textContent = euro(minimum, 2) + " / мес.";
-      if (sub) sub.textContent = size === 1 ? "для 1 человека" : "для " + size + " человек";
-
-      dnvStatus.classList.remove("good", "bad");
-      if (income >= minimum) {
-        dnvStatus.classList.add("good");
-        dnvBadge.textContent = "Доход проходит";
-        dnvDetail.textContent = "Минимум для " + size + " чел.: " + euro(minimum, 2) + " / мес. Запас: " + euro(difference, 2) + ".";
-      } else {
-        dnvStatus.classList.add("bad");
-        dnvBadge.textContent = "Ниже порога";
-        dnvDetail.textContent = "Минимум для " + size + " чел.: " + euro(minimum, 2) + " / мес. Не хватает: " + euro(Math.abs(difference), 2) + ".";
+    function forceRecalculate(source) {
+      if (nudging || source === income) return;
+      nudging = true;
+      try {
+        income.dispatchEvent(new Event("input", { bubbles: false }));
+      } finally {
+        nudging = false;
       }
     }
 
-    familySize.addEventListener("change", updateFamilyThreshold);
-    familySize.addEventListener("input", updateFamilyThreshold);
-    monthlyIncome.addEventListener("change", updateFamilyThreshold);
-    monthlyIncome.addEventListener("input", updateFamilyThreshold);
-    updateFamilyThreshold();
+    // When the employee mode is opened, always start from ordinary IRPF.
+    // Otherwise some browsers restore a previously selected Beckham radio button,
+    // where region and joint-family taxation intentionally do not affect the tax.
+    employee.addEventListener("change", function () {
+      if (!employee.checked) return;
+      regular.checked = true;
+      beckham.checked = false;
+      forceRecalculate(employee);
+    });
+
+    [regular, beckham, family, region].forEach(function (control) {
+      control.addEventListener("change", function () {
+        forceRecalculate(control);
+      });
+      control.addEventListener("input", function () {
+        forceRecalculate(control);
+      });
+    });
+
+    if (expenses) {
+      expenses.addEventListener("change", function () {
+        forceRecalculate(expenses);
+      });
+      expenses.addEventListener("input", function () {
+        forceRecalculate(expenses);
+      });
+    }
+
+    // Recalculate once when a restored page becomes visible again.
+    window.addEventListener("pageshow", function () {
+      if (employee.checked && beckham.checked) {
+        regular.checked = true;
+        beckham.checked = false;
+      }
+      forceRecalculate(document.body);
+    });
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initTaxCalculatorFamilyThreshold);
+    document.addEventListener("DOMContentLoaded", initTaxCalculatorInteractions);
   } else {
-    initTaxCalculatorFamilyThreshold();
+    initTaxCalculatorInteractions();
   }
 })();
