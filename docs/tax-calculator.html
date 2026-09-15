@@ -73,7 +73,7 @@
           <div class="field">
             <label for="monthlyIncome">Доход до налогов в месяц</label>
             <div class="input-wrap"><input id="monthlyIncome" type="number" min="0" step="50" value="4000" inputmode="decimal"><span class="input-suffix">€</span></div>
-            <p class="field-help">Для DNV сравнивается доход до налогов и взносов.</p>
+            <p class="field-help">Для расчета предполагается, что весь указанный доход получает заявитель. Доход супруга отдельно не учитывается.</p>
           </div>
 
           <div class="field">
@@ -88,7 +88,7 @@
               <option value="child-2" data-people="3" data-spouse="0" data-children="2">Заявитель + 2 ребёнка</option>
               <option value="child-3" data-people="4" data-spouse="0" data-children="3">Заявитель + 3 ребёнка</option>
             </select>
-            <p class="field-help">Для порога DNV учитывается общее число членов семьи. Налоговый эффект супруга и детей отдельно не моделируется без данных о доходах, возрасте детей и способе подачи декларации.</p>
+            <p class="field-help">Семейные варианты при обычном IRPF считаются как совместная декларация. Для детей учитывается базовый mínimo por descendientes.</p>
           </div>
 
           <div class="field">
@@ -144,19 +144,22 @@
         <h2>Допущения расчета</h2>
         <ul>
           <li><strong>DNV:</strong> SMI 2026 — 17 094 € в год; при пересчете на 12 месяцев это 1 424,50 €. Основной заявитель — 200%, первый член семьи — +75%, каждый следующий — +25%.</li>
-          <li><strong>Состав семьи:</strong> для DNV используется общее число людей в выбранном варианте. Налоговые минимумы и вычеты на супруга и детей не применяются автоматически, потому что они зависят от доходов супруга, возраста детей и способа подачи декларации.</li>
-          <li><strong>Обычный IRPF:</strong> отдельно считается государственная и региональная часть по выбранной Comunidad Autónoma. Используется только базовый личный минимум налогоплательщика младше 65 лет; семейные минимумы, региональные вычеты и другие льготы не учитываются.</li>
+          <li><strong>Совместная декларация:</strong> если выбран супруг(а), обычный IRPF рассчитывается как tributación conjunta супругов с уменьшением общей базы на 3 400 € в год. Для варианта «заявитель + ребёнок/дети» применяется совместная декларация неполной семьи с уменьшением базы на 2 150 € в год.</li>
+          <li><strong>Дети:</strong> предполагается, что они дают право на mínimo por descendientes. Учитываются базовые суммы за первого, второго и третьего ребёнка; дополнительное увеличение для детей младше 3 лет не учитывается.</li>
+          <li><strong>Доход семьи:</strong> весь введенный доход считается доходом заявителя; собственный доход супруга в этом упрощенном расчете принимается равным нулю.</li>
+          <li><strong>Обычный IRPF:</strong> отдельно считается государственная и региональная часть по выбранной Comunidad Autónoma. Для региональной части используются действующие в 2026 году региональные mínimos personal y por descendientes.</li>
           <li><strong>Autónomo:</strong> cuota считается по минимальной базе соответствующего tramo RETA 2026 и ставке 31,5%. Для определения tramo расчетный rendimiento neto уменьшается на 7%.</li>
           <li><strong>Autónomo — IRPF:</strong> предполагается estimación directa simplificada. Автоматически учитываются 5% gastos de difícil justificación, максимум 2 000 € в год. Отдельная несовместимая reducción для TRADE/единственного клиента не рассчитывается.</li>
           <li><strong>Работа в найме:</strong> при обычном IRPF учитывается стандартный расход 2 000 € по трудовым доходам. Испанские соцвзносы здесь равны нулю при условии действующего покрытия в стране работодателя.</li>
-          <li><strong>Beckham:</strong> 24% до 600 000 € в год и 47% с превышения; региональная шкала при этом не применяется.</li>
+          <li><strong>Beckham:</strong> 24% до 600 000 € в год и 47% с превышения; семейная совместная декларация и региональная шкала к этому режиму здесь не применяются.</li>
         </ul>
-        <p class="small-note">Это предварительная оценка, а не расчет декларации. Не учитываются возрастные повышения mínimo personal, семейные минимумы, доход супруга, совместная декларация, инвестиционные доходы, зарубежные налоги и их зачет, региональные вычеты, амортизация и другие индивидуальные обстоятельства.</p>
+        <p class="small-note">Это предварительная оценка, а не расчет декларации. Для варианта одного родителя с детьми предполагается, что он имеет право на совместную декларацию как неполная семья и не проживает совместно со вторым родителем. Не учитываются доплата к mínimo por descendientes для детей младше 3 лет, инвалидность, инвестиционные доходы, зарубежные налоги и их зачет, региональные вычеты, амортизация и другие индивидуальные обстоятельства.</p>
         <div class="source-links" aria-label="Официальные источники">
           <a href="https://www.boe.es/eli/es/rd/2026/02/18/126" target="_blank" rel="noopener noreferrer">SMI 2026 — BOE</a>
           <a href="https://ciudadaniaexterior.inclusion.gob.es/documents/d/unidadgrandesempresas/informacion-documentacion-pagina-web-titular-v2" target="_blank" rel="noopener noreferrer">Требования UGE к доходу</a>
           <a href="https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/CotizacionRecaudacionTrabajadores/10721/10724/1320/1322/cuota4425?changeLanguage=es" target="_blank" rel="noopener noreferrer">RETA 2026 — Seguridad Social</a>
           <a href="https://www.hacienda.gob.es/es-es/areas%20tematicas/financiacion%20autonomica/paginas/tributacion-autonomica-2026.aspx" target="_blank" rel="noopener noreferrer">IRPF по регионам 2026 — Hacienda</a>
+          <a href="https://www.boe.es/eli/es/l/2006/11/28/35/con" target="_blank" rel="noopener noreferrer">Tributación conjunta и mínimos — BOE</a>
           <a href="https://sede.agenciatributaria.gob.es/Sede/irpf/empresarios-individuales-profesionales/regimenes-determinar-rendimiento-actividad/estimacion-directa-simplificada.html" target="_blank" rel="noopener noreferrer">Estimación directa simplificada — AEAT</a>
         </div>
       </section>
@@ -170,23 +173,24 @@
         const stateScale=[
           {top:12450,rate:.095},{top:20200,rate:.12},{top:35200,rate:.15},{top:60000,rate:.185},{top:300000,rate:.225},{top:Infinity,rate:.245}
         ];
+        const stateChildren=[2400,2700,4000,4500];
         const regions={
-          valencia:{label:'Comunitat Valenciana',minimum:6105,scale:[
+          valencia:{label:'Comunitat Valenciana',minimum:6105,children:[2640,2970,4400,4950],scale:[
             {top:12000,rate:.09},{top:22000,rate:.12},{top:32000,rate:.15},{top:42000,rate:.175},{top:52000,rate:.20},{top:62000,rate:.225},{top:72000,rate:.25},{top:100000,rate:.265},{top:150000,rate:.275},{top:200000,rate:.285},{top:Infinity,rate:.295}
           ]},
-          cataluna:{label:'Cataluña',minimum:5550,scale:[
+          cataluna:{label:'Cataluña',minimum:5550,children:[2400,2700,4000,4500],scale:[
             {top:12500,rate:.095},{top:22000,rate:.125},{top:33000,rate:.16},{top:53000,rate:.19},{top:90000,rate:.215},{top:120000,rate:.235},{top:175000,rate:.245},{top:Infinity,rate:.255}
           ]},
-          madrid:{label:'Madrid',minimum:5956.65,scale:[
+          madrid:{label:'Madrid',minimum:5956.65,children:[2575.85,2897.83,4400,4950],scale:[
             {top:13362.22,rate:.085},{top:19004.63,rate:.107},{top:35425.68,rate:.128},{top:57320.40,rate:.174},{top:Infinity,rate:.205}
           ]},
-          andalucia:{label:'Andalucía',minimum:5790,scale:[
+          andalucia:{label:'Andalucía',minimum:5790,children:[2510,2820,4170,4700],scale:[
             {top:13000,rate:.095},{top:21100,rate:.12},{top:35200,rate:.15},{top:60000,rate:.185},{top:Infinity,rate:.225}
           ]},
-          canarias:{label:'Canarias',minimum:5606,scale:[
+          canarias:{label:'Canarias',minimum:5606,children:[2424,2727,4040,4545],scale:[
             {top:13748,rate:.09},{top:19422,rate:.115},{top:35924,rate:.14},{top:57566,rate:.185},{top:93268,rate:.235},{top:123745,rate:.25},{top:Infinity,rate:.26}
           ]},
-          baleares:{label:'Illes Balears',minimum:5550,scale:[
+          baleares:{label:'Illes Balears',minimum:5550,children:[2400,2970,4400,4950],scale:[
             {top:10000,rate:.09},{top:18000,rate:.1125},{top:30000,rate:.1425},{top:48000,rate:.175},{top:70000,rate:.19},{top:90000,rate:.2175},{top:120000,rate:.2275},{top:175000,rate:.2375},{top:Infinity,rate:.2475}
           ]}
         };
@@ -202,10 +206,15 @@
         function euro(value,decimals=0){return new Intl.NumberFormat('ru-RU',{style:'currency',currency:'EUR',minimumFractionDigits:decimals,maximumFractionDigits:decimals}).format(Math.max(0,value||0))}
         function percent(value){return new Intl.NumberFormat('ru-RU',{style:'percent',minimumFractionDigits:1,maximumFractionDigits:1}).format(Math.max(0,value||0))}
         function progressiveTax(base,scale){let value=Math.max(0,base),previous=0,tax=0;for(const band of scale){const part=Math.max(0,Math.min(value,band.top)-previous);tax+=part*band.rate;if(value<=band.top)break;previous=band.top}return tax}
-        function regularIrpf(taxableBase,regionKey){
-          const base=Math.max(0,taxableBase),r=regions[regionKey];
-          const stateQuota=progressiveTax(base,stateScale)-progressiveTax(Math.min(base,STATE_PERSONAL_MINIMUM),stateScale);
-          const regionalQuota=progressiveTax(base,r.scale)-progressiveTax(Math.min(base,r.minimum),r.scale);
+        function childMinimum(count,amounts){let total=0;for(let i=0;i<count;i++)total+=amounts[Math.min(i,amounts.length-1)];return total}
+        function jointReduction(family){if(family.spouse)return 3400;if(family.children>0)return 2150;return 0}
+        function regularIrpf(taxableBase,regionKey,family){
+          const r=regions[regionKey];
+          const liquidableBase=Math.max(0,taxableBase-jointReduction(family));
+          const stateMinimum=STATE_PERSONAL_MINIMUM+childMinimum(family.children,stateChildren);
+          const regionalMinimum=r.minimum+childMinimum(family.children,r.children);
+          const stateQuota=progressiveTax(liquidableBase,stateScale)-progressiveTax(Math.min(liquidableBase,stateMinimum),stateScale);
+          const regionalQuota=progressiveTax(liquidableBase,r.scale)-progressiveTax(Math.min(liquidableBase,regionalMinimum),r.scale);
           return Math.max(0,stateQuota+regionalQuota);
         }
         function beckhamTax(grossAnnual){return Math.min(grossAnnual,600000)*.24+Math.max(0,grossAnnual-600000)*.47}
@@ -215,11 +224,7 @@
         function selectedTaxRegime(){return document.querySelector('input[name="taxRegime"]:checked').value}
         function selectedFamily(){
           const option=familyComposition.options[familyComposition.selectedIndex];
-          return {
-            people:Math.max(1,Number(option.dataset.people)||1),
-            spouse:option.dataset.spouse==='1',
-            children:Math.max(0,Number(option.dataset.children)||0)
-          };
+          return {people:Math.max(1,Number(option.dataset.people)||1),spouse:option.dataset.spouse==='1',children:Math.max(0,Number(option.dataset.children)||0)};
         }
         function updateConditionalFields(){const isAutonomo=selectedWorkType()==='autonomo';autonomoFields.hidden=!isAutonomo;employeeFields.hidden=isAutonomo}
 
@@ -235,20 +240,23 @@
           else{dnvStatus.classList.add('bad');dnvBadge.textContent='Ниже порога';dnvDetail.textContent=`Для ${family.people} чел. не хватает: ${euro(Math.abs(dnvDifference),2)} в месяц.`}
 
           let socialMonth=0,taxYear=0,noteHtml='';
+          const familyTaxNote=family.spouse?'Совместная декларация супругов: база уменьшена на 3 400 € в год.':family.children>0?'Совместная декларация неполной семьи: база уменьшена на 2 150 € в год.':'Индивидуальная декларация.';
+          const childrenTaxNote=family.children>0?` Учтен mínimo por descendientes для ${family.children} ребёнка/детей.`:'';
+
           if(workType==='autonomo'){
             const computableRetaIncome=Math.max(0,(incomeMonth-expensesMonth)*.93),minBase=retaMinimumBase(computableRetaIncome);
             socialMonth=minBase*RETA_RATE_2026;
             const socialYear=socialMonth*12,preDifficultBase=Math.max(0,grossAnnual-expensesAnnual-socialYear),difficultExpense=Math.min(2000,preDifficultBase*.05),taxableBase=Math.max(0,preDifficultBase-difficultExpense);
-            taxYear=regularIrpf(taxableBase,regionKey);
-            noteHtml=`<p><strong>Autónomo · ${region.label}:</strong> расчетная cuota — ${euro(socialMonth,2)} в месяц. База RETA — ${euro(minBase,2)}.</p><p>Для IRPF учтены ваши расходы, cuota и ${euro(difficultExpense,0)} в год как 5% gastos de difícil justificación (лимит 2 000 €).</p>`;
+            taxYear=regularIrpf(taxableBase,regionKey,family);
+            noteHtml=`<p><strong>Autónomo · ${region.label}:</strong> расчетная cuota — ${euro(socialMonth,2)} в месяц. База RETA — ${euro(minBase,2)}.</p><p>Для IRPF учтены ваши расходы, cuota и ${euro(difficultExpense,0)} в год как 5% gastos de difícil justificación (лимит 2 000 €).</p><p>${familyTaxNote}${childrenTaxNote}</p>`;
           }else{
             const regime=selectedTaxRegime();socialMonth=0;
             if(regime==='beckham'){
               taxYear=beckhamTax(grossAnnual);
-              noteHtml=`<p><strong>Режим Beckham:</strong> 24% до 600 000 € в год и 47% с превышения. Comunidad Autónoma на эту ставку не влияет.</p><p>Испанские соцвзносы здесь считаются равными нулю при наличии действующего покрытия в стране работодателя.</p>`;
+              noteHtml=`<p><strong>Режим Beckham:</strong> 24% до 600 000 € в год и 47% с превышения. Comunidad Autónoma и совместная семейная декларация на эту ставку здесь не влияют.</p><p>Испанские соцвзносы здесь считаются равными нулю при наличии действующего покрытия в стране работодателя.</p>`;
             }else{
-              const taxableBase=Math.max(0,grossAnnual-EMPLOYEE_GENERAL_EXPENSE);taxYear=regularIrpf(taxableBase,regionKey);
-              noteHtml=`<p><strong>Работа в найме · ${region.label}:</strong> IRPF рассчитан как государственная + региональная часть; учтен стандартный расход 2 000 € по трудовым доходам.</p><p>Испанские соцвзносы здесь считаются равными нулю при наличии действующего покрытия в стране работодателя.</p>`;
+              const taxableBase=Math.max(0,grossAnnual-EMPLOYEE_GENERAL_EXPENSE);taxYear=regularIrpf(taxableBase,regionKey,family);
+              noteHtml=`<p><strong>Работа в найме · ${region.label}:</strong> IRPF рассчитан как государственная + региональная часть; учтен стандартный расход 2 000 € по трудовым доходам.</p><p>${familyTaxNote}${childrenTaxNote}</p><p>Испанские соцвзносы здесь считаются равными нулю при наличии действующего покрытия в стране работодателя.</p>`;
             }
           }
 
