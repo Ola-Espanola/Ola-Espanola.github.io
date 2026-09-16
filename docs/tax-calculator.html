@@ -153,8 +153,8 @@
           <li><strong>Совместная декларация:</strong> если выбран супруг(а), обычный IRPF рассчитывается как tributación conjunta супругов с уменьшением общей базы на 3 400 € в год. Для варианта «заявитель + ребёнок/дети» применяется совместная декларация неполной семьи с уменьшением базы на 2 150 € в год.</li>
           <li><strong>Дети:</strong> предполагается, что они дают право на mínimo por descendientes. Учитываются базовые суммы за первого, второго и третьего ребёнка; дополнительное увеличение для детей младше 3 лет не учитывается.</li>
           <li><strong>Доход семьи:</strong> весь введенный доход считается доходом заявителя; собственный доход супруга в этом упрощенном расчете принимается равным нулю.</li>
-          <li><strong>Обычный IRPF:</strong> отдельно считается государственная и региональная часть по выбранной Comunidad Autónoma. Для региональной части используются действующие в 2026 году региональные mínimos personal y por descendientes.</li>
-          <li><strong>Autónomo:</strong> без льгот cuota считается по минимальной базе соответствующего tramo RETA 2026 и ставке 31,5%. Для определения tramo расчетный rendimiento neto уменьшается на 7%.</li>
+          <li><strong>Обычный IRPF:</strong> отдельно считается государственная и региональная часть по выбранной Comunidad Autónoma. Для Comunitat Valenciana используется новая шкала 2026 года, действующая с 1 января 2026 года.</li>
+          <li><strong>Autónomo:</strong> без льгот cuota считается по минимальной базе соответствующего tramo RETA 2026 и ставке 31,5%. Для определения tramo берется rendimiento neto по правилам IRPF, к нему обратно добавляются cuotas Seguridad Social, после чего применяется общий вычет 7%.</li>
           <li><strong>Льготная cuota:</strong> при включенной опции используется 88,64 € в месяц в течение первых 12 месяцев. В расчете это 80 € cuota reducida плюс MEI 2026. Право на льготу проверяется отдельно; продление на второй год калькулятор не моделирует.</li>
           <li><strong>Autónomo — IRPF:</strong> для простоты фактические расходы autónomo не вводятся и принимаются равными нулю. Предполагается estimación directa simplificada; автоматически учитываются 5% gastos de difícil justificación, максимум 2 000 € в год. Отдельная несовместимая reducción для TRADE/единственного клиента не рассчитывается.</li>
           <li><strong>Reducción 20%:</strong> при включенной опции на 20% уменьшается положительный rendimiento neto после cuota и 5% gastos de difícil justificación. Льгота применяется в первом прибыльном налоговом периоде новой деятельности и в следующем; база reducción ограничена 100 000 € в год. Не применяется, если более 50% доходов получено от лица или компании, у которых налогоплательщик получал трудовой доход в предыдущем году.</li>
@@ -176,7 +176,7 @@
         const stateChildren=[2400,2700,4000,4500];
         const regions={
           valencia:{label:'Comunitat Valenciana',minimum:6105,children:[2640,2970,4400,4950],scale:[
-            {top:12000,rate:.09},{top:22000,rate:.12},{top:32000,rate:.15},{top:42000,rate:.175},{top:52000,rate:.20},{top:62000,rate:.225},{top:72000,rate:.25},{top:100000,rate:.265},{top:150000,rate:.275},{top:200000,rate:.285},{top:Infinity,rate:.295}
+            {top:12000,rate:.088},{top:22000,rate:.117},{top:32000,rate:.146},{top:42000,rate:.17},{top:52000,rate:.194},{top:62000,rate:.219},{top:72000,rate:.244},{top:100000,rate:.261},{top:150000,rate:.2735},{top:200000,rate:.2835},{top:Infinity,rate:.2935}
           ]},
           cataluna:{label:'Cataluña',minimum:5550,children:[2400,2700,4000,4500],scale:[
             {top:12500,rate:.095},{top:22000,rate:.125},{top:33000,rate:.16},{top:53000,rate:.19},{top:90000,rate:.215},{top:120000,rate:.235},{top:175000,rate:.245},{top:Infinity,rate:.255}
@@ -220,6 +220,23 @@
         function beckhamTax(grossAnnual){return Math.min(grossAnnual,600000)*.24+Math.max(0,grossAnnual-600000)*.47}
         function dnvMinimum(size){let multiplier=2;if(size>=2)multiplier+=.75;if(size>2)multiplier+=(size-2)*.25;return SMI_MONTH_12*multiplier}
         function retaMinimumBase(computableMonthlyIncome){const value=Math.max(0,computableMonthlyIncome);return retaBrackets.find(item=>value<=item.max).minBase}
+        function regularRetaCalculation(grossAnnual){
+          let minBase=retaMinimumBase((grossAnnual/12)*.93),socialMonth=0,difficultExpense=0,computableMonthlyIncome=0;
+          for(let i=0;i<10;i++){
+            socialMonth=minBase*RETA_RATE_2026;
+            const preDifficultBase=Math.max(0,grossAnnual-socialMonth*12);
+            difficultExpense=Math.min(2000,preDifficultBase*.05);
+            computableMonthlyIncome=Math.max(0,(grossAnnual-difficultExpense)/12*.93);
+            const nextBase=retaMinimumBase(computableMonthlyIncome);
+            if(nextBase===minBase)break;
+            minBase=nextBase;
+          }
+          socialMonth=minBase*RETA_RATE_2026;
+          const preDifficultBase=Math.max(0,grossAnnual-socialMonth*12);
+          difficultExpense=Math.min(2000,preDifficultBase*.05);
+          computableMonthlyIncome=Math.max(0,(grossAnnual-difficultExpense)/12*.93);
+          return {minBase,socialMonth,difficultExpense,computableMonthlyIncome};
+        }
         function selectedWorkType(){return document.querySelector('input[name="workType"]:checked').value}
         function selectedTaxRegime(){return document.querySelector('input[name="taxRegime"]:checked').value}
         function selectedFamily(){
@@ -243,11 +260,19 @@
           const childrenTaxNote=family.children>0?` Учтен mínimo por descendientes для ${family.children} ребёнка/детей.`:'';
 
           if(workType==='autonomo'){
-            const computableRetaIncome=Math.max(0,incomeMonth*.93),minBase=retaMinimumBase(computableRetaIncome),useReducedQuota=reducedQuota.checked,useStartReduction=startReduction.checked;
-            socialMonth=useReducedQuota?REDUCED_RETA_MONTH_2026:minBase*RETA_RATE_2026;
-            const socialYear=socialMonth*12,preDifficultBase=Math.max(0,grossAnnual-socialYear),difficultExpense=Math.min(2000,preDifficultBase*.05),netBeforeStartReduction=Math.max(0,preDifficultBase-difficultExpense),startReductionAmount=useStartReduction?Math.min(100000,netBeforeStartReduction)*.20:0,taxableBase=Math.max(0,netBeforeStartReduction-startReductionAmount);
+            const useReducedQuota=reducedQuota.checked,useStartReduction=startReduction.checked;
+            let minBase=null,difficultExpense=0,computableRetaIncome=null;
+            if(useReducedQuota){
+              socialMonth=REDUCED_RETA_MONTH_2026;
+              const preDifficultBase=Math.max(0,grossAnnual-socialMonth*12);
+              difficultExpense=Math.min(2000,preDifficultBase*.05);
+            }else{
+              const reta=regularRetaCalculation(grossAnnual);
+              minBase=reta.minBase;socialMonth=reta.socialMonth;difficultExpense=reta.difficultExpense;computableRetaIncome=reta.computableMonthlyIncome;
+            }
+            const socialYear=socialMonth*12,preDifficultBase=Math.max(0,grossAnnual-socialYear),netBeforeStartReduction=Math.max(0,preDifficultBase-difficultExpense),startReductionAmount=useStartReduction?Math.min(100000,netBeforeStartReduction)*.20:0,taxableBase=Math.max(0,netBeforeStartReduction-startReductionAmount);
             taxYear=regularIrpf(taxableBase,regionKey,family);
-            const socialNote=useReducedQuota?`льготная cuota — ${euro(socialMonth,2)} в месяц`:`расчетная cuota — ${euro(socialMonth,2)} в месяц; база RETA — ${euro(minBase,2)}`;
+            const socialNote=useReducedQuota?`льготная cuota — ${euro(socialMonth,2)} в месяц`:`расчетная cuota — ${euro(socialMonth,2)} в месяц; база RETA — ${euro(minBase,2)}; расчетный rendimiento для tramo — ${euro(computableRetaIncome,2)} в месяц`;
             const startReductionNote=useStartReduction?` Применена reducción 20% por inicio de actividad: ${euro(startReductionAmount,0)} в год.`:'';
             noteHtml=`<p><strong>Autónomo · ${region.label}:</strong> ${socialNote}.</p><p>Для IRPF учтены cuota и ${euro(difficultExpense,0)} в год как 5% gastos de difícil justificación (лимит 2 000 €).${startReductionNote}</p><p>${familyTaxNote}${childrenTaxNote}</p>`;
           }else{
