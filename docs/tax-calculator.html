@@ -106,12 +106,6 @@
 
           <div id="autonomoFields" class="conditional">
             <div class="field">
-              <label for="monthlyExpenses">Расходы autónomo в месяц</label>
-              <div class="input-wrap"><input id="monthlyExpenses" type="number" min="0" step="25" value="0" inputmode="decimal"><span class="input-suffix">€</span></div>
-              <p class="field-help">Реальные налогово-вычитаемые расходы без cuota Seguridad Social.</p>
-            </div>
-
-            <div class="field">
               <span class="field-label">Льготы нового autónomo</span>
               <div class="check-list">
                 <label class="check-option" for="reducedQuota">
@@ -164,12 +158,12 @@
           <li><strong>Обычный IRPF:</strong> отдельно считается государственная и региональная часть по выбранной Comunidad Autónoma. Для региональной части используются действующие в 2026 году региональные mínimos personal y por descendientes.</li>
           <li><strong>Autónomo:</strong> без льгот cuota считается по минимальной базе соответствующего tramo RETA 2026 и ставке 31,5%. Для определения tramo расчетный rendimiento neto уменьшается на 7%.</li>
           <li><strong>Льготная cuota:</strong> при включенной опции используется 88,64 € в месяц в течение первых 12 месяцев. В расчете это 80 € cuota reducida плюс MEI 2026. Право на льготу проверяется отдельно; продление на второй год калькулятор не моделирует.</li>
-          <li><strong>Autónomo — IRPF:</strong> предполагается estimación directa simplificada. Автоматически учитываются 5% gastos de difícil justificación, максимум 2 000 € в год. Отдельная несовместимая reducción для TRADE/единственного клиента не рассчитывается.</li>
-          <li><strong>Reducción 20%:</strong> при включенной опции на 20% уменьшается положительный rendimiento neto после учитываемых расходов. Льгота применяется в первом прибыльном налоговом периоде новой деятельности и в следующем; база reducción ограничена 100 000 € в год. Не применяется, если более 50% доходов получено от лица или компании, у которых налогоплательщик получал трудовой доход в предыдущем году.</li>
+          <li><strong>Autónomo — IRPF:</strong> для простоты фактические расходы autónomo не вводятся и принимаются равными нулю. Предполагается estimación directa simplificada; автоматически учитываются 5% gastos de difícil justificación, максимум 2 000 € в год. Отдельная несовместимая reducción для TRADE/единственного клиента не рассчитывается.</li>
+          <li><strong>Reducción 20%:</strong> при включенной опции на 20% уменьшается положительный rendimiento neto после cuota и 5% gastos de difícil justificación. Льгота применяется в первом прибыльном налоговом периоде новой деятельности и в следующем; база reducción ограничена 100 000 € в год. Не применяется, если более 50% доходов получено от лица или компании, у которых налогоплательщик получал трудовой доход в предыдущем году.</li>
           <li><strong>Работа в найме:</strong> при обычном IRPF учитывается стандартный расход 2 000 € по трудовым доходам. Испанские соцвзносы здесь равны нулю при условии действующего покрытия в стране работодателя.</li>
           <li><strong>Beckham:</strong> 24% до 600 000 € в год и 47% с превышения; семейная совместная декларация и региональная шкала к этому режиму здесь не применяются.</li>
         </ul>
-        <p class="small-note">Это предварительная оценка, а не расчет декларации. Для варианта одного родителя с детьми предполагается, что он имеет право на совместную декларацию как неполная семья и не проживает совместно со вторым родителем. Не учитываются доплата к mínimo por descendientes для детей младше 3 лет, инвалидность, инвестиционные доходы, зарубежные налоги и их зачет, региональные вычеты, амортизация и другие индивидуальные обстоятельства.</p>
+        <p class="small-note">Это предварительная оценка, а не расчет декларации. Для варианта одного родителя с детьми предполагается, что он имеет право на совместную декларацию как неполная семья и не проживает совместно со вторым родителем. Не учитываются фактические расходы autónomo, доплата к mínimo por descendientes для детей младше 3 лет, инвалидность, инвестиционные доходы, зарубежные налоги и их зачет, региональные вычеты, амортизация и другие индивидуальные обстоятельства.</p>
       </section>
     </main>
 
@@ -207,7 +201,7 @@
         ];
 
         const $=id=>document.getElementById(id);
-        const monthlyIncome=$('monthlyIncome'),familyComposition=$('familyComposition'),regionSelect=$('region'),monthlyExpenses=$('monthlyExpenses'),reducedQuota=$('reducedQuota'),startReduction=$('startReduction');
+        const monthlyIncome=$('monthlyIncome'),familyComposition=$('familyComposition'),regionSelect=$('region'),reducedQuota=$('reducedQuota'),startReduction=$('startReduction');
         const autonomoFields=$('autonomoFields'),employeeFields=$('employeeFields'),dnvStatus=$('dnvStatus'),dnvTitle=$('dnvTitle'),dnvDetail=$('dnvDetail'),dnvBadge=$('dnvBadge');
         const netMonthly=$('netMonthly'),netAnnual=$('netAnnual'),taxMonthly=$('taxMonthly'),taxAnnual=$('taxAnnual'),socialMonthly=$('socialMonthly'),socialAnnual=$('socialAnnual'),burdenRate=$('burdenRate'),burdenAnnual=$('burdenAnnual'),modeNote=$('modeNote');
 
@@ -239,8 +233,7 @@
         function calculate(){
           updateConditionalFields();
           const workType=selectedWorkType(),incomeMonth=Math.max(0,Number(monthlyIncome.value)||0),family=selectedFamily(),regionKey=regionSelect.value,region=regions[regionKey];
-          const expensesMonth=workType==='autonomo'?Math.min(incomeMonth,Math.max(0,Number(monthlyExpenses.value)||0)):0;
-          const grossAnnual=incomeMonth*12,expensesAnnual=expensesMonth*12,minimumDnv=dnvMinimum(family.people),dnvDifference=incomeMonth-minimumDnv;
+          const grossAnnual=incomeMonth*12,minimumDnv=dnvMinimum(family.people),dnvDifference=incomeMonth-minimumDnv;
 
           dnvTitle.textContent=`Минимальный доход для DNV: ${euro(minimumDnv,2)} / мес.`;
           dnvStatus.classList.remove('good','bad');
@@ -252,13 +245,13 @@
           const childrenTaxNote=family.children>0?` Учтен mínimo por descendientes для ${family.children} ребёнка/детей.`:'';
 
           if(workType==='autonomo'){
-            const computableRetaIncome=Math.max(0,(incomeMonth-expensesMonth)*.93),minBase=retaMinimumBase(computableRetaIncome),useReducedQuota=reducedQuota.checked,useStartReduction=startReduction.checked;
+            const computableRetaIncome=Math.max(0,incomeMonth*.93),minBase=retaMinimumBase(computableRetaIncome),useReducedQuota=reducedQuota.checked,useStartReduction=startReduction.checked;
             socialMonth=useReducedQuota?REDUCED_RETA_MONTH_2026:minBase*RETA_RATE_2026;
-            const socialYear=socialMonth*12,preDifficultBase=Math.max(0,grossAnnual-expensesAnnual-socialYear),difficultExpense=Math.min(2000,preDifficultBase*.05),netBeforeStartReduction=Math.max(0,preDifficultBase-difficultExpense),startReductionAmount=useStartReduction?Math.min(100000,netBeforeStartReduction)*.20:0,taxableBase=Math.max(0,netBeforeStartReduction-startReductionAmount);
+            const socialYear=socialMonth*12,preDifficultBase=Math.max(0,grossAnnual-socialYear),difficultExpense=Math.min(2000,preDifficultBase*.05),netBeforeStartReduction=Math.max(0,preDifficultBase-difficultExpense),startReductionAmount=useStartReduction?Math.min(100000,netBeforeStartReduction)*.20:0,taxableBase=Math.max(0,netBeforeStartReduction-startReductionAmount);
             taxYear=regularIrpf(taxableBase,regionKey,family);
             const socialNote=useReducedQuota?`льготная cuota — ${euro(socialMonth,2)} в месяц`:`расчетная cuota — ${euro(socialMonth,2)} в месяц; база RETA — ${euro(minBase,2)}`;
             const startReductionNote=useStartReduction?` Применена reducción 20% por inicio de actividad: ${euro(startReductionAmount,0)} в год.`:'';
-            noteHtml=`<p><strong>Autónomo · ${region.label}:</strong> ${socialNote}.</p><p>Для IRPF учтены ваши расходы, cuota и ${euro(difficultExpense,0)} в год как 5% gastos de difícil justificación (лимит 2 000 €).${startReductionNote}</p><p>${familyTaxNote}${childrenTaxNote}</p>`;
+            noteHtml=`<p><strong>Autónomo · ${region.label}:</strong> ${socialNote}.</p><p>Для IRPF учтены cuota и ${euro(difficultExpense,0)} в год как 5% gastos de difícil justificación (лимит 2 000 €).${startReductionNote}</p><p>${familyTaxNote}${childrenTaxNote}</p>`;
           }else{
             const regime=selectedTaxRegime();socialMonth=0;
             if(regime==='beckham'){
@@ -270,14 +263,14 @@
             }
           }
 
-          const socialYear=socialMonth*12,totalBurden=taxYear+socialYear,netYear=Math.max(0,grossAnnual-expensesAnnual-totalBurden),netMonth=netYear/12,effectiveRate=grossAnnual>0?totalBurden/grossAnnual:0;
-          netMonthly.textContent=euro(netMonth,0);netAnnual.textContent=`${euro(netYear,0)} в год${expensesAnnual>0?' после указанных расходов':''}`;
+          const socialYear=socialMonth*12,totalBurden=taxYear+socialYear,netYear=Math.max(0,grossAnnual-totalBurden),netMonth=netYear/12,effectiveRate=grossAnnual>0?totalBurden/grossAnnual:0;
+          netMonthly.textContent=euro(netMonth,0);netAnnual.textContent=`${euro(netYear,0)} в год`;
           taxMonthly.textContent=euro(taxYear/12,0);taxAnnual.textContent=`${euro(taxYear,0)} в год`;
           socialMonthly.textContent=euro(socialMonth,0);socialAnnual.textContent=`${euro(socialYear,0)} в год`;
           burdenRate.textContent=percent(effectiveRate);burdenAnnual.textContent=`${euro(totalBurden,0)} в год`;modeNote.innerHTML=noteHtml;
         }
 
-        document.querySelectorAll('input[name="workType"],input[name="taxRegime"],#monthlyIncome,#familyComposition,#region,#monthlyExpenses,#reducedQuota,#startReduction').forEach(element=>{element.addEventListener('input',calculate);element.addEventListener('change',calculate)});
+        document.querySelectorAll('input[name="workType"],input[name="taxRegime"],#monthlyIncome,#familyComposition,#region,#reducedQuota,#startReduction').forEach(element=>{element.addEventListener('input',calculate);element.addEventListener('change',calculate)});
         calculate();
       })();
     </script>
