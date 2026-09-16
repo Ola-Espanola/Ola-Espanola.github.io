@@ -27,6 +27,7 @@
       .segmented{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.segmented input{position:absolute;opacity:0;pointer-events:none}
       .segmented label{display:flex;min-height:46px;align-items:center;justify-content:center;padding:8px 12px;border:1px solid #bcc6d3;border-radius:8px;background:#fff;color:var(--nav);font-size:14px;font-weight:700;cursor:pointer;text-align:center}
       .segmented input:checked+label{border-color:var(--nav);background:var(--nav);color:#fff}.segmented input:focus-visible+label{outline:3px solid var(--accent);outline-offset:2px}
+      .check-list{display:grid;gap:10px}.check-option{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid #d4dbe4;border-radius:8px;background:#fff;color:var(--ink);font-size:14px;cursor:pointer}.check-option input{width:18px;height:18px;margin:1px 0 0;flex:0 0 auto;accent-color:var(--nav)}.check-option span{line-height:1.35}.check-option strong{color:var(--nav)}
       .conditional[hidden]{display:none!important}
       .dnv-status{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-bottom:20px;padding:18px;border:1px solid var(--line);border-radius:10px;background:#f8fafc}
       .dnv-status.good{background:#edf8f3;border-color:#b9dfcf}.dnv-status.bad{background:#fff3f0;border-color:#efc2b8}.dnv-status p{margin:0}
@@ -109,6 +110,20 @@
               <div class="input-wrap"><input id="monthlyExpenses" type="number" min="0" step="25" value="0" inputmode="decimal"><span class="input-suffix">€</span></div>
               <p class="field-help">Реальные налогово-вычитаемые расходы без cuota Seguridad Social.</p>
             </div>
+
+            <div class="field">
+              <span class="field-label">Льготы нового autónomo</span>
+              <div class="check-list">
+                <label class="check-option" for="reducedQuota">
+                  <input id="reducedQuota" type="checkbox">
+                  <span><strong>Льготная cuota — 88,64 € / мес.</strong><br>Первые 12 месяцев при наличии права на cuota reducida.</span>
+                </label>
+                <label class="check-option" for="startReduction">
+                  <input id="startReduction" type="checkbox">
+                  <span><strong>Reducción 20% по IRPF</strong><br>Для начала деятельности: первый прибыльный налоговый период и следующий.</span>
+                </label>
+              </div>
+            </div>
           </div>
 
           <div id="employeeFields" class="conditional" hidden>
@@ -147,8 +162,10 @@
           <li><strong>Дети:</strong> предполагается, что они дают право на mínimo por descendientes. Учитываются базовые суммы за первого, второго и третьего ребёнка; дополнительное увеличение для детей младше 3 лет не учитывается.</li>
           <li><strong>Доход семьи:</strong> весь введенный доход считается доходом заявителя; собственный доход супруга в этом упрощенном расчете принимается равным нулю.</li>
           <li><strong>Обычный IRPF:</strong> отдельно считается государственная и региональная часть по выбранной Comunidad Autónoma. Для региональной части используются действующие в 2026 году региональные mínimos personal y por descendientes.</li>
-          <li><strong>Autónomo:</strong> cuota считается по минимальной базе соответствующего tramo RETA 2026 и ставке 31,5%. Для определения tramo расчетный rendimiento neto уменьшается на 7%.</li>
+          <li><strong>Autónomo:</strong> без льгот cuota считается по минимальной базе соответствующего tramo RETA 2026 и ставке 31,5%. Для определения tramo расчетный rendimiento neto уменьшается на 7%.</li>
+          <li><strong>Льготная cuota:</strong> при включенной опции используется 88,64 € в месяц в течение первых 12 месяцев. В расчете это 80 € cuota reducida плюс MEI 2026. Право на льготу проверяется отдельно; продление на второй год калькулятор не моделирует.</li>
           <li><strong>Autónomo — IRPF:</strong> предполагается estimación directa simplificada. Автоматически учитываются 5% gastos de difícil justificación, максимум 2 000 € в год. Отдельная несовместимая reducción для TRADE/единственного клиента не рассчитывается.</li>
+          <li><strong>Reducción 20%:</strong> при включенной опции на 20% уменьшается положительный rendimiento neto после учитываемых расходов. Льгота применяется в первом прибыльном налоговом периоде новой деятельности и в следующем; база reducción ограничена 100 000 € в год. Не применяется, если более 50% доходов получено от лица или компании, у которых налогоплательщик получал трудовой доход в предыдущем году.</li>
           <li><strong>Работа в найме:</strong> при обычном IRPF учитывается стандартный расход 2 000 € по трудовым доходам. Испанские соцвзносы здесь равны нулю при условии действующего покрытия в стране работодателя.</li>
           <li><strong>Beckham:</strong> 24% до 600 000 € в год и 47% с превышения; семейная совместная декларация и региональная шкала к этому режиму здесь не применяются.</li>
         </ul>
@@ -160,7 +177,7 @@
       (() => {
         'use strict';
         const SMI_ANNUAL_2026=17094, SMI_MONTH_12=SMI_ANNUAL_2026/12;
-        const STATE_PERSONAL_MINIMUM=5550, EMPLOYEE_GENERAL_EXPENSE=2000, RETA_RATE_2026=.315;
+        const STATE_PERSONAL_MINIMUM=5550, EMPLOYEE_GENERAL_EXPENSE=2000, RETA_RATE_2026=.315, REDUCED_RETA_MONTH_2026=88.64;
         const stateScale=[
           {top:12450,rate:.095},{top:20200,rate:.12},{top:35200,rate:.15},{top:60000,rate:.185},{top:300000,rate:.225},{top:Infinity,rate:.245}
         ];
@@ -190,7 +207,7 @@
         ];
 
         const $=id=>document.getElementById(id);
-        const monthlyIncome=$('monthlyIncome'),familyComposition=$('familyComposition'),regionSelect=$('region'),monthlyExpenses=$('monthlyExpenses');
+        const monthlyIncome=$('monthlyIncome'),familyComposition=$('familyComposition'),regionSelect=$('region'),monthlyExpenses=$('monthlyExpenses'),reducedQuota=$('reducedQuota'),startReduction=$('startReduction');
         const autonomoFields=$('autonomoFields'),employeeFields=$('employeeFields'),dnvStatus=$('dnvStatus'),dnvTitle=$('dnvTitle'),dnvDetail=$('dnvDetail'),dnvBadge=$('dnvBadge');
         const netMonthly=$('netMonthly'),netAnnual=$('netAnnual'),taxMonthly=$('taxMonthly'),taxAnnual=$('taxAnnual'),socialMonthly=$('socialMonthly'),socialAnnual=$('socialAnnual'),burdenRate=$('burdenRate'),burdenAnnual=$('burdenAnnual'),modeNote=$('modeNote');
 
@@ -235,11 +252,13 @@
           const childrenTaxNote=family.children>0?` Учтен mínimo por descendientes для ${family.children} ребёнка/детей.`:'';
 
           if(workType==='autonomo'){
-            const computableRetaIncome=Math.max(0,(incomeMonth-expensesMonth)*.93),minBase=retaMinimumBase(computableRetaIncome);
-            socialMonth=minBase*RETA_RATE_2026;
-            const socialYear=socialMonth*12,preDifficultBase=Math.max(0,grossAnnual-expensesAnnual-socialYear),difficultExpense=Math.min(2000,preDifficultBase*.05),taxableBase=Math.max(0,preDifficultBase-difficultExpense);
+            const computableRetaIncome=Math.max(0,(incomeMonth-expensesMonth)*.93),minBase=retaMinimumBase(computableRetaIncome),useReducedQuota=reducedQuota.checked,useStartReduction=startReduction.checked;
+            socialMonth=useReducedQuota?REDUCED_RETA_MONTH_2026:minBase*RETA_RATE_2026;
+            const socialYear=socialMonth*12,preDifficultBase=Math.max(0,grossAnnual-expensesAnnual-socialYear),difficultExpense=Math.min(2000,preDifficultBase*.05),netBeforeStartReduction=Math.max(0,preDifficultBase-difficultExpense),startReductionAmount=useStartReduction?Math.min(100000,netBeforeStartReduction)*.20:0,taxableBase=Math.max(0,netBeforeStartReduction-startReductionAmount);
             taxYear=regularIrpf(taxableBase,regionKey,family);
-            noteHtml=`<p><strong>Autónomo · ${region.label}:</strong> расчетная cuota — ${euro(socialMonth,2)} в месяц. База RETA — ${euro(minBase,2)}.</p><p>Для IRPF учтены ваши расходы, cuota и ${euro(difficultExpense,0)} в год как 5% gastos de difícil justificación (лимит 2 000 €).</p><p>${familyTaxNote}${childrenTaxNote}</p>`;
+            const socialNote=useReducedQuota?`льготная cuota — ${euro(socialMonth,2)} в месяц`:`расчетная cuota — ${euro(socialMonth,2)} в месяц; база RETA — ${euro(minBase,2)}`;
+            const startReductionNote=useStartReduction?` Применена reducción 20% por inicio de actividad: ${euro(startReductionAmount,0)} в год.`:'';
+            noteHtml=`<p><strong>Autónomo · ${region.label}:</strong> ${socialNote}.</p><p>Для IRPF учтены ваши расходы, cuota и ${euro(difficultExpense,0)} в год как 5% gastos de difícil justificación (лимит 2 000 €).${startReductionNote}</p><p>${familyTaxNote}${childrenTaxNote}</p>`;
           }else{
             const regime=selectedTaxRegime();socialMonth=0;
             if(regime==='beckham'){
@@ -258,7 +277,7 @@
           burdenRate.textContent=percent(effectiveRate);burdenAnnual.textContent=`${euro(totalBurden,0)} в год`;modeNote.innerHTML=noteHtml;
         }
 
-        document.querySelectorAll('input[name="workType"],input[name="taxRegime"],#monthlyIncome,#familyComposition,#region,#monthlyExpenses').forEach(element=>{element.addEventListener('input',calculate);element.addEventListener('change',calculate)});
+        document.querySelectorAll('input[name="workType"],input[name="taxRegime"],#monthlyIncome,#familyComposition,#region,#monthlyExpenses,#reducedQuota,#startReduction').forEach(element=>{element.addEventListener('input',calculate);element.addEventListener('change',calculate)});
         calculate();
       })();
     </script>
