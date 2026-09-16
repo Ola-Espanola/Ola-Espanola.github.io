@@ -1,0 +1,43 @@
+name: Remove hedging in consulate drawbacks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/remove-hedging-consulate.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update wording
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('docs/ways-to-apply.html')
+          s = p.read_text(encoding='utf-8')
+          reps = {
+            'на практике консульства могут проверять пакет строже: запрашивать дополнительные документы, уточнения или личное интервью; требования и подход к документам зависят от конкретного консульства;':
+            'на практике консульства проверяют пакет строже: запрашивают дополнительные документы, уточнения или личное интервью; требования и подход к документам зависят от конкретного консульства;',
+            'запись на подачу может быть сложнее, а ожидание свободного места зависит от конкретного консульства;':
+            'запись на подачу сложнее, а ожидание свободного места зависит от конкретного консульства;',
+            'формальный срок решения по визе составляет 10 дней, но весь процесс может занять больше времени из-за ожидания записи, запросов дополнительных документов или интервью и последующего получения паспорта;':
+            'формальный срок решения по визе составляет 10 дней, но весь процесс занимает больше времени из-за ожидания записи, запросов дополнительных документов или интервью и последующего получения паспорта;'
+          }
+          for old,new in reps.items():
+              if old not in s:
+                  raise SystemExit(f'phrase not found: {old}')
+              s = s.replace(old,new,1)
+          p.write_text(s, encoding='utf-8')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/remove-hedging-consulate.yml
+          git add docs/ways-to-apply.html
+          git commit -m "Tighten consulate drawbacks wording"
+          git push
