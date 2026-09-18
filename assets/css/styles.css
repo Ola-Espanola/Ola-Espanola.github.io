@@ -60,7 +60,7 @@ a {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 1px;
   color: var(--nav);
   font-size: 20px;
   font-weight: 700;
@@ -70,11 +70,12 @@ a {
 }
 
 .brand-mark {
-  width: 51px;
-  height: 51px;
-  border: 1px solid rgba(24, 54, 66, 0.18);
-  border-radius: 50%;
-  object-fit: cover;
+  width: 1.2em;
+  height: 1.2em;
+  flex: 0 0 1.2em;
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
 }
 
 .top-nav {
