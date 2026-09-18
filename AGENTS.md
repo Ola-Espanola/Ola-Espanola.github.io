@@ -11,6 +11,8 @@
 - Public pages are static HTML: `index.html`, `docs/*.html`, and `blog/*.html`.
 - Each public guide and blog page has a Markdown source in `content/`. When changing page content, update the matching HTML and Markdown files together.
 - Images and CSS are in `assets/`.
+- Shared header, brand, and sidebar sources are in `partials/`. Edit them there, then run `node scripts/update-layout.cjs` and commit the generated public HTML alongside the partials. Do not hand-edit generated regions between `shared:` comments. The script also handles active links and relative paths for local file viewing.
+- Run `node scripts/update-layout.cjs --check` before committing layout changes. For generator changes, also run `node --test scripts/update-layout.test.cjs`. No npm packages or browser-side layout loader are required.
 - `Doc/` contains working materials. Keep it in Git, but never link to it from public pages or expose it in navigation.
 - `Doc/Telegram/` is the compact internal Telegram knowledge base kept in the repository. Use `topics/*.md` first for focused research, then `qa_best.compact.jsonl` and `knowledge_messages.compact.*.jsonl` when more context is needed.
 - Source chat exports and the full processed knowledge base are outside the repository in `C:\Projects\Nomad`: raw chat exports are in the dated chat folders and `processed_nomad/` contains the complete processed set. Consult it when the compact repository copy lacks context. Treat all Telegram materials as read-only source material: do not publish, link, edit, or confuse them with the public Telegram contact.

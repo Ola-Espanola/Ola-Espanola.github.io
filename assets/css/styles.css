@@ -646,11 +646,7 @@ figcaption {
 }
 
 /* Keep blog pages published but hide Blog from site navigation. */
-.sidebar a[href*="blog/"] {
-  display: none;
-}
-
-.sidebar .sidebar-section:has(+ a[href*="blog/"]),
-.sidebar .sidebar-section:has(+ a[href="index.html"]) {
+.sidebar .sidebar-blog-index,
+.sidebar .sidebar-blog-heading {
   display: none;
 }

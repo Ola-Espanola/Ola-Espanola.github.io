@@ -3,3 +3,6 @@ exclude:
   - content/
   - AGENTS.md
   - README.md
+  - partials/
+  - scripts/
+  - update-layout.cmd
