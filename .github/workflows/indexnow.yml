@@ -1,0 +1,133 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "docs/**/*.html"
+      - "blog/**/*.html"
+      - ".github/workflows/indexnow.yml"
+      - "583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify-indexnow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build list of changed public URLs
+        id: urls
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BASE_URL="https://ola-espanola.github.io"
+          CHANGED_FILE="/tmp/indexnow-changed.txt"
+          URL_FILE="/tmp/indexnow-urls.txt"
+          : > "$CHANGED_FILE"
+          : > "$URL_FILE"
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            printf '%s\n' "index.html" > "$CHANGED_FILE"
+          else
+            BEFORE="${{ github.event.before }}"
+            SHA="${{ github.sha }}"
+
+            if [[ -z "$BEFORE" || "$BEFORE" == "0000000000000000000000000000000000000000" ]]; then
+              git show --pretty='' --name-only "$SHA" > "$CHANGED_FILE"
+            else
+              git diff --name-only "$BEFORE" "$SHA" > "$CHANGED_FILE"
+            fi
+          fi
+
+          while IFS= read -r path; do
+            case "$path" in
+              index.html)
+                printf '%s/\n' "$BASE_URL"
+                ;;
+              docs/*.html|blog/*.html)
+                printf '%s/%s\n' "$BASE_URL" "$path"
+                ;;
+            esac
+          done < "$CHANGED_FILE" | sort -u > "$URL_FILE"
+
+          COUNT=$(wc -l < "$URL_FILE" | tr -d ' ')
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+
+          if [[ "$COUNT" -gt 0 ]]; then
+            echo "URLs to submit:"
+            cat "$URL_FILE"
+          else
+            echo "No changed public HTML pages to submit."
+          fi
+
+      - name: Wait until IndexNow key is public
+        if: steps.urls.outputs.count != '0'
+        shell: bash
+        env:
+          INDEXNOW_KEY: "583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1"
+          KEY_LOCATION: "https://ola-espanola.github.io/583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1.txt"
+        run: |
+          set -euo pipefail
+
+          for attempt in {1..30}; do
+            BODY=$(curl -fsS "$KEY_LOCATION" 2>/dev/null || true)
+            if [[ "$BODY" == "$INDEXNOW_KEY" ]]; then
+              echo "IndexNow key is available on the published site."
+              exit 0
+            fi
+            echo "Waiting for GitHub Pages deployment ($attempt/30)..."
+            sleep 10
+          done
+
+          echo "IndexNow key did not become available in time."
+          exit 1
+
+      - name: Submit changed URLs to Yandex IndexNow
+        if: steps.urls.outputs.count != '0'
+        shell: bash
+        env:
+          INDEXNOW_KEY: "583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1"
+          KEY_LOCATION: "https://ola-espanola.github.io/583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1.txt"
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          urls = [line.strip() for line in Path('/tmp/indexnow-urls.txt').read_text().splitlines() if line.strip()]
+          payload = {
+              'host': 'ola-espanola.github.io',
+              'key': os.environ['INDEXNOW_KEY'],
+              'keyLocation': os.environ['KEY_LOCATION'],
+              'urlList': urls,
+          }
+          Path('/tmp/indexnow-payload.json').write_text(json.dumps(payload, ensure_ascii=False))
+          PY
+
+          STATUS=$(curl -sS \
+            -o /tmp/indexnow-response.txt \
+            -w "%{http_code}" \
+            -X POST \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data-binary @/tmp/indexnow-payload.json \
+            "https://yandex.com/indexnow")
+
+          echo "Yandex IndexNow HTTP status: $STATUS"
+          cat /tmp/indexnow-response.txt || true
+
+          if [[ "$STATUS" != "200" && "$STATUS" != "202" ]]; then
+            exit 1
+          fi
