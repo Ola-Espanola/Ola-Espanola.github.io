@@ -53,7 +53,7 @@ test('one edit reaches every header and sidebar, preserves article content and i
   for (const file of pages) {
     const after = read(directory, file);
     assert(after.includes('la TEST</span>'), file);
-    assert.equal(after.includes('TEST ссылки'), file !== 'docs/tax-calculator.html', file);
+    assert(after.includes('TEST ссылки'), file);
     assert.equal(contentOnly(after), contentOnly(before[file]), file);
     assert.equal(after.includes('\r\n'), before[file].includes('\r\n'), 'Line endings: ' + file);
   }
@@ -72,12 +72,14 @@ test('generated navigation works from disk and selects the current page', () => 
       assert(fs.existsSync(path.resolve(root, path.dirname(file), url)), `${file}: missing ${url}`);
     }
     const sidebar = layout.match(/<aside\b[\s\S]*?<\/aside>/)?.[0];
-    if (!sidebar) {
-      assert.equal(file, 'docs/tax-calculator.html');
+    assert(sidebar, file);
+    const active = [...sidebar.matchAll(/<a\b([^>]+)>/g)].filter(([, attributes]) => /\bclass="[^"]*\bactive\b/.test(attributes));
+    if (file === 'docs/tax-calculator.html') {
+      // The calculator uses the guide menu, which has no link to itself.
       assert(layout.includes('brand calculator-brand'));
+      assert.equal(active.length, 0, file);
       continue;
     }
-    const active = [...sidebar.matchAll(/<a\b([^>]+)>/g)].filter(([, attributes]) => /\bclass="[^"]*\bactive\b/.test(attributes));
     assert.equal(active.length, 1, file);
     const attributes = active[0][1];
     const href = attributes.match(/\bhref="([^"]+)"/)[1];

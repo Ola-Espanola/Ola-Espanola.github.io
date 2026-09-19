@@ -74,7 +74,7 @@ function updatePage(source, page) {
   const headers = kinds.filter(kind => kind === 'header' || kind === 'calculator-header');
   if (headers.length !== 1) throw new Error(`${page}: expected one shared header`);
   const sidebarCount = kinds.filter(kind => kind === 'sidebar').length;
-  if (sidebarCount !== (headers[0] === 'calculator-header' ? 0 : 1)) throw new Error(`${page}: unexpected number of sidebars`);
+  if (sidebarCount !== 1) throw new Error(`${page}: unexpected number of sidebars`);
   const outside = normalized.replace(block, '');
   if (/<!--\s*\/?shared:/.test(outside) || /<(?:header|aside)\b[^>]*class="(?:site-header|calculator-header|sidebar)"/.test(outside)) {
     throw new Error(`${page}: malformed shared markers or unmarked layout`);
