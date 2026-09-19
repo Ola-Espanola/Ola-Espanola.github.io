@@ -37,7 +37,7 @@ canonical: "https://ola-espanola.github.io/docs/family-member.html"
 | **Документ о родстве**<br>Для супруга — свидетельство о браке, для ребенка — свидетельство о рождении, для зарегистрированной пары — документ о регистрации союза. **Российские документы ЗАГС не требуют апостиля для Испании**, но нужен [`jurado` перевод](../docs/document-requirements.html#jurado-perevod). В памятке UGE по продлению для супруга предусмотрена декларация титуляра о сохранении семейной связи и совместного проживания. Повторное свидетельство о браке в этом перечне не указано. [Подробнее ↓](#family-link)                                                                                                                                                  |
 | **Паспорт члена семьи**<br>Полная копия действующего паспорта, **все страницы**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Достаточные экономические средства — если член семьи подается после титуляра**<br>При одновременной подаче титуляр подтверждает нужный доход с учетом всей семьи, и отдельный блок средств в expediente familiar дублировать не требуется. Если familiar присоединяется позже, средства титуляра подтверждаются заново. [Подробнее ↓](#family-income)                                                                                                                                                                                                                                    |
-| **Государственное или частное медицинское страхование — если член семьи не получает покрытие через испанскую Seguridad Social или иное подтвержденное государственное покрытие в Испании**<br>Для обычного супруга или ребенка титуляра по **контракту** / autónomo отдельный частный полис не нужен, если после одобрения титуляр входит в испанскую Seguridad Social и familiar имеет право быть beneficiario. Для типичной ситуации **по найму** нужен частный полис, если нет отдельного документа о государственном медицинском покрытии в Испании. [Подробнее ↓](#family-insurance) |
+| **Государственное или частное медицинское страхование — если член семьи не получает покрытие через испанскую Seguridad Social или иное подтвержденное государственное покрытие в Испании**<br>Для обычного супруга или ребенка титуляра по **контракту** / autónomo отдельный частный полис не нужен, если после одобрения титуляр входит в испанскую Seguridad Social и familiar имеет право быть beneficiario. Для типиченой ситуации **по найму** нужен частный полис, если нет отдельного документа о государственном медицинском покрытии в Испании. [Подробнее ↓](#family-insurance) |
 | **Подтверждение экономической зависимости — если подается совершеннолетний ребенок**<br>Нужно доказать, что ребенок соответствует условиям для подачи как зависимый член семьи. [Подробнее ↓](#adult-child)                                                                                                                                                                                                                                                                                                                                                                                |
 | **Подтверждение нахождения на иждивении — если подается родитель или другой восходящий родственник**<br>Нужно подтвердить реальную зависимость от основного заявителя или его супруга. [Подробнее ↓](#ascendant)                                                                                                                                                                                                                                                                                                                                                                           |
 | **Справка о несудимости — для совершеннолетнего при первичной подаче, если не действует исключение UGE**<br>Российская справка — **с апостилем + `jurado` переводом**. Не требуется лицам младше 18 лет. Также ее можно не подавать, если заявитель уже имеет испанское разрешение на проживание или пребывание сроком более 6 месяцев и соответствующая справка уже подавалась для его получения. [Подробнее](../docs/criminal-record-certificate.html)                                                                                                                                   |
@@ -239,34 +239,47 @@ UGE не принимает туристическую страховку, по�
 
 <!-- PUBLIC_CONTENT_END -->
 
-## Служебная часть: не публиковать
+---
 
-### Официальные источники
+# Служебная часть: не публиковать
 
-- UGE: `Información y Documentación - Familiares` — https://ciudadaniaexterior.inclusion.gob.es/documents/d/unidadgrandesempresas/informacion-documentacion-familiares
-- UGE: `Requisitos comunes para las solicitudes de autorizaciones de residencia de movilidad internacional` — https://ciudadaniaexterior.inclusion.gob.es/documents/d/unidadgrandesempresas/requisitos-comunes-para-las-solicitudes-de-autorizaciones-de-residencia-de-movilidad-internacional1-pdf
-- UGE: FAQ / movilidad internacional — https://ciudadaniaexterior.inclusion.gob.es/web/unidadgrandesempresas/preguntas-frecuentes
-- BOE: Ley 14/2013, art. 62 и 74 bis — https://www.boe.es/buscar/act.php?id=BOE-A-2013-10074
-- BOE: SMI 2026 — Real Decreto 126/2026 — https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-3815
-- BOE: Canje de Notas España-URSS sobre certificados del Registro Civil — https://www.boe.es/buscar/doc.php?id=BOE-A-1985-11002
-- Консульство Испании в Москве: документы ЗАГС РФ без апостиля — https://www.exteriores.gob.es/Consulados/moscu/es/ServiciosConsulares/Paginas/index.aspx?scca=Visados&scco=Federaci%C3%B3n+de+Rusia&scd=177&scs=Visado+de+residencia+para+teletrabajo+(n%C3%B3mada+digital)
-- Seguridad Social: beneficiarios de asistencia sanitaria — https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/10938/30475
-- BOE: Convenio de Seguridad Social España-Rusia de 11 de abril de 1994 — https://www.boe.es/buscar/doc.php?id=BOE-A-1996-7320
+Файл пока существует только в `content/family-member.md`. HTML не создавать, в навигацию и sitemap не добавлять до отдельной команды.
 
-### Где блоки лежат в форме UGE
+## Основные официальные источники
 
-Скриншот формы: `assets/images/family-member-doc-list.png`.
+- [Разъяснение DGGM от 30 июня 2025 года о документах, подтверждающих брак](https://www.inclusion.gob.es/documents/d/migraciones/20250701-criterio-dggm-acreditacion-vinculo-matrimonial): общего требования обновлять иностранное свидетельство по давности выдачи нет.
+- [Памятка UGE по продлению](https://www.inclusion.gob.es/documents/1823432/1826095/renovaciones_feb_2018.pdf/7e4b1631-3f10-171a-eb21-5119133d01a5?t=1664875009918), стр. 3: декларация о сохранении семейной связи и совместного проживания.
 
-В форме отдельными строками показаны:
+- UGE, `SOLICITUDES INICIALES DE AUTORIZACIÓN PARA FAMILIARES DE TELETRABAJADORES DE CARÁCTER INTERNACIONAL`:  
+  https://www.inclusion.gob.es/documents/d/unidadgrandesempresas/informacion-documentacion-pagina-web-familiares-v2
+- Страница UGE по телеработникам, где отдельно даны документы титуляра и familiares:  
+  https://www.inclusion.gob.es/es/web/unidadgrandesempresas/teletrabajadores
+- Официальные модели Ley 14/2013, включая MI-F:  
+  https://ciudadaniaexterior.inclusion.gob.es/web/migraciones/modelos-de-solicitudes-de-la-ley-14/2013
+- FAQ UGE по teletrabajadores: право familiares работать без ограничений, проценты SMI, tasa 73,26 €:  
+  https://ciudadaniaexterior.inclusion.gob.es/documents/d/unidadgrandesempresas/nomadas-digitales-faqs-espanol
+- Консульство Испании в Москве: российские свидетельства ЗАГС не требуют апостиля; нотариальные документы требуют апостиля:  
+  https://www.exteriores.gob.es/Consulados/moscu/es/ServiciosConsulares/Paginas/index.aspx?scca=Legalizaci%C3%B3n+o+Apostilla.+Compulsa+y+Registro&scco=Rusia&scd=203&scs=Legalizaci%C3%B3n+y+apostilla+de+la+Haya
+- BOE: Canje de Notas entre España y la URSS de 24 de febrero de 1984:  
+  https://www.boe.es/diario_boe/txt.php?id=BOE-A-1985-6208
+- BOE 2024: подтверждение действующего применения соглашения к документам Российской Федерации:  
+  https://www.boe.es/diario_boe/txt.php?id=BOE-A-2024-23023
+- BOE: Convenio de Seguridad Social España—Rusia de 11 de abril de 1994; в перечне координируемых prestaciones нет asistencia sanitaria:  
+  https://www.boe.es/buscar/doc.php?id=BOE-A-1996-4208
+- SMI 2026: Real Decreto 126/2026, 17 094 € в год:  
+  https://www.boe.es/eli/es/rd/2026/02/18/126
 
-1. Formulario MI-F — обязательно.
-2. Tasa 790 038 — обязательно.
-3. Documento de parentesco / relación familiar — обязательно.
-4. Pasaporte — обязательно.
-5. Medios económicos suficientes.
-6. Seguro público o privado de enfermedad.
-7. Dependencia económica de hijos mayores.
-8. Ascendientes a cargo.
-9. Certificado de antecedentes penales.
+## Проверено перед публикацией
 
-Остальные документы загружаются через общий раздел **«Остальные документы»**.
+- Российские свидетельства ЗАГС (брак, рождение) для Испании не апостилируются: действует соглашение Испания—СССР 1984 года, применяемое к РФ.
+- UGE требует `jurado` перевод иностранных публичных документов, не составленных на испанском.
+- Российское нотариальное согласие на проживание ребенка в Испании не является документом ЗАГС: для него нужен апостиль и `jurado` перевод.
+- При одновременной подаче familiares достаточно, чтобы титуляр подтвердил средства на всю семью; повторный полный блок доходов в каждом familiar не является отдельным требованием.
+- Частная страховка familiar не нужна, когда титуляр после одобрения будет зарегистрирован в испанской Seguridad Social и familiar имеет право быть beneficiario. Для незарегистрированной pareja de hecho действует исключение.
+- Для титуляра по найму, использующего иностранную систему соцстраха, отсутствие частной страховки familiar возможно только при наличии официального документа о медицинском покрытии этого familiar в Испании. Российско-испанский договор 1994 года медицинскую помощь не координирует, поэтому свидетельство СФР само по себе такого покрытия не дает.
+- В общей памятке UGE по продлению разрешений по Ley 14/2013 (`renovaciones_feb_2018.pdf`, стр. 3, раздел 7.a «Cónyuge») предусмотрена декларация титуляра о сохранении семейной связи и совместного проживания; повторное свидетельство о браке в этом перечне не указано. Это памятка 2018 года, на которую UGE по-прежнему ссылается, а не отдельная актуальная инструкция по продлению для семей телеработников.
+
+## Практика из базы чата: свежесть свидетельства о браке
+
+- В `Doc/Telegram/topics/family.md` есть сообщения о дозапросах обновленного свидетельства, включая российское. Участники называют разные сроки; единого подтвержденного срока из этих сообщений не следует.
+- 6 месяцев — рекомендация по подготовке пакета, а не обязательный срок UGE. В базе встречаются и другие ориентиры: например, `Espánium_2026-09-06/messages.html#message398` рекомендует 3 месяца и пересказывает устное разъяснение о годе.
