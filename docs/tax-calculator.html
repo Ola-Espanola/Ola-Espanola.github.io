@@ -12,7 +12,6 @@
     <style>
       .calculator-page{max-width:1280px;margin:0 auto;padding:44px 32px 72px}
       .calculator-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px;align-items:start}
-      .calculator-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:34px}
       .calculator-intro{max-width:880px;margin-bottom:30px}.calculator-intro h1{max-width:900px}.calculator-intro .lead{margin-top:16px}
       .calculator-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:24px;align-items:start}
       .calculator-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:24px}
@@ -44,13 +43,19 @@
   </head>
   <body>
     <noscript><div><img src="https://mc.yandex.ru/watch/112065150" style="position:absolute;left:-9999px" alt=""></div></noscript>
-    <main class="calculator-page">
-      <!-- shared:calculator-header -->
-      <header class="calculator-header">
-        <a class="brand calculator-brand" href="../index.html" aria-label="Ola Española — главная"><img class="brand-mark" src="../assets/images/site-symbol.png" alt=""><span class="brand-name"><img class="brand-initial" src="../assets/images/ola-espanola2.png" alt="O"><span>la Española</span></span></a>
-      </header>
-      <!-- /shared:calculator-header -->
+    <!-- shared:header -->
+    <header class="site-header">
+      <div class="site-identity">
+        <a class="brand" href="../index.html" aria-label="Ola Española — главная"><img class="brand-mark" src="../assets/images/site-symbol.png" alt=""><span class="brand-name"><img class="brand-initial" src="../assets/images/ola-espanola2.png" alt="O"><span>la Española</span></span></a>
+        <p class="site-tagline">Виза цифрового кочевника в Испании. Гайды и сопровождение.</p>
+      </div>
+      <nav class="top-nav" aria-label="Основная навигация">
+        <a href="pricing.html">Стоимость сопровождения</a>
+      </nav>
+    </header>
+    <!-- /shared:header -->
 
+    <main class="calculator-page">
       <div class="calculator-layout">
         <!-- shared:sidebar guide -->
         <aside class="sidebar" aria-label="Разделы гида">
