@@ -10,6 +10,30 @@
   favicon.setAttribute("sizes", "any");
 })();
 
+// Keep already-generated pages in sync with the shared sidebar source.
+// The next run of scripts/update-layout.cjs will bake this link into the HTML;
+// until then this guard adds it once and preserves each page's relative path.
+(function () {
+  function ensureFamilyMemberSidebarLink() {
+    var sidebar = document.querySelector(".sidebar");
+    if (!sidebar || sidebar.querySelector('a[href$="family-member.html"]')) return;
+
+    var contractLink = sidebar.querySelector('a[href$="contract-work.html"]');
+    if (!contractLink) return;
+
+    var link = document.createElement("a");
+    link.href = contractLink.getAttribute("href").replace(/contract-work\.html$/, "family-member.html");
+    link.textContent = "Член семьи";
+    contractLink.insertAdjacentElement("afterend", link);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ensureFamilyMemberSidebarLink);
+  } else {
+    ensureFamilyMemberSidebarLink();
+  }
+})();
+
 // Google Analytics 4
 (function () {
   var measurementId = "G-99P57JN7WT";
