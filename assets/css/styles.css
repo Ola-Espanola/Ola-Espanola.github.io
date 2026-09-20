@@ -720,6 +720,65 @@ figcaption {
   }
 }
 
+@media (min-width: 360px) and (max-width: 599px) and (pointer: coarse) {
+  .layout {
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 10px;
+    padding: 16px 10px 44px;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 66px;
+    z-index: 10;
+    align-self: start;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 10px 8px;
+    overflow: visible;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  .sidebar-title,
+  .sidebar-section {
+    display: block;
+  }
+
+  .sidebar-title {
+    font-size: 13px;
+  }
+
+  .sidebar-section {
+    margin-top: 10px;
+    font-size: 11px;
+  }
+
+  .sidebar a,
+  .sidebar span {
+    flex: initial;
+    padding: 6px 6px;
+    white-space: normal;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .sidebar .active {
+    border: 0;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  .lead {
+    font-size: 16px;
+  }
+}
+
 @media (min-width: 600px) and (max-width: 900px) {
   .layout {
     grid-template-columns: 220px minmax(0, 1fr);
