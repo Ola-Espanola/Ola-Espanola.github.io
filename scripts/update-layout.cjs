@@ -4,7 +4,14 @@
 // Run before committing. The browser only receives the generated HTML.
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
+
+const ASSET_VERSION = crypto.createHash('sha256')
+  .update(fs.readFileSync(path.join(root, 'assets/css/styles.css')))
+  .update(fs.readFileSync(path.join(root, 'assets/js/metrika.js')))
+  .digest('hex')
+  .slice(0, 10);
 
 function publicPages() {
   const pages = ['index.html'];
@@ -65,6 +72,12 @@ function linksForPage(html, page) {
   });
 }
 
+function versionAssets(html) {
+  return html
+    .replace(/((?:\/|(?:\.\.\/)*)assets\/css\/styles\.css)(?:\?v[^\"'\s>]*)?/g, `$1?v=${ASSET_VERSION}`)
+    .replace(/((?:\/|(?:\.\.\/)*)assets\/js\/metrika\.js)(?:\?v[^\"'\s>]*)?/g, `$1?v=${ASSET_VERSION}`);
+}
+
 function updatePage(source, page) {
   const eol = source.includes('\r\n') ? '\r\n' : '\n';
   const normalized = source.replace(/\r\n/g, '\n');
@@ -94,7 +107,7 @@ function updatePage(source, page) {
     const rendered = linksForPage(template(kind, context), page).split('\n').map(line => indent + line).join('\n');
     return `${indent}<!-- shared:${kind}${variant ? ` ${variant}` : ''} -->\n${rendered}\n${indent}<!-- /shared:${kind} -->`;
   });
-  return result.replace(/\n/g, eol);
+  return versionAssets(result).replace(/\n/g, eol);
 }
 
 function main() {
