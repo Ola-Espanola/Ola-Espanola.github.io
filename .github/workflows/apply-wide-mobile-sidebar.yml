@@ -27,50 +27,51 @@ jobs:
           s = p.read_text()
           marker = '@media (max-width: 360px) {'
           block = '''@media (min-width: 600px) and (max-width: 900px) {
-  .layout {
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 24px;
-    padding: 28px 20px 52px;
-  }
+            .layout {
+              grid-template-columns: 220px minmax(0, 1fr);
+              gap: 24px;
+              padding: 28px 20px 52px;
+            }
 
-  .sidebar {
-    position: sticky;
-    top: 74px;
-    z-index: 10;
-    align-self: start;
-    align-items: stretch;
-    flex-direction: column;
-    gap: 4px;
-    margin: 0;
-    padding: 16px;
-    overflow: visible;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    box-shadow: none;
-  }
+            .sidebar {
+              position: sticky;
+              top: 74px;
+              z-index: 10;
+              align-self: start;
+              align-items: stretch;
+              flex-direction: column;
+              gap: 4px;
+              margin: 0;
+              padding: 16px;
+              overflow: visible;
+              border: 1px solid var(--line);
+              border-radius: 8px;
+              box-shadow: none;
+            }
 
-  .sidebar-title,
-  .sidebar-section {
-    display: block;
-  }
+            .sidebar-title,
+            .sidebar-section {
+              display: block;
+            }
 
-  .sidebar-section {
-    margin-top: 14px;
-  }
+            .sidebar-section {
+              margin-top: 14px;
+            }
 
-  .sidebar a,
-  .sidebar span {
-    flex: initial;
-    padding: 7px 9px;
-    white-space: normal;
-  }
+            .sidebar a,
+            .sidebar span {
+              flex: initial;
+              padding: 7px 9px;
+              white-space: normal;
+            }
 
-  .sidebar .active {
-    border: 0;
-  }
-}
+            .sidebar .active {
+              border: 0;
+            }
+          }
 
-'''
+          '''
+          block = '\n'.join(line[10:] if line.startswith('          ') else line for line in block.splitlines()) + '\n'
           if block in s:
               raise SystemExit('Wide-mobile sidebar block already present')
           if marker not in s:
