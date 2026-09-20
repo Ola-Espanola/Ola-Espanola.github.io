@@ -15,53 +15,53 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Add automatic asset versioning to layout generator
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
-          path = Path('scripts/update-layout.cjs')
-          text = path.read_text()
+          p = Path('scripts/update-layout.cjs')
+          s = p.read_text()
 
-          old_imports = "const fs = require('node:fs');\nconst path = require('node:path');\nconst root = path.resolve(__dirname, '..');"
-          new_imports = "const fs = require('node:fs');\nconst path = require('node:path');\nconst crypto = require('node:crypto');\nconst root = path.resolve(__dirname, '..');\n\nconst ASSET_VERSION = crypto.createHash('sha256')\n  .update(fs.readFileSync(path.join(root, 'assets/css/styles.css')))\n  .update(fs.readFileSync(path.join(root, 'assets/js/metrika.js')))\n  .digest('hex')\n  .slice(0, 10);"
-          if old_imports not in text:
+          old = "const fs = require('node:fs');\nconst path = require('node:path');\nconst root = path.resolve(__dirname, '..');"
+          new = "const fs = require('node:fs');\nconst path = require('node:path');\nconst crypto = require('node:crypto');\nconst root = path.resolve(__dirname, '..');\n\nconst ASSET_VERSION = crypto.createHash('sha256')\n  .update(fs.readFileSync(path.join(root, 'assets/css/styles.css')))\n  .update(fs.readFileSync(path.join(root, 'assets/js/metrika.js')))\n  .digest('hex')\n  .slice(0, 10);"
+          if old not in s:
               raise SystemExit('Expected import block not found')
-          text = text.replace(old_imports, new_imports, 1)
+          s = s.replace(old, new, 1)
 
           marker = "function updatePage(source, page) {"
-          helper = r'''function versionAssets(html) {
-  return html
-    .replace(/((?:\/|(?:\.\.\/)*)assets\/css\/styles\.css)(?:\?v=[^"'\s>]*)?/g, `$1?v=${ASSET_VERSION}`)
-    .replace(/((?:\/|(?:\.\.\/)*)assets\/js\/metrika\.js)(?:\?v=[^"'\s>]*)?/g, `$1?v=${ASSET_VERSION}`);
-}
-
-'''
-          if marker not in text:
+          helper = (
+              "function versionAssets(html) {\n"
+              "  return html\n"
+              "    .replace(/((?:\\/|(?:\\.\\.\\/)*)assets\\/css\\/styles\\.css)(?:\\?v[^\\\"'\\s>]*)?/g, `$1?v=${ASSET_VERSION}`)\n"
+              "    .replace(/((?:\\/|(?:\\.\\.\\/)*)assets\\/js\\/metrika\\.js)(?:\\?v[^\\\"'\\s>]*)?/g, `$1?v=${ASSET_VERSION}`);\n"
+              "}\n\n"
+          )
+          if marker not in s:
               raise SystemExit('updatePage marker not found')
-          text = text.replace(marker, helper + marker, 1)
+          s = s.replace(marker, helper + marker, 1)
 
           old_return = "  return result.replace(/\\n/g, eol);"
           new_return = "  return versionAssets(result).replace(/\\n/g, eol);"
-          if old_return not in text:
+          if old_return not in s:
               raise SystemExit('Expected updatePage return not found')
-          text = text.replace(old_return, new_return, 1)
+          s = s.replace(old_return, new_return, 1)
 
-          path.write_text(text)
+          p.write_text(s)
           PY
-
-      - name: Regenerate HTML and verify
-        run: |
-          node scripts/update-layout.cjs
-          node scripts/update-layout.cjs --check
-
-      - name: Commit generated cache-busted HTML
+      - name: Regenerate HTML
+        run: node scripts/update-layout.cjs
+      - name: Verify generated HTML
+        run: node scripts/update-layout.cjs --check
+      - name: Commit generated files and remove temporary workflow
         run: |
           rm .github/workflows/cache-bust-assets.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add scripts/update-layout.cjs index.html docs/*.html blog/*.html .github/workflows/cache-bust-assets.yml
+          git add scripts/update-layout.cjs index.html docs blog .github/workflows/cache-bust-assets.yml
           git commit -m "Add automatic asset cache busting"
-          git push
+          git push origin HEAD:main
