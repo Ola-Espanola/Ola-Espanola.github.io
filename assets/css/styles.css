@@ -609,30 +609,99 @@ figcaption {
 
 @media (max-width: 900px) {
   .site-header {
-    position: static;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 16px;
-    padding: 18px;
+    position: sticky;
+    top: 0;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    min-height: 58px;
+    padding: 8px 12px;
   }
 
   .site-identity {
-    flex-wrap: wrap;
-    gap: 10px 24px;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    gap: 8px;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .site-tagline {
+    display: none;
+  }
+
+  .brand {
+    gap: 6px;
+    font-size: 17px;
+  }
+
+  .brand-mark,
+  .calculator-brand .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-initial {
+    width: 1.55em;
+    height: 1.55em;
+    flex-basis: 1.55em;
+    transform: translateY(-4px);
   }
 
   .top-nav {
-    flex-wrap: wrap;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+  }
+
+  .top-nav a {
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: 13px;
+    white-space: nowrap;
   }
 
   .layout {
     grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 28px 18px 52px;
+    gap: 18px;
+    padding: 16px 12px 44px;
   }
 
   .sidebar {
-    position: static;
+    position: sticky;
+    top: 57px;
+    z-index: 15;
+    align-items: center;
+    flex-direction: row;
+    gap: 6px;
+    margin: -16px -12px 0;
+    padding: 8px 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    box-shadow: 0 2px 5px rgba(32, 35, 42, 0.08);
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sidebar-title,
+  .sidebar-section {
+    display: none;
+  }
+
+  .sidebar a,
+  .sidebar span {
+    flex: 0 0 auto;
+    padding: 7px 9px;
+    white-space: nowrap;
+  }
+
+  .sidebar .active {
+    border: 1px solid var(--line);
   }
 
   .section-grid,
@@ -643,11 +712,17 @@ figcaption {
   }
 
   h1 {
-    font-size: 32px;
+    font-size: 30px;
   }
 
   .lead {
     font-size: 17px;
+  }
+}
+
+@media (max-width: 360px) {
+  .brand-name {
+    display: none;
   }
 }
 
