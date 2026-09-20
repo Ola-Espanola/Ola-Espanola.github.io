@@ -1,0 +1,36 @@
+name: Apply left sidebar on large phones
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-compact-phone-sidebar.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Add compact left sidebar for large phones
+        run: |
+          python3 -c "from pathlib import Path; p=Path('assets/css/styles.css'); s=p.read_text(); marker='@media (min-width: 600px) and (max-width: 900px) {'; block='@media (min-width: 360px) and (max-width: 599px) and (pointer: coarse) {\n  .layout {\n    grid-template-columns: 120px minmax(0, 1fr);\n    gap: 10px;\n    padding: 16px 10px 44px;\n  }\n\n  .sidebar {\n    position: sticky;\n    top: 66px;\n    z-index: 10;\n    align-self: start;\n    align-items: stretch;\n    flex-direction: column;\n    gap: 2px;\n    margin: 0;\n    padding: 10px 8px;\n    overflow: visible;\n    border: 1px solid var(--line);\n    border-radius: 8px;\n    box-shadow: none;\n  }\n\n  .sidebar-title,\n  .sidebar-section {\n    display: block;\n  }\n\n  .sidebar-title {\n    font-size: 13px;\n  }\n\n  .sidebar-section {\n    margin-top: 10px;\n    font-size: 11px;\n  }\n\n  .sidebar a,\n  .sidebar span {\n    flex: initial;\n    padding: 6px 6px;\n    white-space: normal;\n    font-size: 12px;\n    line-height: 1.25;\n  }\n\n  .sidebar .active {\n    border: 0;\n  }\n\n  h1 {\n    font-size: 26px;\n  }\n\n  .lead {\n    font-size: 16px;\n  }\n}\n\n'; assert block not in s; assert marker in s; p.write_text(s.replace(marker, block + marker, 1))"
+      - name: Refresh asset versions and verify
+        run: |
+          node scripts/update-layout.cjs
+          node scripts/update-layout.cjs --check
+      - name: Commit result and remove temporary workflow
+        run: |
+          rm .github/workflows/apply-compact-phone-sidebar.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/css/styles.css index.html docs/*.html blog/*.html .github/workflows/apply-compact-phone-sidebar.yml
+          git commit -m "Use left sidebar on large phones"
+          git push origin HEAD:main
