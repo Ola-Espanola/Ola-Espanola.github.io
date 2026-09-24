@@ -17,6 +17,7 @@ https://ola-espanola.github.io/docs/social-security-certificate.html
 https://ola-espanola.github.io/docs/document-requirements.html
 https://ola-espanola.github.io/docs/electronic-work-record.html
 https://ola-espanola.github.io/docs/diploma-apostille.html
+https://ola-espanola.github.io/docs/sworn-translation.html
 https://ola-espanola.github.io/docs/uge-instruction-summary.html
 https://ola-espanola.github.io/docs/uge-conference-update.html
 https://ola-espanola.github.io/docs/links.html
