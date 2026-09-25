@@ -10,6 +10,7 @@ canonical: "https://ola-espanola.github.io/blog/"
 
 ## Статьи
 
+- [Налоги цифрового кочевника в Испании: сколько остается после налогов и соцстраха](../blog/nalogi-cifrovogo-kochevnika-ispania.html)
 - [Послевизовое легкомыслие: после одобрения ВНЖ номада в Испании](../blog/poslevizovoe-legkomyslie.html)
 - [Стоит ли ехать в Испанию по визе номада](../blog/stoit-li-ehat-v-ispaniyu-po-vize-nomada.html)
 - [Жильё в Испании при переезде по визе номада: проблемы на старте](../blog/migraciya-v-ispaniyu-zhile.html)
