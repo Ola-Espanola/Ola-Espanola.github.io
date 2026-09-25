@@ -1,3 +1,21 @@
+<style>
+@media (min-width: 901px) {
+  .sidebar {
+    max-height: calc(100vh - 112px);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 599px) and (pointer: coarse) {
+  .sidebar {
+    max-height: calc(100vh - 82px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+}
+</style>
 <aside class="sidebar" aria-label="{{sidebarLabel}}">
   <p class="sidebar-title">Гид</p>
   <a href="/">Главная</a>
@@ -7,10 +25,6 @@
   <a href="/docs/cuenta-ajena.html">Работа в найме</a>
   <a href="/docs/contract-work.html">Работа по контракту</a>
   <a href="/docs/family-member.html">Член семьи</a>
-  <p class="sidebar-section sidebar-blog-heading">Блог</p>
-  <a class="sidebar-blog-index" href="/blog/">Все статьи</a>
-  <a href="/blog/nalogi-cifrovogo-kochevnika-ispania.html">Налоги номада</a>
-  <a href="/blog/statistika-nomadov-ispania.html">Статистика номадов</a>
 {{#guide}}
   <p class="sidebar-section">Документы</p>
   <a href="/docs/formulario-mit.html">Formulario MIT</a>
@@ -33,4 +47,7 @@
   <a href="/docs/links.html">Полезные ссылки</a>
   <p class="sidebar-section">Услуги</p>
   <a class="sidebar-service-link" href="/docs/pricing.html">Стоимость сопровождения</a>
+  <p class="sidebar-section sidebar-blog-heading">Блог</p>
+  <a href="/blog/nalogi-cifrovogo-kochevnika-ispania.html">Налоги номада</a>
+  <a href="/blog/statistika-nomadov-ispania.html">Статистика номадов</a>
 </aside>
