@@ -12,22 +12,22 @@ canonical: "https://ola-espanola.github.io/docs/cuenta-ajena.html"
 
 ## Список документов
 
-Здесь [`jurado` перевод](../docs/document-requirements.html#jurado-perevod): официальный перевод, выполненный испанским присяжным переводчиком. Он нужен прежде всего для иностранных официальных документов: справки о несудимости, диплома, выписки из реестра компании.
+Здесь [`jurado` перевод](../docs/sworn-translation.html): официальный перевод, выполненный испанским присяжным переводчиком. Он нужен прежде всего для иностранных официальных документов: справки о несудимости, диплома, выписки из реестра компании.
 
 | Документ | Что подтверждает | Перевод / легализация |
 |---|---|---|
-| [Свидетельство СФР](../docs/social-security-certificate.html) | Какая система соцзащиты будет применяться | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
+| [Свидетельство СФР](../docs/social-security-certificate.html) | Какая система соцзащиты будет применяться | Апостиль + [jurado](../docs/sworn-translation.html) перевод |
 | Паспорт (все страницы) | Личность и срок действия документа | Нет |
 | Tasa 790 038 | Оплату госпошлины | Нет |
 | [Formulario MIT](../docs/formulario-mit.html) | Само заявление | Нет |
-| Трудовой договор | Трудовые отношения минимум 3 месяца | [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
+| Трудовой договор | Трудовые отношения минимум 3 месяца | [jurado](../docs/sworn-translation.html) перевод |
 | [Банковская выписка за 3 месяца](../docs/bank-statement.html) | Поступление дохода на счет заявителя | Простой перевод |
-| [Документы компании: ЕГРЮЛ или ЕГРИП](../docs/company-registration.html) | Компания существует и работает минимум 1 год | Апостиль или легализация + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
+| [Документы компании: ЕГРЮЛ или ЕГРИП](../docs/company-registration.html) | Компания существует и работает минимум 1 год | Апостиль или легализация + [jurado](../docs/sworn-translation.html) перевод |
 | [Письмо компании](../docs/client-letter.html) | Разрешение работать из Испании, должность, функции, удаленный формат, зарплата в евро, условия | Простой перевод |
-| [Диплом](../docs/diploma-apostille.html) или [опыт](../docs/electronic-work-record.html) | Квалификация: профильное образование или минимум 3 года опыта | Апостиль или легализация + [jurado](../docs/document-requirements.html#jurado-perevod) перевод для официальных документов; [jurado](../docs/document-requirements.html#jurado-perevod) перевод для писем от работодателей |
+| [Диплом](../docs/diploma-apostille.html) или [опыт](../docs/electronic-work-record.html) | Квалификация: профильное образование или минимум 3 года опыта | Апостиль или легализация + [jurado](../docs/sworn-translation.html) перевод для официальных документов; [jurado](../docs/sworn-translation.html) перевод для писем от работодателей |
 | [CV](../docs/cv.html) | Профиль заявителя | Нет (сразу на испанском) |
 | Медицинская страховка | Медицинское покрытие в Испании | Нет (оформляется в Испании) |
-| [Справка о несудимости](../docs/criminal-record-certificate.html) | Отсутствие судимости за последние 2 года | Апостиль + [jurado](../docs/document-requirements.html#jurado-perevod) перевод |
+| [Справка о несудимости](../docs/criminal-record-certificate.html) | Отсутствие судимости за последние 2 года | Апостиль + [jurado](../docs/sworn-translation.html) перевод |
 | Декларация об отсутствии судимости (<a href="../assets/files/Declaracion_responsable_antecedentes_penales.pdf" download>скачать</a>) | Заявление об отсутствии судимости за последние 5 лет | Нет (заполняется на испанском) |
 | Сопроводительное письмо | Объясняет состав пакета и нестандартные места загрузки | Нет (сразу на испанском) |
 | Зарплатные листы | Фактический доход по трудовому договору | Простой перевод |
