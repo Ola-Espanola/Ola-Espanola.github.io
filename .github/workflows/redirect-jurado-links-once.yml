@@ -1,0 +1,83 @@
+name: Redirect jurado links once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/redirect-jurado-links-once.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Move jurado guide and redirect links
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          sidebar = Path('partials/sidebar.html')
+          text = sidebar.read_text()
+          text = text.replace('  <a href="/docs/sworn-translation.html">Хурадо-перевод</a>\n', '')
+          marker = '  <a href="/docs/document-requirements.html">Требования к документам</a>\n'
+          replacement = marker + '  <a href="/docs/sworn-translation.html">Хурадо-перевод</a>\n'
+          if replacement not in text:
+              text = text.replace(marker, replacement)
+          sidebar.write_text(text)
+
+          for root in ['content', 'docs']:
+              for path in Path(root).glob('*'):
+                  if path.suffix not in {'.md', '.html'}:
+                      continue
+                  s = path.read_text()
+                  old = s
+                  s = s.replace('../docs/document-requirements.html#jurado-perevod', '../docs/sworn-translation.html')
+                  s = s.replace('../docs/links.html#jurado-links', '../docs/sworn-translation.html')
+                  s = s.replace('document-requirements.html#jurado-perevod', 'sworn-translation.html')
+                  s = s.replace('links.html#jurado-links', 'sworn-translation.html')
+                  if s != old:
+                      path.write_text(s)
+
+          links_md = Path('content/links.md')
+          s = links_md.read_text()
+          s = s.replace(
+              '- [Официальный поиск jurado переводчиков](https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Buscador-STIJ.aspx) - список переводчиков, признанных МИД Испании. Здесь можно искать по языку, стране и провинции.',
+              '- [Хурадо-перевод: поиск переводчика и запрос стоимости](../docs/sworn-translation.html) - как найти присяжного переводчика, проверить его в официальном реестре и запросить стоимость.'
+          )
+          links_md.write_text(s)
+
+          links_html = Path('docs/links.html')
+          s = links_html.read_text()
+          s = s.replace(
+              '<a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Buscador-STIJ.aspx"><strong>Официальный поиск jurado переводчиков</strong><span>Список переводчиков, признанных МИД Испании; здесь можно искать по языку, стране и провинции.</span></a>',
+              '<a href="sworn-translation.html"><strong>Хурадо-перевод: поиск переводчика и запрос стоимости</strong><span>Как найти присяжного переводчика, проверить его в официальном реестре и запросить стоимость.</span></a>'
+          )
+          links_html.write_text(s)
+          PY
+
+          node scripts/update-layout.cjs
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "Nothing to update."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add partials/sidebar.html content docs index.html blog
+          git commit -m "Move jurado guide to reference and redirect links"
+          git push
