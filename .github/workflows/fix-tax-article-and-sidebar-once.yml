@@ -1,0 +1,101 @@
+name: Fix tax article and blog sidebar once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/fix-tax-article-and-sidebar-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove 4000 example and unify sidebar
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const htmlPath = 'blog/nalogi-cifrovogo-kochevnika-ispania.html';
+          let html = fs.readFileSync(htmlPath, 'utf8');
+          html = html.replace(
+            /<meta name="description" content="[^"]*">/,
+            '<meta name="description" content="Сколько налогов платит цифровой кочевник в Испании в 2026 году: autónomo, IRPF, соцстрах, работа по найму и режим Бекхэма.">'
+          );
+          html = html.replace(
+            /<meta property="og:description" content="[^"]*">/,
+            '<meta property="og:description" content="Сколько остается после налогов и соцстраха при работе по контракту и по найму в Испании.">'
+          );
+          html = html.replace(
+            /<p class="lead">[\s\S]*?<\/p>/,
+            '<p class="lead">Налоговая нагрузка цифрового кочевника в Испании зависит прежде всего от формата работы, уровня дохода, состава семьи и права на льготы. Ниже — сравнение работы по контракту через <em>autónomo</em> и работы по найму.</p>'
+          );
+          html = html.replace(
+            /\n\s*<section>\s*<h2>Пример расчета: 4000 € в месяц<\/h2>[\s\S]*?<\/section>\s*\n/,
+            '\n'
+          );
+          html = html.replace(
+            /<section>\s*<h2>Что в итоге<\/h2>[\s\S]*?<\/section>/,
+            '<section>\n          <h2>Что в итоге</h2>\n          <p>При оценке налоговой нагрузки стоит смотреть не на отдельную ставку, а на формат работы, размер дохода, состав семьи и доступные льготы. У сотрудника, обычного <em>autónomo</em> и нового <em>autónomo</em> со стартовыми льготами итоговая сумма после налогов может заметно различаться.</p>\n        </section>'
+          );
+          if (/4000/.test(html)) throw new Error('4000 still remains in published tax article');
+          fs.writeFileSync(htmlPath, html);
+
+          const mdPath = 'content/nalogi-cifrovogo-kochevnika-ispania.md';
+          let md = fs.readFileSync(mdPath, 'utf8');
+          md = md.replace(
+            /^description: .*$/m,
+            'description: "Сколько налогов платит цифровой кочевник в Испании в 2026 году: autónomo, IRPF, соцстрах, работа по найму и режим Бекхэма."'
+          );
+          md = md.replace(
+            /При доходе около 4000 € в месяц[^\n]*\n/,
+            'Налоговая нагрузка цифрового кочевника в Испании зависит прежде всего от формата работы, уровня дохода, состава семьи и права на льготы. Ниже — сравнение работы по контракту через *autónomo* и работы по найму.\n'
+          );
+          md = md.replace(
+            /\n## Пример расчета: 4000 € в месяц[\s\S]*?\n## Обычный autónomo без стартовых льгот/,
+            '\n## Обычный autónomo без стартовых льгот'
+          );
+          md = md.replace(
+            /\n## Что в итоге[\s\S]*$/,
+            '\n## Что в итоге\n\nПри оценке налоговой нагрузки стоит смотреть не на отдельную ставку, а на формат работы, размер дохода, состав семьи и доступные льготы. У сотрудника, обычного *autónomo* и нового *autónomo* со стартовыми льготами итоговая сумма после налогов может заметно различаться.\n'
+          );
+          if (/4000/.test(md)) throw new Error('4000 still remains in tax article Markdown');
+          fs.writeFileSync(mdPath, md);
+
+          const sidebarPath = 'partials/sidebar.html';
+          let sidebar = fs.readFileSync(sidebarPath, 'utf8');
+          sidebar = sidebar.replace('{{#guide}}\n', '').replace('{{/guide}}\n', '');
+          if (sidebar.includes('{{#guide}}') || sidebar.includes('{{/guide}}')) throw new Error('guide-only sidebar condition still remains');
+          fs.writeFileSync(sidebarPath, sidebar);
+          NODE
+
+      - name: Regenerate shared layout
+        run: node scripts/update-layout.cjs
+
+      - name: Verify result
+        shell: bash
+        run: |
+          node scripts/update-layout.cjs --check
+          ! grep -q '4000' blog/nalogi-cifrovogo-kochevnika-ispania.html
+          ! grep -q '4000' content/nalogi-cifrovogo-kochevnika-ispania.md
+          grep -q '<p class="sidebar-section">Документы</p>' blog/nalogi-cifrovogo-kochevnika-ispania.html
+          grep -q 'Formulario MIT' blog/nalogi-cifrovogo-kochevnika-ispania.html
+
+      - name: Commit fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add partials/sidebar.html content/nalogi-cifrovogo-kochevnika-ispania.md blog/nalogi-cifrovogo-kochevnika-ispania.html index.html docs/*.html blog/*.html
+          git commit -m "Remove fixed-income example and unify blog sidebar"
+          git push
