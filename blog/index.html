@@ -33,6 +33,24 @@
 
     <main class="layout">
       <!-- shared:sidebar blog-0 -->
+      <style>
+      @media (min-width: 901px) {
+        .sidebar {
+          max-height: calc(100vh - 112px);
+          overflow-y: auto;
+          overscroll-behavior-y: contain;
+        }
+      }
+      
+      @media (min-width: 360px) and (max-width: 599px) and (pointer: coarse) {
+        .sidebar {
+          max-height: calc(100vh - 82px);
+          overflow-x: hidden;
+          overflow-y: auto;
+          overscroll-behavior-y: contain;
+        }
+      }
+      </style>
       <aside class="sidebar" aria-label="Разделы сайта">
         <p class="sidebar-title">Гид</p>
         <a href="../index.html">Главная</a>
@@ -42,10 +60,6 @@
         <a href="../docs/cuenta-ajena.html">Работа в найме</a>
         <a href="../docs/contract-work.html">Работа по контракту</a>
         <a href="../docs/family-member.html">Член семьи</a>
-        <p class="sidebar-section sidebar-blog-heading">Блог</p>
-        <a class="sidebar-blog-index active" href="index.html" aria-current="page">Все статьи</a>
-        <a href="nalogi-cifrovogo-kochevnika-ispania.html">Налоги номада</a>
-        <a href="statistika-nomadov-ispania.html">Статистика номадов</a>
         <p class="sidebar-section">Справочник</p>
         <a href="../docs/document-requirements.html">Требования к документам</a>
         <a href="../docs/sworn-translation.html">Хурадо-перевод</a>
@@ -54,6 +68,9 @@
         <a href="../docs/links.html">Полезные ссылки</a>
         <p class="sidebar-section">Услуги</p>
         <a class="sidebar-service-link" href="../docs/pricing.html">Стоимость сопровождения</a>
+        <p class="sidebar-section sidebar-blog-heading">Блог</p>
+        <a href="nalogi-cifrovogo-kochevnika-ispania.html">Налоги номада</a>
+        <a href="statistika-nomadov-ispania.html">Статистика номадов</a>
       </aside>
       <!-- /shared:sidebar -->
 
