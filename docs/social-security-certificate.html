@@ -41,6 +41,23 @@
         }
       }
       
+      .sidebar .sidebar-blog-heading {
+        display: block !important;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+      }
+      
+      @media (min-width: 600px) and (max-width: 900px) {
+        .sidebar .sidebar-blog-heading {
+          margin: 0 0 0 6px;
+          padding: 7px 4px 7px 10px;
+          border-top: 0;
+          border-left: 1px solid var(--line);
+          flex: 0 0 auto;
+        }
+      }
+      
       @media (min-width: 360px) and (max-width: 599px) and (pointer: coarse) {
         .sidebar {
           max-height: calc(100vh - 82px);
