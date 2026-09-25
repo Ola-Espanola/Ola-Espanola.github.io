@@ -20,53 +20,29 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Move jurado guide and redirect links
+      - name: Polish jurado redirects
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
 
-          sidebar = Path('partials/sidebar.html')
-          text = sidebar.read_text()
-          text = text.replace('  <a href="/docs/sworn-translation.html">Хурадо-перевод</a>\n', '')
-          marker = '  <a href="/docs/document-requirements.html">Требования к документам</a>\n'
-          replacement = marker + '  <a href="/docs/sworn-translation.html">Хурадо-перевод</a>\n'
-          if replacement not in text:
-              text = text.replace(marker, replacement)
-          sidebar.write_text(text)
-
-          for root in ['content', 'docs']:
-              for path in Path(root).glob('*'):
-                  if path.suffix not in {'.md', '.html'}:
-                      continue
-                  s = path.read_text()
-                  old = s
-                  s = s.replace('../docs/document-requirements.html#jurado-perevod', '../docs/sworn-translation.html')
-                  s = s.replace('../docs/links.html#jurado-links', '../docs/sworn-translation.html')
-                  s = s.replace('document-requirements.html#jurado-perevod', 'sworn-translation.html')
-                  s = s.replace('links.html#jurado-links', 'sworn-translation.html')
-                  if s != old:
-                      path.write_text(s)
-
-          links_md = Path('content/links.md')
-          s = links_md.read_text()
+          md = Path('content/document-requirements.md')
+          s = md.read_text()
           s = s.replace(
-              '- [Официальный поиск jurado переводчиков](https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Buscador-STIJ.aspx) - список переводчиков, признанных МИД Испании. Здесь можно искать по языку, стране и провинции.',
-              '- [Хурадо-перевод: поиск переводчика и запрос стоимости](../docs/sworn-translation.html) - как найти присяжного переводчика, проверить его в официальном реестре и запросить стоимость.'
+              'Официальный список переводчиков есть на сайте МИД Испании. Ссылка на поиск лежит в разделе [Полезные ссылки](../docs/sworn-translation.html). В поиске можно выбрать язык, страну/провинцию и тип специалиста. В карточках переводчиков обычно есть контакты, поэтому практичный способ - взять несколько email из списка и разослать один запрос с документом, языковой парой, сроком и просьбой назвать цену.',
+              'Официальный список переводчиков есть на сайте МИД Испании. Как найти переводчика, проверить его в реестре и запросить стоимость, описано в отдельном гайде [Хурадо-перевод](../docs/sworn-translation.html).'
           )
-          links_md.write_text(s)
+          md.write_text(s)
 
-          links_html = Path('docs/links.html')
-          s = links_html.read_text()
+          html = Path('docs/document-requirements.html')
+          s = html.read_text()
           s = s.replace(
-              '<a href="https://www.exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Buscador-STIJ.aspx"><strong>Официальный поиск jurado переводчиков</strong><span>Список переводчиков, признанных МИД Испании; здесь можно искать по языку, стране и провинции.</span></a>',
-              '<a href="sworn-translation.html"><strong>Хурадо-перевод: поиск переводчика и запрос стоимости</strong><span>Как найти присяжного переводчика, проверить его в официальном реестре и запросить стоимость.</span></a>'
+              'Официальный список переводчиков есть на сайте МИД Испании. Ссылка на поиск лежит в разделе <a href="sworn-translation.html">Полезные ссылки</a>. В поиске можно выбрать язык, страну/провинцию и тип специалиста. В карточках переводчиков обычно есть контакты, поэтому практичный способ - взять несколько email из списка и разослать один запрос с документом, языковой парой, сроком и просьбой назвать цену.',
+              'Официальный список переводчиков есть на сайте МИД Испании. Как найти переводчика, проверить его в реестре и запросить стоимость, описано в отдельном гайде <a href="sworn-translation.html">Хурадо-перевод</a>.'
           )
-          links_html.write_text(s)
+          html.write_text(s)
           PY
-
-          node scripts/update-layout.cjs
 
       - name: Commit changes
         shell: bash
@@ -78,6 +54,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add partials/sidebar.html content docs index.html blog
-          git commit -m "Move jurado guide to reference and redirect links"
+          git add content/document-requirements.md docs/document-requirements.html
+          git commit -m "Polish jurado guide redirect text"
           git push
