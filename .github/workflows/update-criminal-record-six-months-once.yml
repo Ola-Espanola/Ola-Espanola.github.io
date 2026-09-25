@@ -1,0 +1,70 @@
+name: Update criminal record six-month guidance once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-criminal-record-six-months-once.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update guidance
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          md = Path('content/criminal-record-certificate.md')
+          s = md.read_text()
+          old = '''## Если проживали в другой стране
+
+Нужна отдельная справка из каждой страны проживания за последние 2 года. Для каждой справки проверьте способ легализации: апостиль или консульская легализация. Затем сделайте `jurado` перевод на испанский.
+
+Если справка подается не из страны гражданства, приложите документ, подтверждающий проживание в этой стране: ВНЖ, регистрацию или другой официальный документ.'''
+          new = '''## Если проживали в другой стране
+
+В инструкции UGE указана справка из страны или стран проживания за последние 2 года, но минимальный срок проживания в конкретной стране не установлен. При этом в официальных консульских инструкциях Испании по DNV, например [Вашингтона](https://www.exteriores.gob.es/Consulados/washington/es/ServiciosConsulares/Paginas/index.aspx?scca=Visados&scco=Estados+Unidos&scd=288&scs=Visado+de+residencia+para+teletrabajo+%28n%C3%B3mada+digital%29) и [Оттавы](https://www.exteriores.gob.es/Embajadas/ottawa/es/ServiciosConsulares/Paginas/index.aspx?scca=Visados&scco=Canad%C3%A1&scd=219&scs=Visado+de+residencia+para+teletrabajo+%28n%C3%B3mada+digital%29), используется критерий **более 6 месяцев (180 дней) в течение последних 2 лет** для необходимости дополнительной справки из другой страны.
+
+Поэтому если в другой стране вы проживали более 6 месяцев за последние 2 года, отдельную справку точно стоит готовить. Для более короткого проживания UGE не публикует числового исключения, поэтому если это было именно место жительства, а не поездка, безопаснее ориентироваться на буквальную формулировку UGE.
+
+Для каждой справки проверьте способ легализации: апостиль или консульская легализация. Затем сделайте `jurado` перевод на испанский.
+
+Если справка подается не из страны гражданства, приложите документ, подтверждающий проживание в этой стране: ВНЖ, регистрацию или другой официальный документ.'''
+          if old not in s:
+              raise SystemExit('Expected markdown block not found')
+          md.write_text(s.replace(old, new))
+
+          html = Path('docs/criminal-record-certificate.html')
+          s = html.read_text()
+          old = '''        <h2>Если проживали в другой стране</h2>
+        <p>Нужна отдельная справка из каждой страны проживания за последние 2 года. Для каждой справки проверьте способ легализации: апостиль или консульская легализация. Затем сделайте <code>jurado</code> перевод на испанский.</p>
+        <p>Если справка подается не из страны гражданства, приложите документ, подтверждающий проживание в этой стране: ВНЖ, регистрацию или другой официальный документ.</p>'''
+          new = '''        <h2>Если проживали в другой стране</h2>
+        <p>В инструкции UGE указана справка из страны или стран проживания за последние 2 года, но минимальный срок проживания в конкретной стране не установлен. При этом в официальных консульских инструкциях Испании по DNV, например <a href="https://www.exteriores.gob.es/Consulados/washington/es/ServiciosConsulares/Paginas/index.aspx?scca=Visados&amp;scco=Estados+Unidos&amp;scd=288&amp;scs=Visado+de+residencia+para+teletrabajo+%28n%C3%B3mada+digital%29">Вашингтона</a> и <a href="https://www.exteriores.gob.es/Embajadas/ottawa/es/ServiciosConsulares/Paginas/index.aspx?scca=Visados&amp;scco=Canad%C3%A1&amp;scd=219&amp;scs=Visado+de+residencia+para+teletrabajo+%28n%C3%B3mada+digital%29">Оттавы</a>, используется критерий <strong>более 6 месяцев (180 дней) в течение последних 2 лет</strong> для необходимости дополнительной справки из другой страны.</p>
+        <p>Поэтому если в другой стране вы проживали более 6 месяцев за последние 2 года, отдельную справку точно стоит готовить. Для более короткого проживания UGE не публикует числового исключения, поэтому если это было именно место жительства, а не поездка, безопаснее ориентироваться на буквальную формулировку UGE.</p>
+        <p>Для каждой справки проверьте способ легализации: апостиль или консульская легализация. Затем сделайте <code>jurado</code> перевод на испанский.</p>
+        <p>Если справка подается не из страны гражданства, приложите документ, подтверждающий проживание в этой стране: ВНЖ, регистрацию или другой официальный документ.</p>'''
+          if old not in s:
+              raise SystemExit('Expected html block not found')
+          html.write_text(s.replace(old, new))
+          PY
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/criminal-record-certificate.md docs/criminal-record-certificate.html
+          git commit -m "Clarify six-month criminal record guidance"
+          git push
