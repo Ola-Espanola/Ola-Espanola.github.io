@@ -1,0 +1,61 @@
+name: Update residence support once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-residence-support-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update test page
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const htmlPath = 'docs/residence-support.html';
+          let html = fs.readFileSync(htmlPath, 'utf8');
+          html = html.replace(
+            '<p class="service-price-line">Каждый член семьи <strong class="service-price">100 €</strong></p>\n\n          <p>Включает всё из варианта «Только подача в UGE», а также:</p>',
+            '<p class="service-price-line">Каждый член семьи <strong class="service-price">100 €</strong></p>\n\n          <p>В этом варианте я проверяю сами документы, отвечаю на вопросы во время их сбора, помогаю с переводами, заполняю формы и беру на себя больше работы по подготовке пакета.</p>\n          <p>Включает всё из варианта «Только подача в UGE», а также:</p>'
+          );
+          html = html.replace(/\n\s*<section>\s*<h2>В чём разница<\/h2>[\s\S]*?<\/section>/, '');
+          html = html.replace(/\n\s*<section>\s*<h2>Почему недорого<\/h2>[\s\S]*?<\/section>/, '');
+          if (html.includes('<h2>В чём разница</h2>') || html.includes('<h2>Почему недорого</h2>')) throw new Error('Old sections remain in HTML');
+          if (!html.includes('В этом варианте я проверяю сами документы')) throw new Error('New support description missing in HTML');
+          fs.writeFileSync(htmlPath, html);
+
+          const mdPath = 'content/residence-support.md';
+          let md = fs.readFileSync(mdPath, 'utf8');
+          md = md.replace(
+            'Каждый член семьи — **100 €**\n\nВключает всё из варианта «Только подача в UGE», а также:',
+            'Каждый член семьи — **100 €**\n\nВ этом варианте я проверяю сами документы, отвечаю на вопросы во время их сбора, помогаю с переводами, заполняю формы и беру на себя больше работы по подготовке пакета.\n\nВключает всё из варианта «Только подача в UGE», а также:'
+          );
+          md = md.replace(/\n## В чём разница[\s\S]*?(?=\n## Почему недорого)/, '');
+          md = md.replace(/\n## Почему недорого[\s\S]*$/, '\n');
+          if (md.includes('## В чём разница') || md.includes('## Почему недорого')) throw new Error('Old sections remain in Markdown');
+          if (!md.includes('В этом варианте я проверяю сами документы')) throw new Error('New support description missing in Markdown');
+          fs.writeFileSync(mdPath, md);
+          NODE
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/residence-support.html content/residence-support.md
+          git commit -m "Simplify residence support test page"
+          git push
