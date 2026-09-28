@@ -1,0 +1,43 @@
+name: Update index2 consulate text
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-index2-consulate.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-index2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update consulate section
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index2.html')
+          text = path.read_text(encoding='utf-8')
+          old = '''          <p>Подача из Испании обычно удобнее тем, кто уже легально находится в стране и готовит полный пакет документов на месте. Через консульство требования к оформлению и проверке документов могут быть строже, а запись и сроки зависят от конкретного консульства.</p>'''
+          new = '''          <p>Подача из Испании обычно удобнее тем, кто уже легально находится в стране и готовит полный пакет документов на месте. Через консульство проверка документов строже. Виза цифрового кочевника выдаётся максимум на 1 год; чтобы остаться дальше, до её окончания нужно снова собирать и подавать пакет документов уже на резиденцию цифрового кочевника. При подаче из Испании первоначальная резиденция может быть выдана сразу на срок до 3 лет.</p>\n          <p>При этом год по консульской визе не теряется для будущей larga duración: виза является основанием для законного проживания в Испании, поэтому период проживания по ней засчитывается в требуемые 5 лет.</p>'''
+          if old not in text:
+              raise SystemExit('Target paragraph not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+
+      - name: Commit change
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index2.html
+          git commit -m "Clarify consulate visa duration on index2"
+          git push
