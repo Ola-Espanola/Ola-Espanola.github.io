@@ -52,7 +52,7 @@ jobs:
 
           while IFS= read -r path; do
             case "$path" in
-              index.html)
+              index.html|.github/workflows/indexnow.yml)
                 printf '%s/\n' "$BASE_URL"
                 ;;
               docs/*.html|blog/*.html)
