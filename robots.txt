@@ -3,3 +3,4 @@ Allow: /
 Disallow: /Doc/
 
 Sitemap: https://ola-espanola.github.io/sitemap.xml
+Sitemap: https://ola-espanola.pages.dev/sitemap.xml
