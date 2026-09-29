@@ -1,0 +1,50 @@
+name: Compact sidebar spacing
+
+on:
+  push:
+    paths:
+      - '.github/workflows/compact-sidebar-spacing.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-spacing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Tighten desktop spacing
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/css/styles.css')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+              '  padding: 48px 32px 72px;': '  padding: 40px 32px 72px;',
+              '  padding: 18px;\n  background: #edf2f7;': '  padding: 16px;\n  background: #edf2f7;',
+              '.sidebar-section {\n  margin-top: 16px;': '.sidebar-section {\n  margin-top: 14px;',
+              '  padding: 8px 10px;\n  border-radius: 6px;\n  color: var(--nav);\n  font-size: 14px;': '  padding: 7px 10px;\n  border-radius: 6px;\n  color: var(--nav);\n  font-size: 14px;',
+          }
+          for old, new in replacements.items():
+              if old not in s:
+                  raise SystemExit(f'Expected CSS fragment not found: {old!r}')
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Regenerate shared layout and asset versions
+        run: node scripts/update-layout.cjs
+      - name: Verify generated layout
+        run: node scripts/update-layout.cjs --check
+      - name: Commit generated changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/css/styles.css index.html docs blog
+          git diff --cached --quiet && exit 0
+          git commit -m "Reduce sidebar and page top spacing"
+          git push origin HEAD:main
