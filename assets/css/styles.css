@@ -157,7 +157,7 @@ a {
   gap: 48px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 48px 32px 72px;
+  padding: 40px 32px 72px;
 }
 
 .sidebar {
@@ -167,7 +167,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 18px;
+  padding: 16px;
   background: #edf2f7;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -184,13 +184,13 @@ a {
 }
 
 .sidebar-section {
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .sidebar a,
 .sidebar span {
   display: block;
-  padding: 8px 10px;
+  padding: 7px 10px;
   border-radius: 6px;
   color: var(--nav);
   font-size: 14px;
