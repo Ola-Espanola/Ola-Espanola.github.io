@@ -1,0 +1,45 @@
+name: Submit full guide to IndexNow once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/indexnow-full-guide-once.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  submit-guide:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for published guide
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://ola-espanola.github.io/docs/digital-nomad-spain-guide.html"
+          for attempt in {1..30}; do
+            STATUS=$(curl -sS -o /dev/null -w "%{http_code}" "$URL" || true)
+            if [[ "$STATUS" == "200" ]]; then
+              echo "Guide is live."
+              exit 0
+            fi
+            echo "Waiting for GitHub Pages ($attempt/30), status: $STATUS"
+            sleep 10
+          done
+          exit 1
+
+      - name: Submit guide to Yandex IndexNow
+        shell: bash
+        env:
+          INDEXNOW_KEY: "583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1"
+        run: |
+          set -euo pipefail
+          cat > /tmp/indexnow.json <<EOF
+          {"host":"ola-espanola.github.io","key":"${INDEXNOW_KEY}","keyLocation":"https://ola-espanola.github.io/${INDEXNOW_KEY}.txt","urlList":["https://ola-espanola.github.io/docs/digital-nomad-spain-guide.html"]}
+          EOF
+          STATUS=$(curl -sS -o /tmp/indexnow-response.txt -w "%{http_code}" -X POST -H "Content-Type: application/json; charset=utf-8" --data-binary @/tmp/indexnow.json "https://yandex.com/indexnow")
+          echo "Yandex IndexNow HTTP status: $STATUS"
+          cat /tmp/indexnow-response.txt || true
+          [[ "$STATUS" == "200" || "$STATUS" == "202" ]]
