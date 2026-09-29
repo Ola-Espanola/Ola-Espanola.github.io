@@ -6,6 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
+const SITE_ORIGIN = 'https://ola-espanola.github.io';
 
 const ASSET_VERSION = crypto.createHash('sha256')
   .update(fs.readFileSync(path.join(root, 'assets/css/styles.css')))
@@ -78,6 +79,74 @@ function versionAssets(html) {
     .replace(/((?:\/|(?:\.\.\/)*)assets\/js\/metrika\.js)(?:\?v[^\"'\s>]*)?/g, `$1?v=${ASSET_VERSION}`);
 }
 
+function plainText(value) {
+  return value
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function breadcrumbData(html, page) {
+  if (page === 'index.html') return null;
+  const heading = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]
+    || html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1];
+  const currentName = heading && plainText(heading);
+  if (!currentName) throw new Error(`${page}: cannot determine breadcrumb label`);
+
+  const itemListElement = [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Главная',
+      item: `${SITE_ORIGIN}/`,
+    },
+  ];
+
+  if (page === 'blog/index.html') {
+    itemListElement.push({ '@type': 'ListItem', position: 2, name: 'Блог' });
+  } else if (page.startsWith('blog/')) {
+    itemListElement.push({
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Блог',
+      item: `${SITE_ORIGIN}/blog/`,
+    });
+    itemListElement.push({ '@type': 'ListItem', position: 3, name: currentName });
+  } else if (page.startsWith('docs/')) {
+    itemListElement.push({ '@type': 'ListItem', position: 2, name: currentName });
+  } else {
+    return null;
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement,
+  };
+}
+
+function updateBreadcrumbs(html, page) {
+  const marker = /^[ \t]*<!-- structured:breadcrumbs -->\n[\s\S]*?^[ \t]*<!-- \/structured:breadcrumbs -->/m;
+  const data = breadcrumbData(html, page);
+  if (!data) return html.replace(marker, '');
+
+  const closeHead = html.match(/^([ \t]*)<\/head>/m);
+  if (!closeHead) throw new Error(`${page}: missing </head>`);
+  const indent = `${closeHead[1]}  `;
+  const json = JSON.stringify(data, null, 2).replace(/</g, '\\u003c');
+  const renderedJson = json.split('\n').map(line => `${indent}  ${line}`).join('\n');
+  const rendered = `${indent}<!-- structured:breadcrumbs -->\n${indent}<script type="application/ld+json">\n${renderedJson}\n${indent}</script>\n${indent}<!-- /structured:breadcrumbs -->`;
+
+  if (marker.test(html)) return html.replace(marker, rendered);
+  return html.replace(/^([ \t]*)<\/head>/m, `${rendered}\n$1</head>`);
+}
+
 function updatePage(source, page) {
   const eol = source.includes('\r\n') ? '\r\n' : '\n';
   const normalized = source.replace(/\r\n/g, '\n');
@@ -107,7 +176,7 @@ function updatePage(source, page) {
     const rendered = linksForPage(template(kind, context), page).split('\n').map(line => indent + line).join('\n');
     return `${indent}<!-- shared:${kind}${variant ? ` ${variant}` : ''} -->\n${rendered}\n${indent}<!-- /shared:${kind} -->`;
   });
-  return versionAssets(result).replace(/\n/g, eol);
+  return updateBreadcrumbs(versionAssets(result), page).replace(/\n/g, eol);
 }
 
 function main() {
