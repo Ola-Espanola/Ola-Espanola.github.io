@@ -8,6 +8,12 @@ on:
       - "index.html"
       - "docs/**/*.html"
       - "blog/**/*.html"
+      - "sitemap.xml"
+      - "Doc/cloudflare-site/index.html"
+      - "Doc/cloudflare-site/robots.txt"
+      - "Doc/cloudflare-site/self-sitemap.xml"
+      - "Doc/cloudflare-site/sitemap.xml"
+      - "Doc/cloudflare-site/583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1.txt"
       - ".github/workflows/indexnow.yml"
       - "583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1.txt"
   workflow_dispatch:
@@ -16,7 +22,7 @@ permissions:
   contents: read
 
 jobs:
-  notify-indexnow:
+  notify-github-pages:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +31,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build list of changed public URLs
+      - name: Build GitHub Pages URL list
         id: urls
         shell: bash
         run: |
@@ -37,8 +43,10 @@ jobs:
           : > "$CHANGED_FILE"
           : > "$URL_FILE"
 
+          SUBMIT_ALL=0
+
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            printf '%s\n' "index.html" > "$CHANGED_FILE"
+            SUBMIT_ALL=1
           else
             BEFORE="${{ github.event.before }}"
             SHA="${{ github.sha }}"
@@ -48,30 +56,38 @@ jobs:
             else
               git diff --name-only "$BEFORE" "$SHA" > "$CHANGED_FILE"
             fi
+
+            if grep -Eq '^(sitemap\.xml|\.github/workflows/indexnow\.yml)$' "$CHANGED_FILE"; then
+              SUBMIT_ALL=1
+            fi
           fi
 
-          while IFS= read -r path; do
-            case "$path" in
-              index.html|.github/workflows/indexnow.yml)
-                printf '%s/\n' "$BASE_URL"
-                ;;
-              docs/*.html|blog/*.html)
-                printf '%s/%s\n' "$BASE_URL" "$path"
-                ;;
-            esac
-          done < "$CHANGED_FILE" | sort -u > "$URL_FILE"
+          if [[ "$SUBMIT_ALL" == "1" ]]; then
+            grep -o 'https://ola-espanola\.github\.io[^<]*' sitemap.xml | sort -u > "$URL_FILE"
+          else
+            while IFS= read -r path; do
+              case "$path" in
+                index.html)
+                  printf '%s/\n' "$BASE_URL"
+                  ;;
+                docs/*.html|blog/*.html)
+                  printf '%s/%s\n' "$BASE_URL" "$path"
+                  ;;
+              esac
+            done < "$CHANGED_FILE" | sort -u > "$URL_FILE"
+          fi
 
           COUNT=$(wc -l < "$URL_FILE" | tr -d ' ')
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
 
           if [[ "$COUNT" -gt 0 ]]; then
-            echo "URLs to submit:"
+            echo "GitHub Pages URLs to submit:"
             cat "$URL_FILE"
           else
-            echo "No changed public HTML pages to submit."
+            echo "No GitHub Pages URLs to submit."
           fi
 
-      - name: Wait until IndexNow key is public
+      - name: Wait until GitHub Pages IndexNow key is public
         if: steps.urls.outputs.count != '0'
         shell: bash
         env:
@@ -83,17 +99,16 @@ jobs:
           for attempt in {1..30}; do
             BODY=$(curl -fsS "$KEY_LOCATION" 2>/dev/null || true)
             if [[ "$BODY" == "$INDEXNOW_KEY" ]]; then
-              echo "IndexNow key is available on the published site."
+              echo "GitHub Pages IndexNow key is available."
               exit 0
             fi
-            echo "Waiting for GitHub Pages deployment ($attempt/30)..."
             sleep 10
           done
 
-          echo "IndexNow key did not become available in time."
+          echo "GitHub Pages IndexNow key did not become available in time."
           exit 1
 
-      - name: Submit changed URLs to Yandex IndexNow
+      - name: Submit GitHub Pages URLs to Yandex IndexNow
         if: steps.urls.outputs.count != '0'
         shell: bash
         env:
@@ -127,6 +142,97 @@ jobs:
 
           echo "Yandex IndexNow HTTP status: $STATUS"
           cat /tmp/indexnow-response.txt || true
+
+          if [[ "$STATUS" != "200" && "$STATUS" != "202" ]]; then
+            exit 1
+          fi
+
+  notify-cloudflare-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decide whether Cloudflare URL changed
+        id: cloudflare
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SHOULD_SUBMIT=0
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            SHOULD_SUBMIT=1
+          else
+            BEFORE="${{ github.event.before }}"
+            SHA="${{ github.sha }}"
+            CHANGED_FILE="/tmp/cloudflare-changed.txt"
+
+            if [[ -z "$BEFORE" || "$BEFORE" == "0000000000000000000000000000000000000000" ]]; then
+              git show --pretty='' --name-only "$SHA" > "$CHANGED_FILE"
+            else
+              git diff --name-only "$BEFORE" "$SHA" > "$CHANGED_FILE"
+            fi
+
+            if grep -Eq '^(Doc/cloudflare-site/(index\.html|robots\.txt|self-sitemap\.xml|sitemap\.xml|583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1\.txt)|\.github/workflows/indexnow\.yml)$' "$CHANGED_FILE"; then
+              SHOULD_SUBMIT=1
+            fi
+          fi
+
+          echo "submit=$SHOULD_SUBMIT" >> "$GITHUB_OUTPUT"
+
+      - name: Wait until Cloudflare IndexNow key is public
+        if: steps.cloudflare.outputs.submit == '1'
+        shell: bash
+        env:
+          INDEXNOW_KEY: "583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1"
+          KEY_LOCATION: "https://ola-espanola.pages.dev/583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1.txt"
+        run: |
+          set -euo pipefail
+
+          for attempt in {1..60}; do
+            BODY=$(curl -fsS "$KEY_LOCATION" 2>/dev/null || true)
+            if [[ "$BODY" == "$INDEXNOW_KEY" ]]; then
+              echo "Cloudflare IndexNow key is available."
+              exit 0
+            fi
+            sleep 10
+          done
+
+          echo "Cloudflare IndexNow key did not become available in time."
+          exit 1
+
+      - name: Submit Cloudflare landing page to Yandex IndexNow
+        if: steps.cloudflare.outputs.submit == '1'
+        shell: bash
+        env:
+          INDEXNOW_KEY: "583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1"
+          KEY_LOCATION: "https://ola-espanola.pages.dev/583d99f7f0044ad7dac24b48c3c0194a20199d443a6151d1.txt"
+        run: |
+          set -euo pipefail
+
+          cat > /tmp/indexnow-cloudflare.json <<EOF
+          {
+            "host": "ola-espanola.pages.dev",
+            "key": "$INDEXNOW_KEY",
+            "keyLocation": "$KEY_LOCATION",
+            "urlList": ["https://ola-espanola.pages.dev/"]
+          }
+          EOF
+
+          STATUS=$(curl -sS \
+            -o /tmp/indexnow-cloudflare-response.txt \
+            -w "%{http_code}" \
+            -X POST \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data-binary @/tmp/indexnow-cloudflare.json \
+            "https://yandex.com/indexnow")
+
+          echo "Yandex IndexNow HTTP status for Cloudflare: $STATUS"
+          cat /tmp/indexnow-cloudflare-response.txt || true
 
           if [[ "$STATUS" != "200" && "$STATUS" != "202" ]]; then
             exit 1
