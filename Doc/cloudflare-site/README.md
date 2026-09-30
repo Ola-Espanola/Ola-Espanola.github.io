@@ -1,16 +1,20 @@
-# Cloudflare Pages draft
+# Cloudflare Pages landing
 
-Отдельная заготовка для будущего Cloudflare Pages-проекта.
+Отдельная индексируемая посадочная страница Ola Española на Cloudflare Pages.
 
-Сейчас она намеренно не предназначена для индексации:
-- исходники лежат внутри `/Doc/`, который закрыт текущим корневым `robots.txt` основного GitHub Pages-сайта;
-- `index.html` содержит `noindex,nofollow`;
-- локальный `robots.txt` запрещает обход всего будущего Cloudflare-сайта.
+Текущий адрес:
+- `https://ola-espanola.pages.dev/`
 
-Перед публичным запуском на Cloudflare:
-1. заменить `noindex,nofollow` на `index,follow`;
-2. заменить `Disallow: /` в `robots.txt` на `Allow: /`;
-3. после получения окончательного `*.pages.dev` адреса добавить абсолютную строку `Sitemap:` в `robots.txt`;
-4. при необходимости синхронизировать `sitemap.xml` с актуальным sitemap основного сайта.
+Назначение:
+- дополнительная точка входа из поиска;
+- ссылки на основной сайт `https://ola-espanola.github.io/` и ключевые материалы;
+- отдельная верификация и индексация Cloudflare Pages-домена.
 
-`Doc/cloudflare-site/sitemap.xml` уже содержит URL основного сайта `https://ola-espanola.github.io/` и предназначен для теста cross-site sitemap.
+SEO-настройки:
+- `index.html` открыт для индексации и имеет self-canonical на `https://ola-espanola.pages.dev/`;
+- `robots.txt` разрешает обход и указывает `self-sitemap.xml`;
+- `self-sitemap.xml` содержит индексируемую Cloudflare-страницу;
+- `sitemap.xml` — синхронизированная копия sitemap основного сайта с URL `ola-espanola.github.io`;
+- файл ключа IndexNow размещается в корне Cloudflare Pages для отдельной отправки `pages.dev` URL.
+
+Основной сайт и Cloudflare-страница не должны быть буквальными дублями: Cloudflare остаётся короткой посадочной страницей, которая ведёт на подробные материалы основного сайта.
