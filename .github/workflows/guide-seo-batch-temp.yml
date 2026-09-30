@@ -17,7 +17,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Update guide SEO
-        run: python scripts/guide-seo-batch-temp.py
+        shell: bash
+        run: |
+          sed -i "s/s.rfind('      <\/article>')/s.rfind('<\/article>')/" scripts/guide-seo-batch-temp.py
+          python scripts/guide-seo-batch-temp.py
       - name: Verify
         shell: bash
         run: |
@@ -36,7 +39,7 @@ jobs:
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "418982994+github-actions[bot]@users.noreply.github.com"
           git add docs/*.html
           git commit -m "Improve guide SEO metadata and footers"
           git push
