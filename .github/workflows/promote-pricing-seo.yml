@@ -1,0 +1,132 @@
+name: Promote pricing SEO update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/promote-pricing-seo.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Update pricing page
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          path = Path('docs/pricing.html')
+          html = path.read_text(encoding='utf-8')
+
+          replacements = {
+              '<title>Сопровождение ВНЖ номада в Испании: стоимость | Ola Española</title>': '<title>Помощь с визой и ВНЖ цифрового кочевника в Испании | Ola Española</title>',
+              '<meta name="description" content="Стоимость сопровождения получения ВНЖ цифрового кочевника в Испании: сопровождение и подача, подача в UGE, помощь с документами и дозапросами.">': '<meta name="description" content="Помощь в получении визы и ВНЖ цифрового кочевника в Испании: проверка документов, подача в UGE, сопровождение семьи и ответы на дозапросы.">',
+              '<meta property="og:title" content="Сопровождение ВНЖ номада в Испании: стоимость | Ola Española">': '<meta property="og:title" content="Помощь с визой и ВНЖ цифрового кочевника в Испании | Ola Española">',
+              '<meta property="og:description" content="Стоимость сопровождения получения ВНЖ цифрового кочевника в Испании: сопровождение и подача, подача в UGE, помощь с документами и дозапросами.">': '<meta property="og:description" content="Помощь в получении визы и ВНЖ цифрового кочевника в Испании: проверка документов, подача в UGE, сопровождение семьи и ответы на дозапросы.">',
+              '<h1>Сопровождение ВНЖ номада в Испании: стоимость</h1>': '<h1>Помощь в получении визы и ВНЖ цифрового кочевника в Испании</h1>',
+              '<h2>Сопровождение и подача</h2>': '<h2>Стоимость сопровождения</h2>',
+              '"name": "Сопровождение ВНЖ номада в Испании: стоимость"': '"name": "Помощь с визой и ВНЖ цифрового кочевника в Испании"',
+          }
+          for old, new in replacements.items():
+              if old not in html:
+                  raise SystemExit(f'Missing expected text: {old}')
+              html = html.replace(old, new, 1)
+
+          twitter_marker = '    <meta name="twitter:card" content="summary">\n'
+          twitter_add = (
+              '    <meta name="twitter:card" content="summary">\n'
+              '    <meta name="twitter:title" content="Помощь с визой и ВНЖ цифрового кочевника в Испании">\n'
+              '    <meta name="twitter:description" content="Проверка документов, подача в UGE, сопровождение семьи и ответы на дозапросы по визе и ВНЖ цифрового кочевника в Испании.">\n'
+          )
+          if '<meta name="twitter:title"' not in html:
+              html = html.replace(twitter_marker, twitter_add, 1)
+
+          structured_marker = '    <!-- structured:breadcrumbs -->\n'
+          webpage_jsonld = '''    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Помощь в получении визы и ВНЖ цифрового кочевника в Испании",
+      "description": "Помощь в получении визы и ВНЖ цифрового кочевника в Испании: проверка документов, подача в UGE, сопровождение семьи и ответы на дозапросы.",
+      "url": "https://ola-espanola.github.io/docs/pricing.html",
+      "dateModified": "2026-09-30",
+      "inLanguage": "ru"
+    }
+    </script>
+'''
+          if '"dateModified": "2026-09-30"' not in html:
+              html = html.replace(structured_marker, webpage_jsonld + structured_marker, 1)
+
+          style_marker = '  </head>\n'
+          seo_style = '''    <style>
+      .seo-footer {
+        margin-top: 54px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .seo-footer h2 {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 18px;
+      }
+      .seo-footer p { margin: 10px 0; }
+      .seo-footer a { color: var(--nav); }
+    </style>
+'''
+          if '.seo-footer {' not in html:
+              html = html.replace(style_marker, seo_style + style_marker, 1)
+
+          closing = '        <p><strong>Рекомендую связаться заранее</strong> — так проще сразу выстроить подготовку пакета и избежать лишней работы.</p>\n'
+          footer = '''        <p><strong>Рекомендую связаться заранее</strong> — так проще сразу выстроить подготовку пакета и избежать лишней работы.</p>
+
+        <section class="seo-footer" aria-label="О помощи с визой и ВНЖ цифрового кочевника">
+          <h2>Помощь с визой и ВНЖ цифрового кочевника в Испании</h2>
+          <p>Ola Española помогает подготовить и подать документы на <strong>визу и ВНЖ цифрового кочевника в Испании</strong>. Помощь подходит как специалистам, работающим по контракту, так и сотрудникам иностранных компаний. Если вместе с основным заявителем подаются супруг, дети или другие члены семьи, их заявления можно подготовить одновременно.</p>
+          <p>При подаче на <strong>ВНЖ номада из Испании</strong> заявление направляется в UGE. До подачи важно проверить основание для удалённой работы, доход, документы компании, подтверждение квалификации или опыта, социальное страхование, справку о несудимости, переводы и апостили. При необходимости я также помогаю с ответами на дозапросы UGE.</p>
+          <p><strong>Номад-виза</strong>, <strong>виза номада</strong> и ВНЖ цифрового кочевника относятся к одной программе, но порядок оформления зависит от того, подаётся заявление через консульство Испании или уже на территории Испании. Перед подготовкой документов можно посмотреть <a href="eligibility.html">кому подходит ВНЖ</a>, <a href="ways-to-apply.html">способы получения</a>, <a href="cuenta-ajena.html">работу в найме</a> и <a href="contract-work.html">работу по контракту</a>.</p>
+        </section>
+'''
+          if 'class="seo-footer"' not in html:
+              if closing not in html:
+                  raise SystemExit('Missing pricing closing paragraph')
+              html = html.replace(closing, footer, 1)
+
+          path.write_text(html, encoding='utf-8')
+
+          for sitemap_path in [Path('sitemap.xml'), Path('Doc/cloudflare-site/sitemap.xml')]:
+              sitemap = sitemap_path.read_text(encoding='utf-8')
+              pattern = r'(<loc>https://ola-espanola\.github\.io/docs/pricing\.html</loc>\s*<lastmod>)[^<]+(</lastmod>)'
+              sitemap, count = re.subn(pattern, r'\g<1>2026-09-30\2', sitemap, count=1)
+              if count != 1:
+                  raise SystemExit(f'pricing URL missing in {sitemap_path}')
+              sitemap_path.write_text(sitemap, encoding='utf-8')
+
+          test = Path('Doc/pricing-test.html')
+          if test.exists():
+              test.unlink()
+      - name: Verify generated layout
+        run: node scripts/update-layout.cjs --check
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/pricing.html sitemap.xml Doc/cloudflare-site/sitemap.xml
+          git add -u Doc/pricing-test.html || true
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Publish optimized pricing page"
+          git push
