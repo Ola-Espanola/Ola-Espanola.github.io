@@ -1,0 +1,198 @@
+name: Rebuild cuenta ajena SEO test 2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/rebuild-cuenta-ajena-test2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Build test page
+        shell: python {0}
+        run: |
+          from pathlib import Path
+          import re
+
+          src = Path('docs/cuenta-ajena.html')
+          html = src.read_text(encoding='utf-8')
+
+          html = html.replace(
+              '<meta name="viewport" content="width=device-width, initial-scale=1">',
+              '<meta name="viewport" content="width=device-width, initial-scale=1">\n    <meta name="robots" content="noindex, nofollow">',
+              1,
+          )
+
+          replacements = {
+              '<title>ВНЖ номада в Испании: документы для работы в найме</title>': '<title>Виза и ВНЖ цифрового кочевника в Испании по найму: документы | Ola Española</title>',
+              '<meta name="description" content="Документы для ВНЖ цифрового кочевника в Испании при работе в найме: трудовой договор, доход, свидетельство СФР, страховка, переводы и пример пакета для UGE.">': '<meta name="description" content="Полный список документов для визы и ВНЖ цифрового кочевника в Испании по найму: трудовой договор, письмо работодателя, СФР, доход, страховка, несудимость и подача в UGE.">',
+              '<meta property="og:title" content="ВНЖ номада в Испании: документы для работы в найме">': '<meta property="og:title" content="Виза и ВНЖ цифрового кочевника в Испании по найму: документы">',
+              '<meta property="og:description" content="Документы для ВНЖ цифрового кочевника в Испании при работе в найме: трудовой договор, доход, свидетельство СФР, страховка, переводы и пример пакета для UGE.">': '<meta property="og:description" content="Полный список документов для визы и ВНЖ цифрового кочевника в Испании по найму: трудовой договор, письмо работодателя, СФР, доход, страховка, несудимость и подача в UGE.">',
+              '<h1>ВНЖ цифрового кочевника в Испании: документы для работы в найме</h1>': '<h1>Виза и ВНЖ цифрового кочевника в Испании по найму: документы</h1>',
+              '<p class="lead">Гайд по документам для подачи на ВНЖ цифрового кочевника в Испании при работе в найме. Для заявителя из России, который работает дистанционно по трудовому договору на иностранную компанию или группу компаний вне Испании. В испанских источниках это <span lang="es">teletrabajador internacional por cuenta ajena</span>.</p>': '<p class="lead">Список документов для подачи на визу и ВНЖ цифрового кочевника в Испании при работе по найму. Для заявителя из России, который работает дистанционно по трудовому договору с компанией или группой компаний за пределами Испании. В испанских источниках эта категория называется <span lang="es">teletrabajador internacional por cuenta ajena</span>.</p>',
+              '"name": "ВНЖ цифрового кочевника в Испании: документы для работы в найме"': '"name": "Виза и ВНЖ цифрового кочевника в Испании по найму: документы"',
+          }
+          for old, new in replacements.items():
+              if old not in html:
+                  raise SystemExit('Missing expected text: ' + old[:120])
+              html = html.replace(old, new, 1)
+
+          twitter = '    <meta name="twitter:card" content="summary">\n'
+          html = html.replace(
+              twitter,
+              twitter + '    <meta name="twitter:title" content="Виза и ВНЖ цифрового кочевника в Испании по найму: документы">\n'
+              '    <meta name="twitter:description" content="Полный список документов для подачи по найму: трудовой договор, работодатель, СФР, доход, страховка, несудимость и UGE.">\n',
+              1,
+          )
+
+          structured = '    <!-- structured:breadcrumbs -->\n'
+          jsonld = '''    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Виза и ВНЖ цифрового кочевника в Испании по найму: документы",
+      "description": "Полный список документов для визы и ВНЖ цифрового кочевника в Испании по найму: трудовой договор, письмо работодателя, СФР, доход, страховка, несудимость и подача в UGE.",
+      "mainEntityOfPage": "https://ola-espanola.github.io/docs/cuenta-ajena.html",
+      "dateModified": "2026-09-30",
+      "inLanguage": "ru"
+    }
+    </script>
+'''
+          html = html.replace(structured, jsonld + structured, 1)
+
+          style_marker = '  </head>\n'
+          seo_style = '''    <style>
+      .seo-footer {
+        margin-top: 54px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .seo-footer h2 {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 18px;
+      }
+      .seo-footer p { margin: 10px 0; }
+      .seo-footer a { color: var(--nav); }
+      .document-summary-table strong { color: var(--nav); }
+      .document-summary-table td { line-height: 1.55; }
+    </style>
+'''
+          html = html.replace(style_marker, seo_style + style_marker, 1)
+
+          docs_section = '''        <section>
+          <h2>Список документов</h2>
+          <p>Ниже — основной список документов для подачи на визу или ВНЖ цифрового кочевника по найму.</p>
+          <div class="table-wrap">
+            <table class="document-summary-table">
+              <thead><tr><th>Документы для подачи по найму</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Свидетельство СФР / подтверждение социального страхования</strong><br>Подтверждает, какая система социального страхования применяется к работнику при дистанционной работе из Испании. Для российского документа обычно нужен апостиль и присяжный перевод на испанский. См. <a href="social-security-certificate.html">Свидетельство СФР</a> и <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>Паспорт</strong><br>Полная копия действующего загранпаспорта — все страницы, включая пустые.</td></tr>
+                <tr><td><strong>Tasa 790 038</strong><br>Форма государственной пошлины и подтверждение оплаты для подачи заявления в UGE.</td></tr>
+                <tr><td><strong>Formulario MIT</strong><br>Основное заявление на разрешение для международного удалённого работника, заполненное и подписанное заявителем. См. <a href="formulario-mit.html">Formulario MIT</a>.</td></tr>
+                <tr><td><strong>Трудовой договор</strong><br>Подтверждает работу по найму и трудовые отношения с работодателем. На дату подачи отношения должны существовать не менее 3 месяцев. Для договора нужен перевод на испанский. См. <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>Банковская выписка за последние 3 месяца</strong><br>Показывает фактическое поступление заработной платы и помогает подтвердить достаточный доход для ВНЖ цифрового кочевника. См. <a href="bank-statement.html">Банковская выписка</a>.</td></tr>
+                <tr><td><strong>Документы о регистрации работодателя</strong><br>Подтверждают существование компании и её деятельность не менее 1 года. Для официального иностранного документа обычно нужны легализация или апостиль и присяжный перевод. См. <a href="company-registration.html">Документы компании</a> и <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>Письмо работодателя о дистанционной работе из Испании</strong><br>Подтверждает разрешение работать удалённо из Испании, должность, функции, формат работы и размер зарплаты. См. <a href="client-letter.html">Письмо компании</a>.</td></tr>
+                <tr><td><strong>Диплом или подтверждение профессионального опыта</strong><br>Подтверждает квалификацию: профильное образование либо необходимый профессиональный опыт. Для официальных документов применяются требования к апостилю или легализации и переводу. См. <a href="diploma-apostille.html">Апостиль диплома</a>, <a href="electronic-work-record.html">Выписка из трудовой</a> и <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>CV на испанском</strong><br>Краткое резюме с образованием, опытом работы и текущей должностью заявителя. См. <a href="cv.html">CV</a>.</td></tr>
+                <tr><td><strong>Медицинское страхование</strong><br>Подтверждает медицинское покрытие заявителя в Испании, если оно не подтверждается другим допустимым способом.</td></tr>
+                <tr><td><strong>Справка о несудимости</strong><br>При первичной подаче подтверждает отсутствие судимости в странах проживания за последние 2 года, если не действует исключение UGE. Для российской справки нужен апостиль и присяжный перевод. См. <a href="criminal-record-certificate.html">Справка о несудимости</a> и <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>Declaración responsable об отсутствии судимости за последние 5 лет</strong> (<a href="../assets/files/Declaracion_responsable_antecedentes_penales.pdf" download>скачать</a>)<br>Отдельная декларация заявителя на испанском языке; перевод не требуется.</td></tr>
+                <tr><td><strong>Зарплатные листы за последние 3 месяца</strong><br>Дополнительно подтверждают размер и регулярность заработной платы по трудовому договору.</td></tr>
+                <tr><td><strong>Подтверждение легального нахождения в Испании</strong><br>Нужно при подаче на ВНЖ из Испании, чтобы подтвердить законное пребывание заявителя на дату подачи. См. <a href="legal-stay-in-spain.html">Легальное нахождение</a>.</td></tr>
+                <tr><td><strong>Сопроводительное письмо</strong><br>Кратко объясняет состав пакета, нестандартные документы и то, в какие поля формы они загружены.</td></tr>
+                <tr><td><strong>Designación de representante — если подаёт представитель</strong><br>Подтверждает полномочия представителя подписать заявление и подать документы от имени заявителя.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+'''
+
+          pattern = re.compile(r'        <section>\n          <h2>Список документов</h2>.*?        </section>\n\n(?=        <section>\n          <h2>Пример состава пакета для подачи</h2>)', re.S)
+          html, count = pattern.subn(docs_section + '\n', html, count=1)
+          if count != 1:
+              raise SystemExit('Could not replace document list section')
+
+          package_section = '''        <section>
+          <h2>Пример состава пакета для подачи</h2>
+          <p>Файлы с номерами 01–13 идут в порядке полей формы UGE. Документы, для которых отдельного поля нет, загружаются в раздел дополнительных документов.</p>
+          <div class="table-wrap">
+            <table class="document-summary-table">
+              <thead><tr><th>Пример файлов для подачи</th></tr></thead>
+              <tbody>
+                <tr><td><strong>01_Certificado_cobertura_Seguridad_Social.pdf</strong><br>Свидетельство СФР или другое подтверждение применимой системы социального страхования. См. <a href="social-security-certificate.html">Свидетельство СФР</a> и <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>02_Pasaporte.pdf</strong><br>Полный загранпаспорт заявителя — все страницы.</td></tr>
+                <tr><td><strong>03_Tasa_790_038.pdf</strong><br>Форма tasa 790, код 038, и подтверждение оплаты, если оно не отражено на самой форме.</td></tr>
+                <tr><td><strong>04_Formulario_MIT.pdf</strong><br>Заполненное и подписанное заявление MIT. См. <a href="formulario-mit.html">Formulario MIT</a>.</td></tr>
+                <tr><td><strong>05_Contrato_laboral.pdf</strong><br>Трудовой договор, подтверждающий работу по найму и отношения с работодателем не менее 3 месяцев до подачи. См. <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>06_Certificado_bancario_ultimos_3_meses.pdf</strong><br>Банковский документ за последние 3 месяца с поступлениями заработной платы. См. <a href="bank-statement.html">Банковская выписка</a>.</td></tr>
+                <tr><td><strong>07_Certificado_registro_empresa.pdf</strong><br>Документ о регистрации работодателя, подтверждающий существование компании и деятельность не менее 1 года. См. <a href="company-registration.html">Документы компании</a> и <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>08_Carta_empresa.pdf</strong><br>Письмо работодателя с разрешением на дистанционную работу из Испании и основными условиями работы. См. <a href="client-letter.html">Письмо компании</a>.</td></tr>
+                <tr><td><strong>09_Titulo_o_experiencia.pdf</strong><br>Диплом либо документы, подтверждающие профессиональный опыт. См. <a href="diploma-apostille.html">Апостиль диплома</a>, <a href="electronic-work-record.html">Выписка из трудовой</a> и <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>10_CV.pdf</strong><br>Резюме заявителя на испанском. См. <a href="cv.html">CV</a>.</td></tr>
+                <tr><td><strong>11_Seguro_medico.pdf</strong><br>Документ о медицинском покрытии в Испании, если он нужен для конкретного способа подтверждения страхования.</td></tr>
+                <tr><td><strong>12_Certificado_antecedentes_penales.pdf</strong><br>Справка о несудимости за страны проживания за последние 2 года, если она требуется. См. <a href="criminal-record-certificate.html">Справка о несудимости</a> и <a href="sworn-translation.html">присяжный (jurado) перевод</a>.</td></tr>
+                <tr><td><strong>13_Declaracion_responsable_antecedentes.pdf</strong><br>Декларация заявителя об отсутствии судимости за последние 5 лет.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Дополнительные документы</h3>
+          <div class="table-wrap">
+            <table class="document-summary-table">
+              <thead><tr><th>Файлы без отдельного поля в форме</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Carta_explicativa.pdf</strong><br>Сопроводительное письмо со списком приложений и коротким объяснением пакета.</td></tr>
+                <tr><td><strong>Nominas_ultimos_3_meses.pdf</strong><br>Зарплатные листы за последние 3 месяца для подтверждения размера и регулярности дохода.</td></tr>
+                <tr><td><strong>Estancia_regular_en_Espana.pdf</strong><br>Подтверждение легального нахождения в Испании на дату подачи. См. <a href="legal-stay-in-spain.html">Легальное нахождение</a>.</td></tr>
+                <tr><td><strong>Representacion.pdf</strong><br>Designación de representante, если заявление подаёт представитель.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+'''
+          pattern = re.compile(r'        <section>\n          <h2>Пример состава пакета для подачи</h2>.*?        </section>\n\n(?=        <section>\n          <h2>Раздел с файлами в форме подачи</h2>)', re.S)
+          html, count = pattern.subn(package_section + '\n', html, count=1)
+          if count != 1:
+              raise SystemExit('Could not replace package section')
+
+          footer = '''
+        <section class="seo-footer" aria-label="О списке документов для визы и ВНЖ цифрового кочевника по найму">
+          <h2>Документы для визы и ВНЖ цифрового кочевника по найму в Испании</h2>
+          <p>На этой странице представлен <strong>полный список документов для визы и ВНЖ цифрового кочевника в Испании при работе по найму</strong>: заявление MIT, трудовой договор, письмо работодателя, подтверждение социального страхования, дохода, квалификации, медицинского покрытия и отсутствия судимости.</p>
+          <p>Подача <strong>по найму</strong> относится к сотрудникам, которые продолжают работать дистанционно по трудовому договору с компанией или группой компаний за пределами Испании. В испанской терминологии это <span lang="es">teletrabajador internacional por cuenta ajena</span>.</p>
+          <p>Для подачи на <strong>ВНЖ цифрового кочевника из Испании</strong> документы направляются в UGE. При консульской подаче используется <strong>виза цифрового кочевника</strong>; в русскоязычном поиске также встречаются формулировки <strong>номад-виза</strong>, <strong>виза номада</strong> и <strong>ВНЖ номада</strong>. Перед подготовкой пакета можно посмотреть <a href="eligibility.html">кому подходит ВНЖ</a>, <a href="ways-to-apply.html">способы получения</a> и <a href="pricing.html">помощь с визой и ВНЖ</a>.</p>
+        </section>
+'''
+          marker = '        <section>\n          <h2>Официальные ссылки</h2>'
+          html = html.replace(marker, footer + '\n' + marker, 1)
+
+          out = Path('Doc/cuenta-ajena-test.html')
+          out.write_text(html, encoding='utf-8')
+
+      - name: Commit test page
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Doc/cuenta-ajena-test.html
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Refine cuenta ajena SEO test page"
+          git push
