@@ -30,11 +30,12 @@ jobs:
           grep -q '"@type": "CollectionPage"' blog/index.html
           grep -q 'name="twitter:title"' blog/index.html
           grep -q 'class="seo-footer"' blog/index.html
+          grep -q '<h1>Блог о визе и ВНЖ цифрового кочевника в Испании</h1>' blog/index.html
       - name: Commit
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add blog/*.html
-          git commit -m "Improve blog SEO metadata and footers"
+          git commit -m "Polish blog index SEO wording"
           git push
