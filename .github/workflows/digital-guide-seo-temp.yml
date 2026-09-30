@@ -1,0 +1,38 @@
+name: Full guide SEO update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/digital-guide-seo-temp.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Update full guide
+        run: python scripts/digital-guide-seo-temp.py
+      - name: Verify
+        shell: bash
+        run: |
+          grep -q 'Виза и ВНЖ цифрового кочевника в Испании: полный гайд 2026' docs/digital-nomad-spain-guide.html
+          grep -q 'article:modified_time' docs/digital-nomad-spain-guide.html
+          grep -q 'name="twitter:title"' docs/digital-nomad-spain-guide.html
+          grep -q '"@type": "Article"' docs/digital-nomad-spain-guide.html
+          grep -q 'class="seo-footer"' docs/digital-nomad-spain-guide.html
+          grep -q 'простой перевод отдельно допускается для <strong>CV</strong>' docs/digital-nomad-spain-guide.html
+          ! grep -q 'оказывает услуги иностранным клиентам' docs/digital-nomad-spain-guide.html
+      - name: Commit
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/digital-nomad-spain-guide.html
+          git commit -m "Improve full digital nomad guide SEO and wording"
+          git push
