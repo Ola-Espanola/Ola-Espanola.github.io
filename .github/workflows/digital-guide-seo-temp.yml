@@ -16,6 +16,19 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Fix updater match
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/digital-guide-seo-temp.py')
+          s=p.read_text(encoding='utf-8')
+          old="('          <p>Если член семьи присоединяется позже, экономические средства титуляра подтверждаются заново.</p>',\n '          <p>Если член семьи присоединяется позже, экономические средства основного заявителя подтверждаются заново.</p>'),"
+          new="('Если член семьи присоединяется позже, экономические средства титуляра подтверждаются заново.',\n 'Если член семьи присоединяется позже, экономические средства основного заявителя подтверждаются заново.'),"
+          if old not in s:
+              raise SystemExit('family replacement block not found')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
       - name: Update full guide
         run: python scripts/digital-guide-seo-temp.py
       - name: Verify
