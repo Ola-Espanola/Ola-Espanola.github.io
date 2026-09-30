@@ -1,0 +1,47 @@
+name: Guide SEO audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/seo-audit-temp.yml'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit guide metadata
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          pages = [
+            'eligibility.html','ways-to-apply.html','cuenta-ajena.html','contract-work.html','family-member.html',
+            'formulario-mit.html','client-contracts.html','bank-statement.html','company-registration.html','client-letter.html',
+            'electronic-work-record.html','diploma-apostille.html','cv.html','criminal-record-certificate.html','social-security-certificate.html',
+            'legal-stay-in-spain.html','document-requirements.html','sworn-translation.html','uge-instruction-summary.html','uge-conference-update.html','links.html'
+          ]
+          def grab(rx, s):
+              m = re.search(rx, s, re.S|re.I)
+              return re.sub(r'\s+', ' ', m.group(1)).strip() if m else ''
+          for name in pages:
+              s = Path('docs', name).read_text(encoding='utf-8')
+              title = grab(r'<title>(.*?)</title>', s)
+              desc = grab(r'<meta\s+name="description"\s+content="(.*?)"', s)
+              h1 = grab(r'<h1[^>]*>(.*?)</h1>', s)
+              h1 = re.sub(r'<[^>]+>', '', h1)
+              print('PAGE:', name)
+              print('TITLE:', title)
+              print('DESC:', desc)
+              print('H1:', h1)
+              print('CANONICAL:', 'YES' if 'rel="canonical"' in s else 'NO')
+              print('OG:', 'YES' if 'property="og:title"' in s and 'property="og:description"' in s else 'NO')
+              print('TWITTER:', 'FULL' if 'name="twitter:title"' in s and 'name="twitter:description"' in s else ('CARD' if 'name="twitter:card"' in s else 'NO'))
+              print('ARTICLE_SCHEMA:', 'YES' if '"@type": "Article"' in s else 'NO')
+              print('BREADCRUMBS:', 'YES' if '"@type": "BreadcrumbList"' in s else 'NO')
+              print('SEO_FOOTER:', 'YES' if 'class="seo-footer"' in s else 'NO')
+              print('MODIFIED:', grab(r'article:modified_time"\s+content="(.*?)"', s) or 'NO')
+              print('---')
+          PY
