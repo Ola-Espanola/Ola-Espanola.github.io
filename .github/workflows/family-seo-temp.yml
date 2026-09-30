@@ -28,13 +28,16 @@ jobs:
           grep -q 'article:modified_time' docs/family-member.html
           grep -q 'Процентный лимит не установлен' docs/family-member.html
           ! grep -q '15% от требуемого дохода' docs/family-member.html
-          grep -q 'не менее двух' docs/family-member.html
-          grep -q 'Полный список документов для визы и ВНЖ цифрового кочевника в Испании для члена семьи' content/family-member.md
+          grep -q 'Основной заявитель работает в найме' docs/family-member.html
+          ! grep -q 'каждого familiar' docs/family-member.html
+          grep -q 'с апостилем и присяжным переводом' docs/family-member.html
       - name: Commit changes
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/family-member.html content/family-member.md
-          git commit -m "Improve family guide SEO and wording"
+          git commit -m "Polish family guide terminology"
           git push
+
+# final wording cleanup
