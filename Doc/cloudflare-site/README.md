@@ -12,9 +12,9 @@
 
 SEO-настройки:
 - `index.html` открыт для индексации и имеет self-canonical на `https://ola-espanola.pages.dev/`;
-- `robots.txt` разрешает обход и указывает `self-sitemap.xml`;
-- `self-sitemap.xml` содержит индексируемую Cloudflare-страницу;
-- `sitemap.xml` — синхронизированная копия sitemap основного сайта с URL `ola-espanola.github.io`;
+- `robots.txt` разрешает обход и указывает `https://ola-espanola.pages.dev/sitemap.xml`;
+- `sitemap.xml` содержит только индексируемую Cloudflare-страницу;
+- файл `yandex_32de77623a3bf0ae.html` размещается в корне Cloudflare Pages для верификации Яндекс Вебмастера;
 - файл ключа IndexNow размещается в корне Cloudflare Pages для отдельной отправки `pages.dev` URL.
 
-Основной сайт и Cloudflare-страница не должны быть буквальными дублями: Cloudflare остаётся короткой посадочной страницей, которая ведёт на подробные материалы основного сайта.
+Основной сайт и Cloudflare-страница не должны быть буквальными дублями: Cloudflare остаётся отдельной короткой посадочной страницей, которая ведёт на подробные материалы основного сайта.
