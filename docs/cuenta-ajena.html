@@ -33,14 +33,23 @@
     </script>
     <!-- structured:breadcrumbs -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://ola-espanola.github.io/"},
-        {"@type": "ListItem", "position": 2, "name": "Документы для тех, кто работает в найме"}
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Главная",
+            "item": "https://ola-espanola.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Полный список документов для визы и ВНЖ цифрового кочевника в Испании для тех, кто работает в найме"
+          }
+        ]
+      }
     </script>
     <!-- /structured:breadcrumbs -->
     <style>
@@ -60,19 +69,50 @@
     <header class="site-header">
       <div class="site-identity">
         <a class="brand" href="../index.html" aria-label="Ola Española — главная"><img class="brand-mark" src="../assets/images/site-symbol.png" alt=""><span class="brand-name"><img class="brand-initial" src="../assets/images/ola-espanola2.png" alt="O"><span>la Española</span></span></a>
-        <p class="site-tagline">Виза и ВНЖ цифрового кочевника в Испании<br>Помощь в получении ВНЖ</p>
+        <p class="site-tagline"><span>Виза и ВНЖ цифрового кочевника в Испании</span><br><span>Помощь в получении ВНЖ</span></p>
       </div>
-      <nav class="top-nav" aria-label="Основная навигация"><a href="pricing.html">Стоимость сопровождения</a></nav>
+      <nav class="top-nav" aria-label="Основная навигация">
+        <a href="pricing.html">Стоимость сопровождения</a>
+      </nav>
     </header>
     <!-- /shared:header -->
 
     <main class="layout">
       <!-- shared:sidebar guide -->
       <style>
-      @media (min-width: 901px) { .sidebar { max-height: calc(100vh - 112px); overflow-y: auto; overscroll-behavior-y: contain; } }
-      .sidebar .sidebar-blog-heading { display: block !important; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
-      @media (min-width: 600px) and (max-width: 900px) { .sidebar .sidebar-blog-heading { margin: 0 0 0 6px; padding: 7px 4px 7px 10px; border-top: 0; border-left: 1px solid var(--line); flex: 0 0 auto; } }
-      @media (min-width: 360px) and (max-width: 599px) and (pointer: coarse) { .sidebar { max-height: calc(100vh - 82px); overflow-x: hidden; overflow-y: auto; overscroll-behavior-y: contain; } }
+      @media (min-width: 901px) {
+        .sidebar {
+          max-height: calc(100vh - 112px);
+          overflow-y: auto;
+          overscroll-behavior-y: contain;
+        }
+      }
+      
+      .sidebar .sidebar-blog-heading {
+        display: block !important;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+      }
+      
+      @media (min-width: 600px) and (max-width: 900px) {
+        .sidebar .sidebar-blog-heading {
+          margin: 0 0 0 6px;
+          padding: 7px 4px 7px 10px;
+          border-top: 0;
+          border-left: 1px solid var(--line);
+          flex: 0 0 auto;
+        }
+      }
+      
+      @media (min-width: 360px) and (max-width: 599px) and (pointer: coarse) {
+        .sidebar {
+          max-height: calc(100vh - 82px);
+          overflow-x: hidden;
+          overflow-y: auto;
+          overscroll-behavior-y: contain;
+        }
+      }
       </style>
       <aside class="sidebar" aria-label="Разделы гида">
         <p class="sidebar-title">Гид</p>
