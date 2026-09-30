@@ -31,6 +31,7 @@ for fn,cfg in articles.items():
     import re
     s=re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{cfg["desc"]}">', s, count=1)
     s=re.sub(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{cfg["desc"]}">', s, count=1)
+    s=re.sub(r'<meta name="twitter:description" content="[^"]*">', f'<meta name="twitter:description" content="{cfg["desc"]}">', s, count=1)
     marker='    <meta name="twitter:card" content="summary">'
     if 'article:modified_time' not in s:
         s=s.replace(marker, f'    <meta property="article:modified_time" content="{DATE}">\n'+marker, 1)
@@ -60,11 +61,16 @@ new_title='Блог о визе и ВНЖ цифрового кочевника 
 desc='Блог о визе и ВНЖ цифрового кочевника в Испании: налоги, налоговые режимы, статистика выдачи разрешений и практические материалы для номадов.'
 s=s.replace(old_title,new_title)
 s=s.replace('Статьи о визе номада и ВНЖ цифрового кочевника в Испании: налоги, практика и статистика.',desc)
-# replace OG title if old was replaced globally or separately
-s=s.replace('Блог о визе номада и переезде в Испанию | Ola Española',new_title)
+s=s.replace('Блог о визе номада и ВНЖ цифрового кочевника в Испании','Блог о визе и ВНЖ цифрового кочевника в Испании')
+s=s.replace('Практические разборы о визе номада и ВНЖ цифрового кочевника в Испании: налоги и статистика.','Практические статьи о визе и ВНЖ цифрового кочевника в Испании: налоги, работа в найме и как autónomo, статистика выдачи разрешений и другие материалы для номадов.')
+s=s.replace('В блоге Ola Española публикуются практические материалы о жизни цифрового кочевника в Испании: налоги, работа как autónomo или по найму, статистика выдачи ВНЖ и изменения, которые важны после переезда.','В блоге Ola Española публикуются практические материалы о жизни цифрового кочевника в Испании: налоги, работа как autónomo или по найму, статистика выдачи ВНЖ и другие материалы для номадов.')
 marker='    <meta name="twitter:card" content="summary">'
 if 'name="twitter:title"' not in s:
     s=s.replace(marker,marker+f'\n    <meta name="twitter:title" content="{new_title}">\n    <meta name="twitter:description" content="{desc}">',1)
+else:
+    import re
+    s=re.sub(r'<meta name="twitter:title" content="[^"]*">',f'<meta name="twitter:title" content="{new_title}">',s,count=1)
+    s=re.sub(r'<meta name="twitter:description" content="[^"]*">',f'<meta name="twitter:description" content="{desc}">',s,count=1)
 if '"@type": "CollectionPage"' not in s:
     schema='    <script type="application/ld+json">\n'+json.dumps({
       '@context':'https://schema.org','@type':'CollectionPage','name':'Блог о визе и ВНЖ цифрового кочевника в Испании',
@@ -75,7 +81,7 @@ if '"@type": "CollectionPage"' not in s:
 if '.seo-footer {' not in s:
     s=s.replace('  </head>',STYLE+'  </head>',1)
 if 'class="seo-footer"' not in s:
-    footer='''\n        <section class="seo-footer" aria-label="О блоге Ola Española">\n          <h2>Блог о визе и ВНЖ цифрового кочевника в Испании</h2>\n          <p>В блоге Ola Española публикуются практические материалы о жизни цифрового кочевника в Испании: налоги, работа как autónomo или по найму, статистика выдачи ВНЖ и изменения, которые важны после переезда.</p>\n          <p>Для подготовки документов используйте <a href="../docs/digital-nomad-spain-guide.html">полный гайд по визе и ВНЖ цифрового кочевника</a>, а также списки документов <a href="../docs/cuenta-ajena.html">для работы в найме</a>, <a href="../docs/contract-work.html">для работы по контракту</a> и <a href="../docs/family-member.html">для члена семьи</a>.</p>\n        </section>\n'''
+    footer='''\n        <section class="seo-footer" aria-label="О блоге Ola Española">\n          <h2>Блог о визе и ВНЖ цифрового кочевника в Испании</h2>\n          <p>В блоге Ola Española публикуются практические материалы о жизни цифрового кочевника в Испании: налоги, работа как autónomo или по найму, статистика выдачи ВНЖ и другие материалы для номадов.</p>\n          <p>Для подготовки документов используйте <a href="../docs/digital-nomad-spain-guide.html">полный гайд по визе и ВНЖ цифрового кочевника</a>, а также списки документов <a href="../docs/cuenta-ajena.html">для работы в найме</a>, <a href="../docs/contract-work.html">для работы по контракту</a> и <a href="../docs/family-member.html">для члена семьи</a>.</p>\n        </section>\n'''
     pos=s.rfind('      </section>')
     if pos<0: raise RuntimeError('blog index section close')
     s=s[:pos]+footer+s[pos:]
