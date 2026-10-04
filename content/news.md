@@ -1,5 +1,5 @@
 ---
-title: "Новости Digital Nomad Visa Spain: практика UGE и продление ВНЖ 2026"
+title: "Новости ВНЖ цифрового кочевника в Испании — практика UGE 2026"
 description: "Еженедельные новости по ВНЖ цифрового кочевника в Испании: практика UGE, продление Digital Nomad Visa Spain, silencio administrativo, familiar, Seguridad Social, апостили и QR-коды."
 canonical: "https://ola-espanola.github.io/docs/news.html"
 ---
