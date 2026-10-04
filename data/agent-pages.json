@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-04",
+  "site": "https://ola-espanola.github.io/",
+  "purpose": "Source of truth for ChatGPT/Tele-Ola automations. Use exact URLs from this file; do not invent page URLs.",
+  "guides": [
+    {
+      "id": "eligibility",
+      "title": "Кому подходит ВНЖ",
+      "url": "https://ola-espanola.github.io/docs/eligibility.html",
+      "topics": ["кому подходит", "требования к заявителю", "digital nomad", "DNV", "право на ВНЖ"]
+    },
+    {
+      "id": "ways-to-apply",
+      "title": "Способы получения",
+      "url": "https://ola-espanola.github.io/docs/ways-to-apply.html",
+      "topics": ["способы подачи", "подача из Испании", "консульство", "UGE", "как податься"]
+    },
+    {
+      "id": "cuenta-ajena",
+      "title": "Работа в найме",
+      "url": "https://ola-espanola.github.io/docs/cuenta-ajena.html",
+      "topics": ["работа в найме", "empleado", "cuenta ajena", "трудовой договор", "работодатель"]
+    },
+    {
+      "id": "contract-work",
+      "title": "Работа по контракту",
+      "url": "https://ola-espanola.github.io/docs/contract-work.html",
+      "topics": ["контрактор", "работа по контракту", "autonomo", "клиенты", "договор услуг"]
+    },
+    {
+      "id": "family-member",
+      "title": "Член семьи",
+      "url": "https://ola-espanola.github.io/docs/family-member.html",
+      "topics": ["фамильяр", "familiar", "член семьи", "супруг", "супруга", "ребенок", "семья"]
+    },
+    {
+      "id": "formulario-mit",
+      "title": "Formulario MIT",
+      "url": "https://ola-espanola.github.io/docs/formulario-mit.html",
+      "topics": ["MIT", "formulario MIT", "анкета", "форма подачи"]
+    },
+    {
+      "id": "client-contracts",
+      "title": "Контракт. Требования",
+      "url": "https://ola-espanola.github.io/docs/client-contracts.html",
+      "topics": ["контракт", "договор с клиентом", "требования к контракту", "срок контракта"]
+    },
+    {
+      "id": "bank-statement",
+      "title": "Банковская выписка",
+      "url": "https://ola-espanola.github.io/docs/bank-statement.html",
+      "topics": ["банковская выписка", "банк", "остаток", "движение средств", "подтверждение средств"]
+    },
+    {
+      "id": "company-registration",
+      "title": "Документы компании",
+      "url": "https://ola-espanola.github.io/docs/company-registration.html",
+      "topics": ["документы компании", "регистрация компании", "certificate of incorporation", "company registration"]
+    },
+    {
+      "id": "client-letter",
+      "title": "Письмо компании",
+      "url": "https://ola-espanola.github.io/docs/client-letter.html",
+      "topics": ["письмо компании", "письмо работодателя", "remote work letter", "разрешение на удаленную работу"]
+    },
+    {
+      "id": "electronic-work-record",
+      "title": "Выписка из трудовой",
+      "url": "https://ola-espanola.github.io/docs/electronic-work-record.html",
+      "topics": ["трудовая", "выписка из трудовой", "электронная трудовая", "стаж", "опыт работы"]
+    },
+    {
+      "id": "diploma-apostille",
+      "title": "Апостиль диплома",
+      "url": "https://ola-espanola.github.io/docs/diploma-apostille.html",
+      "topics": ["диплом", "апостиль диплома", "образование", "подтверждение квалификации"]
+    },
+    {
+      "id": "cv",
+      "title": "Резюме (CV)",
+      "url": "https://ola-espanola.github.io/docs/cv.html",
+      "topics": ["CV", "резюме", "curriculum vitae", "опыт работы"]
+    },
+    {
+      "id": "criminal-record-certificate",
+      "title": "Справка о несудимости",
+      "url": "https://ola-espanola.github.io/docs/criminal-record-certificate.html",
+      "topics": ["несудимость", "справка МВД", "criminal record", "апостиль справки о несудимости"]
+    },
+    {
+      "id": "social-security-certificate",
+      "title": "Свидетельство СФР",
+      "url": "https://ola-espanola.github.io/docs/social-security-certificate.html",
+      "topics": ["СФР", "соцстрах", "социальное страхование", "свидетельство об отъезде", "A1"]
+    },
+    {
+      "id": "legal-stay-in-spain",
+      "title": "Легальное нахождение",
+      "url": "https://ola-espanola.github.io/docs/legal-stay-in-spain.html",
+      "topics": ["легальное нахождение", "90 дней", "Шенген", "въезд", "срок пребывания"]
+    },
+    {
+      "id": "document-requirements",
+      "title": "Требования к документам",
+      "url": "https://ola-espanola.github.io/docs/document-requirements.html",
+      "topics": ["требования к документам", "оригинал", "копия", "апостиль", "легализация", "QR-код"]
+    },
+    {
+      "id": "sworn-translation",
+      "title": "Хурадо-перевод",
+      "url": "https://ola-espanola.github.io/docs/sworn-translation.html",
+      "topics": ["хурадо", "присяжный перевод", "sworn translation", "traductor jurado", "электронная подпись переводчика"]
+    },
+    {
+      "id": "uge-instruction-summary",
+      "title": "Выжимка инструкции UGE",
+      "url": "https://ola-espanola.github.io/docs/uge-instruction-summary.html",
+      "topics": ["инструкция UGE", "требования UGE", "критерии UGE", "разъяснение правил"]
+    },
+    {
+      "id": "uge-conference-update",
+      "title": "Разъяснения UGE",
+      "url": "https://ola-espanola.github.io/docs/uge-conference-update.html",
+      "topics": ["UGE", "разъяснения UGE", "конференция UGE", "дозапрос", "requerimiento"]
+    },
+    {
+      "id": "links",
+      "title": "Полезные ссылки",
+      "url": "https://ola-espanola.github.io/docs/links.html",
+      "topics": ["полезные ссылки", "ссылки UGE", "sede", "официальные сайты"]
+    },
+    {
+      "id": "taxes",
+      "title": "Налоги номада",
+      "url": "https://ola-espanola.github.io/blog/nalogi-cifrovogo-kochevnika-ispania.html",
+      "topics": ["налоги", "IRPF", "autonomo", "modelo 130", "налоговый резидент", "налоги DNV"]
+    }
+  ],
+  "commercial": [
+    {
+      "id": "pricing",
+      "title": "Помощь с визой и ВНЖ цифрового кочевника в Испании",
+      "url": "https://ola-espanola.github.io/docs/pricing.html",
+      "topics": ["прайс", "цена", "стоимость", "сколько стоит", "услуги", "помощь с подачей", "сопровождение", "проверка документов", "подготовка пакета", "подача в UGE", "представитель"]
+    }
+  ]
+}
