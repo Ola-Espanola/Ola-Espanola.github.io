@@ -754,7 +754,7 @@ figcaption {
   .layout {
     grid-template-columns: 120px minmax(0, 1fr);
     gap: 5px;
-    padding: 8px 5px 44px;
+    padding: 8px 2px 44px;
   }
 
   .sidebar {
