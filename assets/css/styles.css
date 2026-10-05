@@ -157,7 +157,7 @@ a {
   gap: 48px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 40px 32px 72px;
+  padding: 20px 32px 72px;
 }
 
 .sidebar {
@@ -663,7 +663,7 @@ figcaption {
   .layout {
     grid-template-columns: 1fr;
     gap: 18px;
-    padding: 16px 12px 44px;
+    padding: 8px 12px 44px;
   }
 
   .sidebar {
@@ -673,7 +673,7 @@ figcaption {
     align-items: center;
     flex-direction: row;
     gap: 6px;
-    margin: -16px -12px 0;
+    margin: -8px -12px 0;
     padding: 8px 12px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
@@ -724,7 +724,7 @@ figcaption {
   .layout {
     grid-template-columns: 120px minmax(0, 1fr);
     gap: 10px;
-    padding: 16px 10px 44px;
+    padding: 8px 10px 44px;
   }
 
   .sidebar {
@@ -783,7 +783,7 @@ figcaption {
   .layout {
     grid-template-columns: 220px minmax(0, 1fr);
     gap: 24px;
-    padding: 28px 20px 52px;
+    padding: 14px 20px 52px;
   }
 
   .sidebar {
