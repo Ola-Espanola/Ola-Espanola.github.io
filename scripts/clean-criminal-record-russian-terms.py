@@ -58,9 +58,10 @@ replacements = [
 for old, new in replacements:
     text = replace_required(text, old, new, "html")
 
-# Ensure forbidden public jargon is gone from rendered page.
+# Ignore official URL slugs when checking visible terminology.
+visible_check = text.replace("informacion-documentacion-pagina-web-titular-v2", "official-uge-document")
 for bad in ["Digital Nomad Visa", "DNV", "jurado", "ВНЖ номада", "titular", "residencia", "estancia"]:
-    if bad in text:
-        raise SystemExit(f"Rendered page still contains forbidden term: {bad}")
+    if bad in visible_check:
+        raise SystemExit(f"Rendered page still contains forbidden visible term: {bad}")
 
 p.write_text(text, encoding="utf-8")
