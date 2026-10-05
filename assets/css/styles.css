@@ -222,6 +222,15 @@ a {
   color: var(--muted);
 }
 
+
+@media (min-width: 901px) {
+  .sidebar a,
+  .sidebar span {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+
 .sidebar-service-link {
   background: #e5edf3;
   border: 1px solid rgba(24, 54, 66, 0.08);
