@@ -753,8 +753,8 @@ figcaption {
 @media (min-width: 360px) and (max-width: 599px) and (pointer: coarse) {
   .layout {
     grid-template-columns: 120px minmax(0, 1fr);
-    gap: 10px;
-    padding: 8px 10px 44px;
+    gap: 5px;
+    padding: 8px 5px 44px;
   }
 
   .sidebar {
