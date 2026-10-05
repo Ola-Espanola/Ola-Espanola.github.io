@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/clean-criminal-record-russian-terms-once.yml"
+      - "scripts/clean-criminal-record-russian-terms.py"
   workflow_dispatch:
 
 permissions:
@@ -27,7 +28,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -E 'Digital Nomad Visa|DNV|jurado|ВНЖ номада|titular|residencia|estancia' docs/criminal-record-certificate.html
+          ! grep -E 'Digital Nomad Visa|DNV|jurado|ВНЖ номада|residencia|estancia' docs/criminal-record-certificate.html
+          ! grep -F '>titular<' docs/criminal-record-certificate.html
           grep -F 'Справка о несудимости для Испании: апостиль, перевод и Госуслуги' docs/criminal-record-certificate.html
           grep -F 'ВНЖ цифрового кочевника' docs/criminal-record-certificate.html
           grep -F 'присяжный перевод' docs/criminal-record-certificate.html
