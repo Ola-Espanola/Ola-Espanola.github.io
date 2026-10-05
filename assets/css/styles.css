@@ -166,11 +166,31 @@ a {
   align-self: start;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 16px;
+  gap: 2px;
+  padding: 12px;
   background: #edf2f7;
   border: 1px solid var(--line);
   border-radius: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(24, 54, 66, 0.22) transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(24, 54, 66, 0.18);
+  border-radius: 999px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(24, 54, 66, 0.32);
 }
 
 .sidebar-title,
@@ -184,16 +204,17 @@ a {
 }
 
 .sidebar-section {
-  margin-top: 14px;
+  margin-top: 9px;
 }
 
 .sidebar a,
 .sidebar span {
   display: block;
-  padding: 7px 10px;
+  padding: 4px 8px;
   border-radius: 6px;
   color: var(--nav);
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 1.3;
   text-decoration: none;
 }
 
