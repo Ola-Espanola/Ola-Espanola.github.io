@@ -783,8 +783,13 @@ figcaption {
   }
 
   .sidebar-section {
-    margin-top: 7px;
+    margin-top: 10px;
     font-size: 11px;
+  }
+
+  .sidebar .sidebar-blog-heading {
+    margin-top: 18px;
+    padding-top: 14px;
   }
 
   .sidebar a,
