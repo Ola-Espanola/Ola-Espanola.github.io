@@ -154,10 +154,10 @@ a {
 .layout {
   display: grid;
   grid-template-columns: 234px minmax(0, 1fr);
-  gap: 48px;
+  gap: 24px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 20px 32px 72px;
+  padding: 20px 16px 72px;
 }
 
 .sidebar {
@@ -812,8 +812,8 @@ figcaption {
 @media (min-width: 600px) and (max-width: 900px) {
   .layout {
     grid-template-columns: 220px minmax(0, 1fr);
-    gap: 24px;
-    padding: 14px 20px 52px;
+    gap: 12px;
+    padding: 14px 10px 52px;
   }
 
   .sidebar {
