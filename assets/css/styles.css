@@ -231,6 +231,13 @@ a {
   }
 }
 
+@media (min-width: 901px) and (pointer: coarse) {
+  .sidebar a,
+  .sidebar span {
+    font-size: 17px;
+  }
+}
+
 .sidebar-service-link {
   background: #e5edf3;
   border: 1px solid rgba(24, 54, 66, 0.08);
