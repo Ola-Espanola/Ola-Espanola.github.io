@@ -26,9 +26,9 @@
       "description": "Виза и ВНЖ цифрового кочевника в Испании: требования, доход, документы, способы подачи, семья, налоги и практические инструкции."
     }
     </script>
-    <link rel="stylesheet" href="assets/css/styles.css?v=b04684c6b6">
+    <link rel="stylesheet" href="assets/css/styles.css?v=3d539d8fbd">
     <link rel="icon" href="/favicon.ico" sizes="any">
-    <script defer src="assets/js/metrika.js?v=b04684c6b6"></script>
+    <script defer src="assets/js/metrika.js?v=3d539d8fbd"></script>
     <style>
       .seo-footer { margin-top: 54px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; line-height: 1.65; }
       .seo-footer h2 { margin: 0 0 14px; color: var(--muted); font-size: 18px; }
@@ -40,6 +40,24 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/112065150" style="position:absolute; left:-9999px;" alt=""></div></noscript>
 
     <!-- shared:header -->
+    <script>
+    (() => {
+      const root = document.documentElement;
+      const phoneDesktop = window.matchMedia('(min-width: 901px) and (max-width: 1100px)');
+    
+      const syncPhoneDesktopClass = () => {
+        root.classList.toggle('phone-desktop', phoneDesktop.matches);
+      };
+    
+      syncPhoneDesktopClass();
+    
+      if (phoneDesktop.addEventListener) {
+        phoneDesktop.addEventListener('change', syncPhoneDesktopClass);
+      } else {
+        phoneDesktop.addListener(syncPhoneDesktopClass);
+      }
+    })();
+    </script>
     <header class="site-header">
       <div class="site-identity">
         <a class="brand" href="index.html" aria-label="Ola Española — главная"><img class="brand-mark" src="assets/images/site-symbol.png" alt=""><span class="brand-name"><img class="brand-initial" src="assets/images/ola-espanola2.png" alt="O"><span>la Española</span></span></a>
