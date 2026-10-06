@@ -236,6 +236,22 @@ a {
   .sidebar span {
     font-size: 17px;
   }
+
+  .table-wrap {
+    overflow-x: visible;
+  }
+
+  table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
 }
 
 .sidebar-service-link {
