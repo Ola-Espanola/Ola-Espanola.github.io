@@ -499,7 +499,8 @@ h2 {
 }
 
 .table-wrap {
-  overflow-x: auto;
+  max-width: 100%;
+  overflow-x: hidden;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -507,8 +508,26 @@ h2 {
 
 table {
   width: 100%;
-  min-width: 760px;
+  min-width: 0;
+  max-width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
+}
+
+th,
+td {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.table-wrap.wide-table {
+  overflow-x: auto;
+}
+
+.table-wrap.wide-table table {
+  min-width: 760px;
+  max-width: none;
+  table-layout: auto;
 }
 
 th,
@@ -876,23 +895,5 @@ figcaption {
   .sidebar a,
   .sidebar span {
     font-size: 17px;
-  }
-
-  .table-wrap {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  table {
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    table-layout: fixed;
-  }
-
-  th,
-  td {
-    overflow-wrap: anywhere;
-    word-break: normal;
   }
 }
