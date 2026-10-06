@@ -231,7 +231,7 @@ a {
   }
 }
 
-@media (min-width: 901px) and (pointer: coarse) {
+@media (min-width: 901px) and (max-width: 1100px) {
   .sidebar a,
   .sidebar span {
     font-size: 17px;
