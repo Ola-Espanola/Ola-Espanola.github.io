@@ -1,3 +1,21 @@
+<script>
+(() => {
+  const root = document.documentElement;
+  const phoneDesktop = window.matchMedia('(min-width: 901px) and (max-width: 1100px)');
+
+  const syncPhoneDesktopClass = () => {
+    root.classList.toggle('phone-desktop', phoneDesktop.matches);
+  };
+
+  syncPhoneDesktopClass();
+
+  if (phoneDesktop.addEventListener) {
+    phoneDesktop.addEventListener('change', syncPhoneDesktopClass);
+  } else {
+    phoneDesktop.addListener(syncPhoneDesktopClass);
+  }
+})();
+</script>
 <header class="site-header">
   <div class="site-identity">
     {{>brand}}
