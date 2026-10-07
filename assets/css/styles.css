@@ -742,14 +742,12 @@ figcaption {
     justify-content: center;
   }
 
-  .services-icon svg {
-    width: 24px;
-    height: 24px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.9;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  .services-icon img {
+    width: 32px;
+    height: 32px;
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
   }
 
   .layout {
