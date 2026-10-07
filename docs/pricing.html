@@ -15,9 +15,9 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Помощь с визой и ВНЖ цифрового кочевника в Испании">
     <meta name="twitter:description" content="Проверка документов, подача в UGE, сопровождение семьи и ответы на дозапросы по визе и ВНЖ цифрового кочевника в Испании.">
-    <link rel="stylesheet" href="../assets/css/styles.css?v=8da81fc141">
+    <link rel="stylesheet" href="../assets/css/styles.css?v=8730b56ec1">
     <link rel="icon" type="image/png" href="../assets/images/site-symbol.png">
-    <script defer src="../assets/js/metrika.js?v=8da81fc141"></script>
+    <script defer src="../assets/js/metrika.js?v=8730b56ec1"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -90,6 +90,9 @@
     })();
     </script>
     <header class="site-header">
+      <button class="mobile-menu-toggle" type="button" aria-label="Открыть меню" aria-controls="site-sidebar" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
       <div class="site-identity">
         <a class="brand" href="../index.html" aria-label="Ola Española — главная"><img class="brand-mark" src="../assets/images/site-symbol.png" alt=""><span class="brand-name"><img class="brand-initial" src="../assets/images/ola-espanola2.png" alt="O"><span>la Española</span></span></a>
         <p class="site-tagline"><span>Виза и ВНЖ цифрового кочевника в Испании</span><br><span>Помощь в получении ВНЖ</span></p>
@@ -137,7 +140,7 @@
         }
       }
       </style>
-      <aside class="sidebar" aria-label="Разделы гида">
+      <aside class="sidebar" id="site-sidebar" aria-label="Разделы гида">
         <p class="sidebar-title">Гид</p>
         <a href="../index.html">Главная</a>
         <a href="eligibility.html">Кому подходит ВНЖ</a>
@@ -171,6 +174,40 @@
         <a href="../blog/nalogi-cifrovogo-kochevnika-ispania.html">Налоги номада</a>
         <a href="../blog/statistika-nomadov-ispania.html">Статистика номадов</a>
       </aside>
+      <button class="mobile-nav-backdrop" type="button" aria-label="Закрыть меню"></button>
+      <script>
+      (() => {
+        const root = document.documentElement;
+        const button = document.querySelector('.mobile-menu-toggle');
+        const sidebar = document.getElementById('site-sidebar');
+        const backdrop = document.querySelector('.mobile-nav-backdrop');
+        if (!button || !sidebar || !backdrop) return;
+      
+        const setOpen = (open) => {
+          root.classList.toggle('mobile-nav-open', open);
+          button.setAttribute('aria-expanded', String(open));
+          button.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+        };
+      
+        button.addEventListener('click', () => {
+          setOpen(!root.classList.contains('mobile-nav-open'));
+        });
+        backdrop.addEventListener('click', () => setOpen(false));
+        sidebar.addEventListener('click', (event) => {
+          if (event.target.closest('a')) setOpen(false);
+        });
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') setOpen(false);
+        });
+      
+        const mobile = window.matchMedia('(max-width: 900px)');
+        const sync = () => {
+          if (!mobile.matches) setOpen(false);
+        };
+        if (mobile.addEventListener) mobile.addEventListener('change', sync);
+        else mobile.addListener(sync);
+      })();
+      </script>
       <!-- /shared:sidebar -->
 
       <article class="content article">
