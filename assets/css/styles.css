@@ -742,12 +742,14 @@ figcaption {
     justify-content: center;
   }
 
-  .services-icon img {
-    width: 32px;
-    height: 32px;
-    display: block;
-    border-radius: 50%;
-    object-fit: cover;
+  .services-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .layout {
@@ -958,9 +960,10 @@ figcaption {
     flex-direction: column;
     gap: 4px;
     padding: 0;
-    border: 1px solid var(--line);
+    border: 0;
     border-radius: 8px;
-    background: var(--surface);
+    background: transparent;
+    box-shadow: none;
     color: var(--nav);
     cursor: pointer;
   }
