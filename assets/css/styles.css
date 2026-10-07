@@ -965,8 +965,10 @@ figcaption {
   font-size: 17px;
 }
 
-.mobile-header-title {
-  display: none;
+@media (min-width: 901px) {
+  .mobile-header-title {
+    display: none;
+  }
 }
 
 .mobile-menu-toggle,
