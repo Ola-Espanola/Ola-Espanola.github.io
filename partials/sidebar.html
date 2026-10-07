@@ -33,7 +33,7 @@
   }
 }
 </style>
-<aside class="sidebar" aria-label="{{sidebarLabel}}">
+<aside class="sidebar" id="site-sidebar" aria-label="{{sidebarLabel}}">
   <p class="sidebar-title">Гид</p>
   <a href="/">Главная</a>
   <a href="/docs/eligibility.html">Кому подходит ВНЖ</a>
@@ -67,3 +67,37 @@
   <a href="/blog/nalogi-cifrovogo-kochevnika-ispania.html">Налоги номада</a>
   <a href="/blog/statistika-nomadov-ispania.html">Статистика номадов</a>
 </aside>
+<button class="mobile-nav-backdrop" type="button" aria-label="Закрыть меню"></button>
+<script>
+(() => {
+  const root = document.documentElement;
+  const button = document.querySelector('.mobile-menu-toggle');
+  const sidebar = document.getElementById('site-sidebar');
+  const backdrop = document.querySelector('.mobile-nav-backdrop');
+  if (!button || !sidebar || !backdrop) return;
+
+  const setOpen = (open) => {
+    root.classList.toggle('mobile-nav-open', open);
+    button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+  };
+
+  button.addEventListener('click', () => {
+    setOpen(!root.classList.contains('mobile-nav-open'));
+  });
+  backdrop.addEventListener('click', () => setOpen(false));
+  sidebar.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setOpen(false);
+  });
+
+  const mobile = window.matchMedia('(max-width: 900px)');
+  const sync = () => {
+    if (!mobile.matches) setOpen(false);
+  };
+  if (mobile.addEventListener) mobile.addEventListener('change', sync);
+  else mobile.addListener(sync);
+})();
+</script>

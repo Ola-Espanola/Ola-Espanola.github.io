@@ -899,3 +899,129 @@ figcaption {
 .phone-desktop .sidebar span {
   font-size: 17px;
 }
+
+.mobile-menu-toggle,
+.mobile-nav-backdrop {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .mobile-menu-toggle {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--nav);
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+
+  .mobile-nav-open .mobile-menu-toggle span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .mobile-nav-open .mobile-menu-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-nav-open .mobile-menu-toggle span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 58px;
+    left: 0;
+    bottom: 0;
+    z-index: 31;
+    width: min(82vw, 300px);
+    max-height: none !important;
+    align-self: auto;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 3px;
+    margin: 0;
+    padding: 14px 12px 24px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 0;
+    border-right: 1px solid var(--line);
+    border-radius: 0;
+    background: #edf2f7;
+    box-shadow: 10px 0 28px rgba(32, 35, 42, 0.16);
+    transform: translateX(-105%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform .22s ease, visibility .22s ease;
+  }
+
+  .mobile-nav-open .sidebar {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .sidebar-title,
+  .sidebar-section {
+    display: block;
+  }
+
+  .sidebar .sidebar-blog-heading {
+    display: none !important;
+  }
+
+  .sidebar a,
+  .sidebar span {
+    flex: initial;
+    white-space: normal;
+  }
+
+  .mobile-nav-backdrop {
+    position: fixed;
+    top: 58px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 30;
+    border: 0;
+    padding: 0;
+    background: rgba(32, 35, 42, 0.34);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .22s ease;
+  }
+
+  .mobile-nav-open .mobile-nav-backdrop {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  html.mobile-nav-open,
+  html.mobile-nav-open body {
+    overflow: hidden;
+  }
+}
+
