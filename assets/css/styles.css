@@ -674,11 +674,12 @@ figcaption {
   }
 
   .site-identity {
-    flex: 1 1 auto;
+    order: 3;
+    flex: 0 0 auto;
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: 0;
     min-width: 0;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .site-tagline {
@@ -686,8 +687,12 @@ figcaption {
   }
 
   .brand {
-    gap: 6px;
+    gap: 0;
     font-size: 17px;
+  }
+
+  .brand-name {
+    display: none;
   }
 
   .brand-mark,
@@ -704,8 +709,10 @@ figcaption {
   }
 
   .top-nav {
+    order: 2;
     flex: 0 0 auto;
     flex-wrap: nowrap;
+    margin-left: auto;
   }
 
   .top-nav a {
@@ -716,6 +723,7 @@ figcaption {
   }
 
   .mobile-menu-toggle {
+    order: 1;
     border: 0;
     background: transparent;
     box-shadow: none;
