@@ -897,6 +897,8 @@ figcaption {
 
 .phone-desktop .sidebar a,
 .phone-desktop .sidebar span {
+  padding-top: 8px;
+  padding-bottom: 8px;
   font-size: 17px;
 }
 
