@@ -657,6 +657,11 @@ figcaption {
   font-size: 14px;
 }
 
+
+.services-icon {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .site-header {
     position: sticky;
@@ -708,6 +713,43 @@ figcaption {
     padding: 7px 10px;
     font-size: 13px;
     white-space: nowrap;
+  }
+
+  .mobile-menu-toggle {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .services-link {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px !important;
+    padding: 0 !important;
+    border-radius: 10px;
+  }
+
+  .services-label {
+    display: none;
+  }
+
+  .services-icon {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .services-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .layout {
