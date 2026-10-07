@@ -997,6 +997,8 @@ figcaption {
   .sidebar a,
   .sidebar span {
     flex: initial;
+    padding-top: 7px;
+    padding-bottom: 7px;
     white-space: normal;
   }
 
