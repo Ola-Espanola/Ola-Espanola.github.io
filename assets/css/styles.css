@@ -674,7 +674,7 @@ figcaption {
   }
 
   .site-identity {
-    order: 3;
+    order: 4;
     flex: 0 0 auto;
     flex-wrap: nowrap;
     gap: 0;
@@ -709,10 +709,10 @@ figcaption {
   }
 
   .top-nav {
-    order: 2;
+    order: 3;
     flex: 0 0 auto;
     flex-wrap: nowrap;
-    margin-left: auto;
+    margin-left: 0;
   }
 
   .top-nav a {
@@ -731,13 +731,14 @@ figcaption {
 
   .mobile-header-title {
     display: block;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    order: 2;
+    flex: 1 1 auto;
+    min-width: 0;
     color: var(--nav);
     font-size: 17px;
     font-weight: 700;
     line-height: 1;
+    text-align: center;
     white-space: nowrap;
     pointer-events: none;
   }
