@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Updated pricing page on 2026-10-08; change triggers IndexNow submission for sitemap URLs. -->
+<!-- Updated homepage and related UGE guidance on 2026-10-08; triggers IndexNow submission. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ola-espanola.github.io/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://ola-espanola.github.io/docs/eligibility.html</loc>
@@ -15,11 +15,11 @@
   </url>
   <url>
     <loc>https://ola-espanola.github.io/docs/ways-to-apply.html</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://ola-espanola.github.io/docs/digital-nomad-spain-guide.html</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://ola-espanola.github.io/docs/news.html</loc>
@@ -39,7 +39,7 @@
   </url>
   <url>
     <loc>https://ola-espanola.github.io/docs/family-member.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://ola-espanola.github.io/docs/formulario-mit.html</loc>
