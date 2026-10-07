@@ -957,7 +957,7 @@ figcaption {
     left: 0;
     bottom: 0;
     z-index: 31;
-    width: min(72vw, 260px);
+    width: min(60vw, 220px);
     max-height: none !important;
     align-self: auto;
     align-items: stretch;
@@ -997,8 +997,6 @@ figcaption {
   .sidebar a,
   .sidebar span {
     flex: initial;
-    padding-top: 7px;
-    padding-bottom: 7px;
     white-space: normal;
   }
 
