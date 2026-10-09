@@ -223,7 +223,7 @@ a {
 }
 
 
-@media (min-width: 901px) {
+@media (pointer: fine) {
   .sidebar a,
   .sidebar span {
     font-size: 14px;
@@ -947,7 +947,7 @@ figcaption {
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 360px) and (pointer: coarse) {
   .brand-name {
     display: none;
   }
