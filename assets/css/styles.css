@@ -1149,8 +1149,8 @@ figcaption {
   }
 
   .site-identity {
-    order: 2;
-    flex: 0 1 auto;
+    order: 4;
+    flex: 0 0 auto;
     gap: 0;
     min-width: 0;
   }
@@ -1160,22 +1160,31 @@ figcaption {
   }
 
   .brand {
-    gap: 8px;
+    gap: 0;
     font-size: 18px;
   }
 
   .brand-mark,
   .calculator-brand .brand-mark {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
   }
 
   .brand-name {
-    display: inline-flex;
+    display: none;
   }
 
   .mobile-header-title {
-    display: none;
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--nav);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
   }
 
   .top-nav {
@@ -1185,7 +1194,7 @@ figcaption {
 
   .top-nav a {
     min-height: 42px;
-    padding: 8px 14px;
+    padding: 8px 12px;
     font-size: 14px;
   }
 
@@ -1202,14 +1211,14 @@ figcaption {
     left: 0;
     bottom: 0;
     z-index: 31;
-    width: min(34vw, 310px);
+    width: min(42vw, 380px);
     max-height: none !important;
     align-self: auto;
     align-items: stretch;
     flex-direction: column;
     gap: 3px;
     margin: 0;
-    padding: 16px 14px 28px;
+    padding: 20px 18px 30px;
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
