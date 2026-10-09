@@ -16,9 +16,9 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Полный список документов для визы и ВНЖ номада — работа по контракту">
     <meta name="twitter:description" content="Договоры с клиентами, инвойсы, банковские поступления, квалификация и другие документы для визы и ВНЖ цифрового кочевника в Испании.">
-    <link rel="stylesheet" href="../assets/css/styles.css?v=e5da118641">
+    <link rel="stylesheet" href="../assets/css/styles.css?v=792d387080">
     <link rel="icon" type="image/png" href="../assets/images/site-symbol.png">
-    <script defer src="../assets/js/metrika.js?v=e5da118641"></script>
+    <script defer src="../assets/js/metrika.js?v=792d387080"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -69,18 +69,28 @@
     <script>
     (() => {
       const root = document.documentElement;
-      const phoneDesktop = window.matchMedia('(min-width: 901px) and (max-width: 1100px)');
+      const coarsePointer = window.matchMedia('(pointer: coarse)');
+      const compactTouch = window.matchMedia('(min-width: 901px) and (max-width: 1100px) and (pointer: coarse)');
     
-      const syncPhoneDesktopClass = () => {
-        root.classList.toggle('phone-desktop', phoneDesktop.matches);
+      const desktopScreenWidth = () => {
+        const width = window.screen && window.screen.width ? window.screen.width : window.innerWidth;
+        const available = window.screen && window.screen.availWidth ? window.screen.availWidth : width;
+        return Math.min(width, available);
       };
     
-      syncPhoneDesktopClass();
+      const syncCompactLayout = () => {
+        const compactDesktop = !coarsePointer.matches && desktopScreenWidth() <= 1100;
+        root.classList.toggle('compact-layout', compactDesktop || compactTouch.matches);
+      };
     
-      if (phoneDesktop.addEventListener) {
-        phoneDesktop.addEventListener('change', syncPhoneDesktopClass);
+      syncCompactLayout();
+    
+      if (compactTouch.addEventListener) {
+        compactTouch.addEventListener('change', syncCompactLayout);
+        coarsePointer.addEventListener('change', syncCompactLayout);
       } else {
-        phoneDesktop.addListener(syncPhoneDesktopClass);
+        compactTouch.addListener(syncCompactLayout);
+        coarsePointer.addListener(syncCompactLayout);
       }
     })();
     </script>
@@ -203,12 +213,15 @@
           if (event.key === 'Escape') setOpen(false);
         });
       
-        const drawerMode = window.matchMedia('(max-width: 1100px)');
+        const mobileTouch = window.matchMedia('(max-width: 900px) and (pointer: coarse)');
         const sync = () => {
-          if (!drawerMode.matches) setOpen(false);
+          const drawerEnabled = root.classList.contains('compact-layout') || mobileTouch.matches;
+          if (!drawerEnabled) setOpen(false);
         };
-        if (drawerMode.addEventListener) drawerMode.addEventListener('change', sync);
-        else drawerMode.addListener(sync);
+      
+        window.addEventListener('resize', sync);
+        if (mobileTouch.addEventListener) mobileTouch.addEventListener('change', sync);
+        else mobileTouch.addListener(sync);
       })();
       </script>
       <!-- /shared:sidebar -->
