@@ -16,9 +16,9 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Контракт для ВНЖ номада в Испании: требования к договору">
     <meta name="twitter:description" content="Требования к контракту с клиентом для визы и ВНЖ цифрового кочевника в Испании: срок сотрудничества, услуги, удалённая работа, оплата и присяжный перевод.">
-    <link rel="stylesheet" href="../assets/css/styles.css?v=002f7596a9">
+    <link rel="stylesheet" href="../assets/css/styles.css?v=e5da118641">
     <link rel="icon" type="image/png" href="../assets/images/site-symbol.png">
-    <script defer src="../assets/js/metrika.js?v=002f7596a9"></script>
+    <script defer src="../assets/js/metrika.js?v=e5da118641"></script>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -124,7 +124,7 @@
         border-top: 1px solid var(--line);
       }
       
-      @media (min-width: 600px) and (max-width: 900px) {
+      @media (min-width: 600px) and (max-width: 900px) and (pointer: coarse) {
         .sidebar .sidebar-blog-heading {
           margin: 0 0 0 6px;
           padding: 7px 4px 7px 10px;
@@ -203,12 +203,12 @@
           if (event.key === 'Escape') setOpen(false);
         });
       
-        const mobile = window.matchMedia('(max-width: 900px)');
+        const drawerMode = window.matchMedia('(max-width: 1100px)');
         const sync = () => {
-          if (!mobile.matches) setOpen(false);
+          if (!drawerMode.matches) setOpen(false);
         };
-        if (mobile.addEventListener) mobile.addEventListener('change', sync);
-        else mobile.addListener(sync);
+        if (drawerMode.addEventListener) drawerMode.addEventListener('change', sync);
+        else drawerMode.addListener(sync);
       })();
       </script>
       <!-- /shared:sidebar -->
