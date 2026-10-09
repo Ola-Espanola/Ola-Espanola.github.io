@@ -959,17 +959,8 @@ figcaption {
   display: none;
 }
 
-.phone-desktop .sidebar a,
-.phone-desktop .sidebar span {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 17px;
-}
-
-@media (min-width: 901px) {
-  .mobile-header-title {
-    display: none;
-  }
+.mobile-header-title {
+  display: none;
 }
 
 .mobile-menu-toggle,
@@ -1100,16 +1091,16 @@ figcaption {
 
 
 
-/* Compact desktop navigation: 901-1100px */
-@media (min-width: 901px) and (max-width: 1100px),
-       (max-width: 900px) and (pointer: fine) {
-  .site-header {
+/* Compact desktop navigation. The compact class is chosen from device/screen
+   characteristics, not from the desktop browser window width. */
+@media (max-width: 1100px) {
+  html.compact-layout .site-header {
     min-height: 82px;
     padding: 0 22px;
     gap: 16px;
   }
 
-  .mobile-menu-toggle {
+  html.compact-layout .mobile-menu-toggle {
     display: inline-flex;
     order: 1;
     align-self: stretch;
@@ -1130,7 +1121,7 @@ figcaption {
     cursor: pointer;
   }
 
-  .mobile-menu-toggle span {
+  html.compact-layout .mobile-menu-toggle span {
     display: block;
     width: 32px;
     height: 3px;
@@ -1139,45 +1130,45 @@ figcaption {
     transition: transform .2s ease, opacity .2s ease;
   }
 
-  .mobile-nav-open .mobile-menu-toggle span:nth-child(1) {
+  html.compact-layout.mobile-nav-open .mobile-menu-toggle span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
 
-  .mobile-nav-open .mobile-menu-toggle span:nth-child(2) {
+  html.compact-layout.mobile-nav-open .mobile-menu-toggle span:nth-child(2) {
     opacity: 0;
   }
 
-  .mobile-nav-open .mobile-menu-toggle span:nth-child(3) {
+  html.compact-layout.mobile-nav-open .mobile-menu-toggle span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
 
-  .site-identity {
+  html.compact-layout .site-identity {
     order: 4;
     flex: 0 0 auto;
     gap: 0;
     min-width: 0;
   }
 
-  .site-tagline {
+  html.compact-layout .site-tagline {
     display: none;
   }
 
-  .brand {
+  html.compact-layout .brand {
     gap: 0;
     font-size: 18px;
   }
 
-  .brand-mark,
-  .calculator-brand .brand-mark {
+  html.compact-layout .brand-mark,
+  html.compact-layout .calculator-brand .brand-mark {
     width: 56px;
     height: 56px;
   }
 
-  .brand-name {
+  html.compact-layout .brand-name {
     display: none;
   }
 
-  .mobile-header-title {
+  html.compact-layout .mobile-header-title {
     display: block;
     position: absolute;
     left: 50%;
@@ -1190,41 +1181,41 @@ figcaption {
     pointer-events: none;
   }
 
-  .top-nav {
+  html.compact-layout .top-nav {
     order: 3;
     margin-left: auto;
   }
 
-  .top-nav a {
+  html.compact-layout .top-nav a {
     min-height: 52px;
     padding: 10px 16px;
     font-size: 17px;
   }
 
-  .layout {
+  html.compact-layout .layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
     max-width: 1120px;
     padding: 16px 22px 64px;
   }
 
-  .content p,
-  .content li,
-  .content td {
+  html.compact-layout .content p,
+  html.compact-layout .content li,
+  html.compact-layout .content td {
     font-size: 23px;
   }
 
-  .content .lead {
+  html.compact-layout .content .lead {
     font-size: 25px;
   }
 
-  .content .small-note,
-  .content figcaption,
-  .content .link-list span {
+  html.compact-layout .content .small-note,
+  html.compact-layout .content figcaption,
+  html.compact-layout .content .link-list span {
     font-size: 18px;
   }
 
-  .sidebar {
+  html.compact-layout .sidebar {
     position: fixed;
     top: 82px;
     left: 0;
@@ -1252,30 +1243,28 @@ figcaption {
     transition: transform .22s ease, visibility .22s ease;
   }
 
-  .mobile-nav-open .sidebar {
+  html.compact-layout.mobile-nav-open .sidebar {
     transform: translateX(0);
     visibility: visible;
     pointer-events: auto;
   }
 
-  .sidebar-title,
-  .sidebar-section {
+  html.compact-layout .sidebar-title,
+  html.compact-layout .sidebar-section {
     display: block;
     font-size: 16px;
   }
 
-  .sidebar-title {
+  html.compact-layout .sidebar-title {
     font-size: 17px;
   }
 
-  .sidebar .sidebar-blog-heading {
+  html.compact-layout .sidebar .sidebar-blog-heading {
     display: none !important;
   }
 
-  .sidebar a,
-  .sidebar span,
-  .phone-desktop .sidebar a,
-  .phone-desktop .sidebar span {
+  html.compact-layout .sidebar a,
+  html.compact-layout .sidebar span {
     flex: initial;
     padding: 10px 12px;
     white-space: normal;
@@ -1283,7 +1272,7 @@ figcaption {
     line-height: 1.38;
   }
 
-  .mobile-nav-backdrop {
+  html.compact-layout .mobile-nav-backdrop {
     position: fixed;
     top: 82px;
     right: 0;
@@ -1300,14 +1289,14 @@ figcaption {
     transition: opacity .22s ease, visibility .22s ease;
   }
 
-  .mobile-nav-open .mobile-nav-backdrop {
+  html.compact-layout.mobile-nav-open .mobile-nav-backdrop {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
 
-  html.mobile-nav-open,
-  html.mobile-nav-open body {
+  html.compact-layout.mobile-nav-open,
+  html.compact-layout.mobile-nav-open body {
     overflow: hidden;
   }
 }
