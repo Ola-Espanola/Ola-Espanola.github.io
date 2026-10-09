@@ -1205,6 +1205,22 @@ figcaption {
     padding: 16px 22px 64px;
   }
 
+  .content p,
+  .content li,
+  .content td {
+    font-size: 18px;
+  }
+
+  .content .lead {
+    font-size: 20px;
+  }
+
+  .content .small-note,
+  .content figcaption,
+  .content .link-list span {
+    font-size: 15px;
+  }
+
   .sidebar {
     position: fixed;
     top: 68px;
