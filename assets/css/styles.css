@@ -1111,8 +1111,8 @@ figcaption {
   .mobile-menu-toggle {
     display: inline-flex;
     order: 1;
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
     flex: 0 0 46px;
     align-items: center;
     justify-content: center;
@@ -1166,8 +1166,8 @@ figcaption {
 
   .brand-mark,
   .calculator-brand .brand-mark {
-    width: 46px;
-    height: 46px;
+    width: 50px;
+    height: 50px;
   }
 
   .brand-name {
