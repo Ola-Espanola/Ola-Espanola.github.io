@@ -1103,17 +1103,17 @@ figcaption {
 /* Compact desktop navigation: 901-1100px */
 @media (min-width: 901px) and (max-width: 1100px) {
   .site-header {
-    min-height: 74px;
-    padding: 10px 20px;
-    gap: 14px;
+    min-height: 82px;
+    padding: 12px 22px;
+    gap: 16px;
   }
 
   .mobile-menu-toggle {
     display: inline-flex;
     order: 1;
-    width: 46px;
-    height: 46px;
-    flex: 0 0 46px;
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -1129,8 +1129,8 @@ figcaption {
 
   .mobile-menu-toggle span {
     display: block;
-    width: 23px;
-    height: 2px;
+    width: 28px;
+    height: 3px;
     border-radius: 2px;
     background: currentColor;
     transition: transform .2s ease, opacity .2s ease;
@@ -1166,8 +1166,8 @@ figcaption {
 
   .brand-mark,
   .calculator-brand .brand-mark {
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
   }
 
   .brand-name {
@@ -1180,7 +1180,7 @@ figcaption {
     left: 50%;
     transform: translateX(-50%);
     color: var(--nav);
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
@@ -1193,9 +1193,9 @@ figcaption {
   }
 
   .top-nav a {
-    min-height: 46px;
-    padding: 9px 14px;
-    font-size: 15px;
+    min-height: 52px;
+    padding: 10px 16px;
+    font-size: 17px;
   }
 
   .layout {
@@ -1208,22 +1208,22 @@ figcaption {
   .content p,
   .content li,
   .content td {
-    font-size: 19px;
+    font-size: 23px;
   }
 
   .content .lead {
-    font-size: 21px;
+    font-size: 25px;
   }
 
   .content .small-note,
   .content figcaption,
   .content .link-list span {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .sidebar {
     position: fixed;
-    top: 74px;
+    top: 82px;
     left: 0;
     bottom: 0;
     z-index: 31;
@@ -1234,7 +1234,7 @@ figcaption {
     flex-direction: column;
     gap: 3px;
     margin: 0;
-    padding: 22px 20px 32px;
+    padding: 24px 22px 34px;
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -1258,11 +1258,11 @@ figcaption {
   .sidebar-title,
   .sidebar-section {
     display: block;
-    font-size: 13px;
+    font-size: 16px;
   }
 
   .sidebar-title {
-    font-size: 14px;
+    font-size: 17px;
   }
 
   .sidebar .sidebar-blog-heading {
@@ -1272,15 +1272,15 @@ figcaption {
   .sidebar a,
   .sidebar span {
     flex: initial;
-    padding: 8px 10px;
+    padding: 10px 12px;
     white-space: normal;
-    font-size: 19px;
-    line-height: 1.35;
+    font-size: 23px;
+    line-height: 1.38;
   }
 
   .mobile-nav-backdrop {
     position: fixed;
-    top: 74px;
+    top: 82px;
     right: 0;
     bottom: 0;
     left: 0;
