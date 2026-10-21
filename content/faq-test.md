@@ -41,6 +41,8 @@ status: draft-noindex
 
 В Мадриде и Барселоне есть отделения, где первую TIE оформляют без padrón. Однако это не гарантируется во всех отделениях, а запись на сдачу отпечатков пальцев может быть затруднена. В других провинциях тоже есть отделения, принимающие без прописки. **Выбирайте провинцию с учётом реального места проживания**, доступности записи и возможности оформить padrón, а не только из-за удобства получения карты.
 
+## После подачи: рассмотрение UGE, статусы и сроки
+
 ### Где быстрее узнать о решении UGE: в expediente, электронном уведомлении или Carpeta Ciudadana?
 
 Проверяйте expediente на портале UGE, электронные уведомления и **Carpeta Ciudadana**. Статусы обновляются не синхронно, поэтому юридически значимы содержимое **резолюции** и дата её уведомления, а не один лишь цвет или текст статуса. Сохраняйте подписанные PDF.
@@ -292,12 +294,3 @@ UGE проверяет, была ли своевременная **alta в RETA*
 ### Что меняется, если один член семьи получил larga duración, а остальные остаются на DNV?
 
 Каждый член семьи имеет **свой статус**: получение larga duración одним человеком не переводит остальных автоматически и не гарантирует автоматического уменьшения доходного требования титуляра. Если меняется состав лиц на иждивении, уведомите UGE и запросите применение расчётов к вашей новой семейной ситуации.
-
-## Официальные источники
-
-- [Ley 14/2013: правила Digital Nomad](https://www.boe.es/buscar/act.php?id=BOE-A-2013-10074)
-- [Официальный FAQ UGE](https://www.inclusion.gob.es/documents/d/unidadgrandesempresas/nomadas-digitales-faqs-espanol)
-- [Ley 39/2015: сроки и документы](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565)
-- [Официальные анкеты MI-T / MI-F / MI-TIE](https://ciudadaniaexterior.inclusion.gob.es/es/web/migraciones/modelos-de-solicitudes-de-la-ley-14/2013)
-- [Cita previa в полицию](https://icp.administracionelectronica.gob.es/icpplus/index.html)
-- [Residencia de larga duración nacional](https://bibliovirtual.inclusion.gob.es/web/migraciones/w/49.-autorizacion-de-residencia-de-larga-duracion-nacional)
