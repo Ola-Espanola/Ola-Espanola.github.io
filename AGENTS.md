@@ -9,7 +9,8 @@
 ## Site structure
 
 - Public pages are static HTML: `index.html`, `docs/*.html`, and `blog/*.html`.
-- Each public guide and blog page has a Markdown source in `content/`. When changing page content, update the matching HTML and Markdown files together.
+- **HTML is the only source of truth for website pages.** Edit the published `index.html`, `docs/*.html` and `blog/*.html` directly. **Do not create, edit, regenerate or synchronize companion Markdown (`.md`) versions of pages.** Legacy files in `content/` are not part of the site publishing workflow and must not be treated as page sources.
+- For the client FAQ, edit **only** `docs/faq-test.html`; do not recreate `content/faq-test.md` or any Markdown mirror. FAQ copy is for clients: use Russian wording such as «сдача отпечатков пальцев», and do not disclose internal Telegram research, stories or evidence links in public answers.
 - Images and CSS are in `assets/`.
 - Shared header, brand, and sidebar sources are in `partials/`. Edit them there, then run `node scripts/update-layout.cjs` and commit the generated public HTML alongside the partials. Do not hand-edit generated regions between `shared:` comments. The script also handles active links and relative paths for local file viewing.
 - Run `node scripts/update-layout.cjs --check` before committing layout changes. For generator changes, also run `node --test scripts/update-layout.test.cjs`. No npm packages or browser-side layout loader are required.
