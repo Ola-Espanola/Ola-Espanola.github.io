@@ -30,6 +30,7 @@
 
 - Audience: primarily Russian applicants for Spain's digital nomad residence permit.
 - Write clearly, briefly, and practically. Avoid bureaucratic, promotional, and newspaper-like language.
+- Do not pad client-facing answers with hedges or filler words such as «обычно», «как правило», «в целом» or «может быть», unless the uncertainty or exception genuinely matters. State facts directly; where a real exception exists, describe it concretely instead of vague caveats.
 - Explain Spanish terms only when they help; do not overload a reader with terminology.
 - Use Russian descriptions for source links. Prefer official sources for legal or procedural claims.
 - Brand: `Ola Española`. Telegram: `https://t.me/ola_espana`.
