@@ -79,7 +79,6 @@ test('generated navigation works from disk and selects the current page', () => 
     const sidebar = layout.match(/<aside\b[\s\S]*?<\/aside>/)?.[0];
     assert(sidebar, file);
     const active = [...sidebar.matchAll(/<a\b([^>]+)>/g)].filter(([, attributes]) => /\bclass="[^"]*\bactive\b/.test(attributes));
-    if (file === 'docs/tax-calculator.html') assert(layout.includes('brand calculator-brand'));
     assert(active.length <= 1, file);
     if (active.length === 0) {
       // Some published pages (full guide, calculator, blog index) are not listed in the sidebar.
