@@ -9,6 +9,7 @@ on:
       - "assets/css/styles.css"
       - "assets/js/metrika.js"
       - "scripts/update-layout.cjs"
+      - "scripts/update-layout.test.cjs"
       - ".github/workflows/sync-layout.yml"
   workflow_dispatch:
 
