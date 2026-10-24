@@ -72,6 +72,7 @@ test('generated navigation works from disk and selects the current page', () => 
     const html = read(root, file);
     const layout = blocks(html);
     for (const [, url] of layout.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
+      if (/^(?:https?:|mailto:|tel:|#)/.test(url)) continue;
       assert(!url.startsWith('/'), `${file}: non-local path ${url}`);
       assert(fs.existsSync(path.resolve(root, path.dirname(file), url)), `${file}: missing ${url}`);
     }
