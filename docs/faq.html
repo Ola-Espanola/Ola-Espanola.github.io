@@ -75,23 +75,34 @@
         .faq-item summary::after { right:13px; font-size:27px; }
         .faq-answer { padding:5px 12px 22px; }
       }
-      /* This site's compact-desktop mode increases body text to 32px; FAQ
-         questions need their own explicit size and equally large tap targets. */
-      @media(max-width:1100px) {
-        html.compact-layout .faq-group h2 { font-size:40px; line-height:1.15; margin-bottom:24px; }
-        html.compact-layout .faq-item summary {
-          font-size:28px;
-          line-height:1.3;
-          min-height:88px;
-          padding:23px 66px 23px 20px;
+      /* Match the site's compact desktop breakpoint (up to 1600px). Body copy
+         is 32px in this mode, so FAQ navigation, topics and questions must
+         remain equally legible on phones requesting the desktop site. */
+      @media(max-width:1600px) {
+        html.compact-layout .faq-toc a {
+          font-size:32px;
+          font-weight:650;
+          line-height:1.25;
+          align-items:flex-start;
+          padding:20px 22px;
         }
-        html.compact-layout .faq-item summary::after { right:22px; font-size:34px; }
+        html.compact-layout .faq-toc span { font-size:26px; line-height:1.4; }
+        html.compact-layout .faq-group h2 { font-size:44px; line-height:1.16; margin-bottom:26px; }
+        html.compact-layout .faq-item summary {
+          font-size:36px;
+          line-height:1.3;
+          min-height:104px;
+          padding:24px 72px 24px 22px;
+        }
+        html.compact-layout .faq-item summary::after { right:24px; font-size:40px; }
         html.compact-layout .faq-answer { padding:8px 20px 26px; }
       }
       @media(max-width:600px) {
-        html.compact-layout .faq-group h2 { font-size:31px; margin-bottom:18px; }
-        html.compact-layout .faq-item summary { font-size:23px; min-height:78px; padding:18px 48px 18px 14px; }
-        html.compact-layout .faq-item summary::after { right:14px; font-size:28px; }
+        html.compact-layout .faq-toc a { font-size:23px; padding:14px; }
+        html.compact-layout .faq-toc span { font-size:20px; }
+        html.compact-layout .faq-group h2 { font-size:34px; margin-bottom:20px; }
+        html.compact-layout .faq-item summary { font-size:27px; min-height:84px; padding:20px 52px 20px 14px; }
+        html.compact-layout .faq-item summary::after { right:14px; font-size:30px; }
       }
     </style>
     <!-- structured:breadcrumbs -->
