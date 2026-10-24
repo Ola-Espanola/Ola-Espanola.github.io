@@ -1230,8 +1230,16 @@ figcaption {
   html.compact-layout .layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
-    max-width: 1120px;
+    width: 100%;
+    max-width: none;
     padding: 16px 22px 64px;
+  }
+
+  html.compact-layout .article,
+  html.compact-layout .content h1,
+  html.compact-layout .content .lead {
+    width: 100%;
+    max-width: none;
   }
 
   html.compact-layout .content p,
