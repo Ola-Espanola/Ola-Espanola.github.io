@@ -662,6 +662,11 @@ figcaption {
   display: none;
 }
 
+/* Baseline before mobile/compact overrides, so mobile title is not hidden later. */
+.mobile-header-title {
+  display: none;
+}
+
 @media (max-width: 900px) and (pointer: coarse) {
   .site-header {
     position: sticky;
@@ -731,8 +736,10 @@ figcaption {
 
   .mobile-header-title {
     display: block;
-    order: 2;
-    flex: 1 1 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    flex: none;
     min-width: 0;
     color: var(--nav);
     font-size: 17px;
@@ -959,10 +966,6 @@ figcaption {
   display: none;
 }
 
-.mobile-header-title {
-  display: none;
-}
-
 .mobile-menu-toggle,
 .mobile-nav-backdrop {
   display: none;
@@ -1091,9 +1094,9 @@ figcaption {
 
 
 
-/* Compact desktop navigation. The compact class is chosen from device/screen
-   characteristics, not from the desktop browser window width. */
-@media (max-width: 1100px) {
+/* Compact desktop navigation. Selected by device/screen characteristics in the
+   shared header script, including desktop-site mode on touch devices. */
+@media (max-width: 1600px) {
   html.compact-layout .site-header {
     min-height: 82px;
     padding: 0 22px;
@@ -1190,6 +1193,38 @@ figcaption {
     min-height: 52px;
     padding: 10px 16px;
     font-size: 17px;
+  }
+
+  /* Compact header: hamburger | centered title | € | site icon. */
+  html.compact-layout .top-nav .services-link {
+    width: 56px;
+    min-width: 56px;
+    height: 56px;
+    min-height: 56px;
+    padding: 0;
+    border-radius: 12px;
+  }
+
+  html.compact-layout .services-label {
+    display: none;
+  }
+
+  html.compact-layout .services-icon {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  html.compact-layout .services-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   html.compact-layout .layout {
