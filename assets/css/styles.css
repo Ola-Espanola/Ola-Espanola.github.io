@@ -405,6 +405,63 @@ h2 {
   flex: 0 0 22px;
 }
 
+/* Page-level calls to action; header navigation stays unchanged. */
+.article-contact .contact-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  line-height: 1.35;
+}
+
+.article-contact .contact-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 11px 17px;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.article-contact .contact-primary {
+  background: var(--nav);
+  color: #fff;
+}
+
+.article-contact .contact-primary:hover {
+  background: #244d5b;
+  color: #fff;
+}
+
+.article-contact .contact-channel {
+  border: 1px solid rgba(24, 54, 66, 0.24);
+  background: #fff;
+  color: var(--nav);
+}
+
+.article-contact .contact-channel:hover { background: #f5f7fa; }
+
+@media (max-width: 1600px) {
+  html.compact-layout .article-contact .contact-actions a {
+    min-height: 58px;
+    padding: 14px 20px;
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  html.compact-layout .article-contact .contact-actions a {
+    min-height: 48px;
+    padding: 10px 13px;
+    font-size: 21px;
+  }
+}
+
 .service-price-line {
   display: flex;
   align-items: baseline;
