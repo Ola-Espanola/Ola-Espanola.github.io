@@ -135,7 +135,7 @@ test('every page has one shared contact panel and only non-pricing pages link to
     const panel = panels[0][1];
     assert.equal((panel.match(/<section class="article-contact site-contact"/g) || []).length, 1, file);
     assert.equal((panel.match(/t\.me\/ola_espana<\/strong>/g) || []).length, 1, file);
-    assert(panel.includes('Получить бесплатную консультацию + Telegram-канал:'), file);
+    assert(panel.includes('Получить бесплатную консультацию:'), file);
     const hasServices = panel.includes('>€ Услуги</a>');
     assert.equal(hasServices, file !== 'docs/pricing.html', file);
     if (hasServices) {
