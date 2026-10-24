@@ -25,6 +25,10 @@ function fixture(t) {
     fs.rmSync(resolved, { recursive: true, force: true });
   });
   fs.cpSync(path.join(root, 'partials'), path.join(directory, 'partials'), { recursive: true });
+  fs.mkdirSync(path.join(directory, 'assets/css'), { recursive: true });
+  fs.mkdirSync(path.join(directory, 'assets/js'), { recursive: true });
+  fs.copyFileSync(path.join(root, 'assets/css/styles.css'), path.join(directory, 'assets/css/styles.css'));
+  fs.copyFileSync(path.join(root, 'assets/js/metrika.js'), path.join(directory, 'assets/js/metrika.js'));
   fs.mkdirSync(path.join(directory, 'scripts'));
   fs.copyFileSync(path.join(root, 'scripts/update-layout.cjs'), path.join(directory, 'scripts/update-layout.cjs'));
   for (const file of pages) {
@@ -136,7 +140,7 @@ test('every page has one shared contact panel and only non-pricing pages link to
       const relative = path.posix.relative(path.posix.dirname(file), 'docs/pricing.html');
       assert(panel.includes('href="' + relative + '"'), file);
     }
-    assert.equal((html.match(/<section class="article-contact"/g) || []).length, 1, file);
+    assert.equal((html.match(/<section class="article-contact(?:\s|")/g) || []).length, 1, file);
     assert(html.indexOf('<!-- shared:contact -->') > html.indexOf('<h1'), file);
   }
 });
