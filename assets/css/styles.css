@@ -956,6 +956,17 @@ figcaption {
   }
 }
 
+/* Readable content type on phones, without changing navigation or desktop-site mode. */
+@media (max-width: 599px) and (pointer: coarse) {
+  .content {
+    font-size: 18px;
+  }
+
+  .content .lead {
+    font-size: 19px;
+  }
+}
+
 @media (min-width: 600px) and (max-width: 900px) and (pointer: coarse) {
   .layout {
     grid-template-columns: 220px minmax(0, 1fr);
