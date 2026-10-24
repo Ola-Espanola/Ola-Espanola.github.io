@@ -26,9 +26,9 @@
       "description": "Виза и ВНЖ цифрового кочевника в Испании: требования, доход, документы, способы подачи, семья, налоги и практические инструкции."
     }
     </script>
-    <link rel="stylesheet" href="assets/css/styles.css?v=75ae722e3b">
+    <link rel="stylesheet" href="assets/css/styles.css?v=cfdc442e30">
     <link rel="icon" href="/favicon.ico" sizes="any">
-    <script defer src="assets/js/metrika.js?v=75ae722e3b"></script>
+    <script defer src="assets/js/metrika.js?v=cfdc442e30"></script>
     <style>
       .seo-footer { margin-top: 54px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; line-height: 1.65; }
       .seo-footer h2 { margin: 0 0 14px; color: var(--muted); font-size: 18px; }
@@ -44,7 +44,7 @@
     (() => {
       const root = document.documentElement;
       const coarsePointer = window.matchMedia('(pointer: coarse)');
-      const compactTouch = window.matchMedia('(min-width: 901px) and (max-width: 1100px) and (pointer: coarse)');
+      const compactTouch = window.matchMedia('(min-width: 901px) and (pointer: coarse)');
     
       const desktopScreenWidth = () => {
         const width = window.screen && window.screen.width ? window.screen.width : window.innerWidth;
@@ -54,10 +54,12 @@
     
       const syncCompactLayout = () => {
         const compactDesktop = !coarsePointer.matches && desktopScreenWidth() <= 1100;
-        root.classList.toggle('compact-layout', compactDesktop || compactTouch.matches);
+        const compactPhoneDesktop = compactTouch.matches && desktopScreenWidth() <= 1600;
+        root.classList.toggle('compact-layout', compactDesktop || compactPhoneDesktop);
       };
     
       syncCompactLayout();
+      window.addEventListener('resize', syncCompactLayout);
     
       if (compactTouch.addEventListener) {
         compactTouch.addEventListener('change', syncCompactLayout);

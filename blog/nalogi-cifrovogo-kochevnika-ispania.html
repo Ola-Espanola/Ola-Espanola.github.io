@@ -16,9 +16,9 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Налоги цифрового кочевника в Испании 2026: autónomo, IRPF и Бекхэм">
     <meta name="twitter:description" content="Налоги цифрового кочевника в Испании в 2026 году: IRPF, взносы autónomo, работа в найме, режим Бекхэма, стартовые льготы и примеры расчётов.">
-    <link rel="stylesheet" href="../assets/css/styles.css?v=75ae722e3b">
+    <link rel="stylesheet" href="../assets/css/styles.css?v=cfdc442e30">
     <link rel="icon" type="image/png" href="../assets/images/site-symbol.png">
-    <script defer src="../assets/js/metrika.js?v=75ae722e3b"></script>
+    <script defer src="../assets/js/metrika.js?v=cfdc442e30"></script>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -77,7 +77,7 @@
     (() => {
       const root = document.documentElement;
       const coarsePointer = window.matchMedia('(pointer: coarse)');
-      const compactTouch = window.matchMedia('(min-width: 901px) and (max-width: 1100px) and (pointer: coarse)');
+      const compactTouch = window.matchMedia('(min-width: 901px) and (pointer: coarse)');
     
       const desktopScreenWidth = () => {
         const width = window.screen && window.screen.width ? window.screen.width : window.innerWidth;
@@ -87,10 +87,12 @@
     
       const syncCompactLayout = () => {
         const compactDesktop = !coarsePointer.matches && desktopScreenWidth() <= 1100;
-        root.classList.toggle('compact-layout', compactDesktop || compactTouch.matches);
+        const compactPhoneDesktop = compactTouch.matches && desktopScreenWidth() <= 1600;
+        root.classList.toggle('compact-layout', compactDesktop || compactPhoneDesktop);
       };
     
       syncCompactLayout();
+      window.addEventListener('resize', syncCompactLayout);
     
       if (compactTouch.addEventListener) {
         compactTouch.addEventListener('change', syncCompactLayout);
