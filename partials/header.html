@@ -2,7 +2,7 @@
 (() => {
   const root = document.documentElement;
   const coarsePointer = window.matchMedia('(pointer: coarse)');
-  const compactTouch = window.matchMedia('(min-width: 901px) and (max-width: 1100px) and (pointer: coarse)');
+  const compactTouch = window.matchMedia('(min-width: 901px) and (pointer: coarse)');
 
   const desktopScreenWidth = () => {
     const width = window.screen && window.screen.width ? window.screen.width : window.innerWidth;
@@ -12,10 +12,12 @@
 
   const syncCompactLayout = () => {
     const compactDesktop = !coarsePointer.matches && desktopScreenWidth() <= 1100;
-    root.classList.toggle('compact-layout', compactDesktop || compactTouch.matches);
+    const compactPhoneDesktop = compactTouch.matches && desktopScreenWidth() <= 1600;
+    root.classList.toggle('compact-layout', compactDesktop || compactPhoneDesktop);
   };
 
   syncCompactLayout();
+  window.addEventListener('resize', syncCompactLayout);
 
   if (compactTouch.addEventListener) {
     compactTouch.addEventListener('change', syncCompactLayout);
