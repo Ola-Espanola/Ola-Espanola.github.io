@@ -79,13 +79,15 @@ test('generated navigation works from disk and selects the current page', () => 
     const sidebar = layout.match(/<aside\b[\s\S]*?<\/aside>/)?.[0];
     assert(sidebar, file);
     const active = [...sidebar.matchAll(/<a\b([^>]+)>/g)].filter(([, attributes]) => /\bclass="[^"]*\bactive\b/.test(attributes));
-    if (file === 'docs/tax-calculator.html') {
-      // The calculator uses the guide menu, which has no link to itself.
-      assert(layout.includes('brand calculator-brand'));
-      assert.equal(active.length, 0, file);
+    if (file === 'docs/tax-calculator.html') assert(layout.includes('brand calculator-brand'));
+    assert(active.length <= 1, file);
+    if (active.length === 0) {
+      // Some published pages (full guide, calculator, blog index) are not listed in the sidebar.
+      const selfLink = [...sidebar.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].some(([, href]) =>
+        path.posix.normalize(path.posix.join(path.posix.dirname(file), href)) === file);
+      assert.equal(selfLink, false, file + ': sidebar link without active state');
       continue;
     }
-    assert.equal(active.length, 1, file);
     const attributes = active[0][1];
     const href = attributes.match(/\bhref="([^"]+)"/)[1];
     assert.equal(path.posix.normalize(path.posix.join(path.posix.dirname(file), href)), file);
