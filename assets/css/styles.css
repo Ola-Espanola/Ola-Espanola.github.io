@@ -712,7 +712,7 @@ figcaption {
     order: 3;
     flex: 0 0 auto;
     flex-wrap: nowrap;
-    margin-left: 0;
+    margin-left: auto;
   }
 
   .top-nav a {
