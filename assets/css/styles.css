@@ -405,6 +405,53 @@ h2 {
   flex: 0 0 22px;
 }
 
+/* Shared contact line: keep the existing blue panel and put pricing on the right. */
+.site-contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+.site-contact-row p {
+  flex: 1 1 350px;
+}
+.article-contact .site-contact-services {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--nav);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.article-contact .site-contact-services:hover,
+.article-contact .site-contact-services:focus-visible {
+  background: #244d5b;
+  color: #ffffff;
+}
+@media (max-width: 1600px) {
+  html.compact-layout .article-contact .site-contact-services {
+    min-height: 58px;
+    padding: 12px 20px;
+    font-size: 24px;
+  }
+}
+@media (max-width: 600px) {
+  html.compact-layout .article-contact .site-contact-services {
+    min-height: 48px;
+    padding: 10px 14px;
+    font-size: 20px;
+  }
+}
+
 .service-price-line {
   display: flex;
   align-items: baseline;

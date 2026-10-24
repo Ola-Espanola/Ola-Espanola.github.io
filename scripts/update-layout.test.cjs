@@ -120,3 +120,36 @@ test('a new page is discovered and gets its own active navigation', t => {
   assert.equal((example.match(/class="active"/g) || []).length, 1);
   assert.equal(run(directory, '--check').status, 0);
 });
+
+test('every page has one shared contact panel and only non-pricing pages link to services', () => {
+  for (const file of pages) {
+    const html = read(root, file);
+    const panels = [...html.matchAll(/<!-- shared:contact -->\n([\s\S]*?)<!-- \/shared:contact -->/g)];
+    assert.equal(panels.length, 1, file);
+    const panel = panels[0][1];
+    assert.equal((panel.match(/<section class="article-contact site-contact"/g) || []).length, 1, file);
+    assert.equal((panel.match(/t\.me\/ola_espana<\/strong>/g) || []).length, 1, file);
+    assert(panel.includes('Получить бесплатную консультацию + Telegram-канал:'), file);
+    const hasServices = panel.includes('>€ Услуги</a>');
+    assert.equal(hasServices, file !== 'docs/pricing.html', file);
+    if (hasServices) {
+      const relative = path.posix.relative(path.posix.dirname(file), 'docs/pricing.html');
+      assert(panel.includes('href="' + relative + '"'), file);
+    }
+    assert.equal((html.match(/<section class="article-contact"/g) || []).length, 1, file);
+    assert(html.indexOf('<!-- shared:contact -->') > html.indexOf('<h1'), file);
+  }
+});
+
+test('contact panel updates from one partial across pages', t => {
+  const directory = fixture(t);
+  const file = path.join(directory, 'partials/contact.html');
+  fs.writeFileSync(file, read(directory, 'partials/contact.html').replace('€ Услуги', '€ TEST'));
+  assert.equal(run(directory, '--check').status, 1);
+  assert.equal(run(directory).status, 0);
+  for (const page of pages) {
+    const html = read(directory, page);
+    assert.equal(html.includes('€ TEST'), page !== 'docs/pricing.html', page);
+  }
+  assert.equal(run(directory, '--check').status, 0);
+});

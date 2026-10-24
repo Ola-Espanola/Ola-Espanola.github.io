@@ -31,6 +31,7 @@ function template(name, context, stack = []) {
   html = html.replace(/^\{\{#(\w+)\}\}\n([\s\S]*?)^\{\{\/\1\}\}(?:\n|$)/gm, (_, flag, body) => {
     let enabled;
     if (flag === 'guide') enabled = context.guide;
+    else if (flag === 'showServices') enabled = context.showServices;
     else if (/^blog[1-9]\d*$/.test(flag)) enabled = context.blogItems >= Number(flag.slice(4));
     else throw new Error(`Unknown condition in ${name}: ${flag}`);
     return enabled ? body : '';
@@ -147,9 +148,35 @@ function updateBreadcrumbs(html, page) {
   return html.replace(/^([ \t]*)<\/head>/m, `${rendered}\n$1</head>`);
 }
 
+function seedContact(source, page) {
+  // Legacy contact panels are replaced, never stacked; generated panels have their own marker.
+  if (source.includes('<!-- shared:contact -->')) return source;
+  const marker = indent => indent + '<!-- shared:contact -->\n' + indent + '<!-- /shared:contact -->';
+  const legacy = /^([ \t]*)<section class="article-contact"[^>]*>\n[\s\S]*?^[ \t]*<\/section>/gm;
+  const existing = [...source.matchAll(legacy)];
+  if (existing.length > 1) throw new Error(page + ': multiple legacy contact panels');
+  if (existing.length === 1) return source.replace(legacy, (_, indent) => marker(indent));
+
+  // On homepage and blog index, preserve the lead paragraph before the contact panel.
+  if (page === 'index.html' || page === 'blog/index.html') {
+    const lead = /^([ \t]*)<p class="lead">[\s\S]*?<\/p>/m;
+    if (!lead.test(source)) throw new Error(page + ': missing lead for contact panel');
+    return source.replace(lead, (whole, indent) => whole + '\n' + marker(indent));
+  }
+  // Keep the calculator heading and introductory paragraph together.
+  if (page === 'docs/tax-calculator.html') {
+    const intro = /^([ \t]*)<section class="calculator-intro">[\s\S]*?^[ \t]*<\/section>/m;
+    if (!intro.test(source)) throw new Error(page + ': missing calculator intro');
+    return source.replace(intro, (whole, indent) => whole + '\n' + marker(indent));
+  }
+  const heading = /^([ \t]*)<h1\b[^>]*>[\s\S]*?<\/h1>/m;
+  if (!heading.test(source)) throw new Error(page + ': missing heading for contact panel');
+  return source.replace(heading, (whole, indent) => whole + '\n' + marker(indent));
+}
+
 function updatePage(source, page) {
   const eol = source.includes('\r\n') ? '\r\n' : '\n';
-  const normalized = source.replace(/\r\n/g, '\n');
+  const normalized = seedContact(source.replace(/\r\n/g, '\n'), page);
   const block = /^([ \t]*)<!-- shared:([a-z-]+)(?: ([a-z0-9-]+))? -->\n([\s\S]*?)^[ \t]*<!-- \/shared:\2 -->/gm;
   const matches = [...normalized.matchAll(block)];
   const kinds = matches.map(match => match[2]);
@@ -157,13 +184,15 @@ function updatePage(source, page) {
   if (headers.length !== 1) throw new Error(`${page}: expected one shared header`);
   const sidebarCount = kinds.filter(kind => kind === 'sidebar').length;
   if (sidebarCount !== 1) throw new Error(`${page}: unexpected number of sidebars`);
+  const contactCount = kinds.filter(kind => kind === 'contact').length;
+  if (contactCount !== 1) throw new Error(`${page}: expected one shared contact panel`);
   const outside = normalized.replace(block, '');
   if (/<!--\s*\/?shared:/.test(outside) || /<(?:header|aside)\b[^>]*class="(?:site-header|calculator-header|sidebar)"/.test(outside)) {
     throw new Error(`${page}: malformed shared markers or unmarked layout`);
   }
   const result = normalized.replace(block, (whole, indent, kind, variant, body) => {
     if (/<!--\s*\/?shared:/.test(body)) throw new Error(`${page}: nested shared markers`);
-    if (!['header', 'calculator-header', 'sidebar'].includes(kind)) throw new Error(`${page}: unknown shared block ${kind}`);
+    if (!['header', 'calculator-header', 'sidebar', 'contact'].includes(kind)) throw new Error(`${page}: unknown shared block ${kind}`);
     if (kind === 'sidebar' ? !/^(guide|blog-\d+)$/.test(variant || '') : variant !== undefined) {
       throw new Error(`${page}: invalid variant for ${kind}`);
     }
@@ -171,6 +200,7 @@ function updatePage(source, page) {
       brandClass: kind === 'calculator-header' ? ' calculator-brand' : '',
       sidebarLabel: variant === 'guide' ? 'Разделы гида' : 'Разделы сайта',
       guide: variant === 'guide',
+      showServices: page !== 'docs/pricing.html',
       blogItems: variant?.startsWith('blog-') ? Number(variant.slice(5)) : 0,
     };
     const rendered = linksForPage(template(kind, context), page).split('\n').map(line => indent + line).join('\n');
